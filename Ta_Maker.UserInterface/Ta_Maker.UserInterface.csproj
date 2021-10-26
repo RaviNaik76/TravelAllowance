@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(EnvironmentConfig)" Condition="Exists('$(CoreXTConfigFile)')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D34A79DD-1A55-4840-ABE8-97E3D6B30D51}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Ta_Maker.UserInterface</RootNamespace>
+    <AssemblyName>Ta_Maker.UserInterface</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>tamaker.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MaterialSkin, Version=2.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialSkin.2.2.2.1\lib\net461\MaterialSkin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.94.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\TaMaker.DataClassLibrary\bin\Debug\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6">
+      <HintPath>..\TaMaker.DataClassLibrary\bin\Debug\System.Data.SQLite.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Winforms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.Winforms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddUnits.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddUnits.Designer.cs">
+      <DependentUpon>AddUnits.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChangeTheme.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangeTheme.Designer.cs">
+      <DependentUpon>ChangeTheme.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseUtility.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DatabaseUtility.Designer.cs">
+      <DependentUpon>DatabaseUtility.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EmployeUI.Designer.cs">
+      <DependentUpon>EmployeUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeReport.cs">
+      <SubType>Form</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="EmployeReport.Designer.cs">
+      <DependentUpon>EmployeReport.cs</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="MaterialDesign.cs" />
+    <Compile Include="MDIParent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MDIParent.Designer.cs">
+      <DependentUpon>MDIParent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MonthYear.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MonthYear.Designer.cs">
+      <DependentUpon>MonthYear.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportExport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportExport.Designer.cs">
+      <DependentUpon>ReportExport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Rpt_DataSet.cs">
+      <DependentUpon>Rpt_DataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Rpt_DataSet.designer.cs">
+      <DependentUpon>Rpt_DataSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TravelReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TravelReport.Designer.cs">
+      <DependentUpon>TravelReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TravelUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TravelUI.Designer.cs">
+      <DependentUpon>TravelUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UnitSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UnitSetting.Designer.cs">
+      <DependentUpon>UnitSetting.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AddUnits.resx">
+      <DependentUpon>AddUnits.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChangeTheme.resx">
+      <DependentUpon>ChangeTheme.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DatabaseUtility.resx">
+      <DependentUpon>DatabaseUtility.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Employee.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmployeReport.resx">
+      <DependentUpon>EmployeReport.cs</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmployeUI.resx">
+      <DependentUpon>EmployeUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="K2ReportExport.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MDIParent.resx">
+      <DependentUpon>MDIParent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MonthYear.resx">
+      <DependentUpon>MonthYear.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="ReportExport.resx">
+      <DependentUpon>ReportExport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TravellReport.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TravelReport.resx">
+      <DependentUpon>TravelReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TravelUI.resx">
+      <DependentUpon>TravelUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UnitSetting.resx">
+      <DependentUpon>UnitSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Rpt_DataSet.xsc">
+      <DependentUpon>Rpt_DataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Rpt_DataSet.xsd" />
+    <None Include="Rpt_DataSet.xss">
+      <DependentUpon>Rpt_DataSet.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TaMaker.BaseClassLibrary\TaMaker.BaseClassLibrary.csproj">
+      <Project>{3ba9ec05-048a-4198-bb4e-7c7695925924}</Project>
+      <Name>TaMaker.BaseClassLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TaMaker.DataClassLibrary\TaMaker.DataClassLibrary.csproj">
+      <Project>{9a956728-59ed-4aba-9ada-a71ba3a4dc4a}</Project>
+      <Name>TaMaker.DataClassLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TaMaker.HelperClassLibrary\TaMaker.HelperClassLibrary.csproj">
+      <Project>{83bff34b-7840-4994-9459-eda8d013176d}</Project>
+      <Name>TaMaker.HelperClassLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="tamaker.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
