@@ -126,6 +126,16 @@ namespace Ta_Maker
         {
             DateTime fDate = GetFromatedDate(out DateTime tDate);
             double Days = PrepareTravel(PerDayTa, out double totalTA);
+            
+            //divid the hole amt to all employees
+            double fairamt = double.Parse(TxtFair.Text);
+            if (fairamt > 0)
+            {
+                if (DgvSelectedEmployee.Rows.Count > 0)
+                {
+                    fairamt /= DgvSelectedEmployee.Rows.Count;
+                }
+            }
 
             Travel travel = new Travel()
             {
@@ -138,7 +148,7 @@ namespace Ta_Maker
                 Halt_Place = CmbHalting.Text,
                 DayRate = PerDayTa,
                 NoOfDay = Days,
-                FareAmt = double.Parse(TxtFair.Text),
+                FareAmt = fairamt,
                 TotalTA = totalTA,
                 AdvanceTA = double.Parse(TxtAdvace.Text),
                 Jou_Mode = CmbJourneyMode.Text,
@@ -408,9 +418,49 @@ namespace Ta_Maker
             string searchText = TxtSearchEmployee.Text;
             if (searchText.Length > 0)
             {
+                List<DataGridViewRow> rows = new List<DataGridViewRow>();
+                foreach (DataGridViewRow item in DgvEmployee.Rows)
+                {
+                    if ((bool)item.Cells[0].Value == true)
+                    {
+                        rows.Add(item);
+                    }
+                }
+
                 EmployeCrud.SearchEmployee(DgvEmployee, unit, searchText);
+                if (rows.Count > 0)
+                {
+                    foreach (var row in rows)
+                    {
+                        DgvEmployee.Rows.Add(row);
+                    }
+                }
             }
-            else { LoadEmployee(); }
+            else 
+            {
+                List<DataGridViewRow> rows = new List<DataGridViewRow>();
+                foreach (DataGridViewRow i in DgvEmployee.Rows)
+                {
+                    if ((bool)i.Cells[0].Value == true)
+                    {
+                         rows.Add(i);
+                    }
+                }
+
+                LoadEmployee();
+                foreach (DataGridViewRow item in DgvEmployee.Rows)
+                {
+                    int bkgid = int.Parse(item.Cells[4].Value.ToString());
+                    foreach (var row in rows)
+                    {
+                        int gkgid = int.Parse(row.Cells[4].Value.ToString());
+                        if (bkgid == gkgid)
+                        {
+                            item.Cells[0].Value = true;
+                        }
+                    }
+                }
+            }
         }
 
         private void CmbJourneyMode_SelectedIndexChanged(object sender, EventArgs e)

@@ -76,16 +76,16 @@ namespace Ta_Maker
             this.salary = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PanelEmployee = new System.Windows.Forms.Panel();
             this.DgvEmployee = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Okey = new System.Windows.Forms.Button();
             this.CancelEmployee = new System.Windows.Forms.Button();
             this.DeselectAll = new System.Windows.Forms.Button();
             this.SelectAll = new System.Windows.Forms.Button();
             this.TxtSearchEmployee = new MaterialSkin.Controls.MaterialTextBox();
+            this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TravellTabControl.SuspendLayout();
             this.TabAddTravel.SuspendLayout();
             this.materialCard2.SuspendLayout();
@@ -469,7 +469,7 @@ namespace Ta_Maker
             this.TxtFair.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.TxtFair.Depth = 0;
             this.TxtFair.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.TxtFair.Hint = "Fair Charge (KSRTC / TRAIN)";
+            this.TxtFair.Hint = "Fair Charge (KSRTC / TRAIN) Total";
             this.TxtFair.LeadingIcon = null;
             this.TxtFair.Location = new System.Drawing.Point(40, 301);
             this.TxtFair.MaxLength = 50;
@@ -833,33 +833,6 @@ namespace Ta_Maker
             this.DgvEmployee.TabIndex = 26;
             this.DgvEmployee.TabStop = false;
             // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Select";
-            this.Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Designation";
-            this.Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column3.HeaderText = "Employee Name";
-            this.Column3.Name = "Column3";
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Basic Pay";
-            this.Column4.Name = "Column4";
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "Employee Number";
-            this.Column5.Name = "Column5";
-            this.Column5.Visible = false;
-            // 
             // Okey
             // 
             this.Okey.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -925,6 +898,33 @@ namespace Ta_Maker
             this.TxtSearchEmployee.UseTallSize = false;
             this.TxtSearchEmployee.TextChanged += new System.EventHandler(this.TxtSearchEmployee_TextChanged);
             this.TxtSearchEmployee.Enter += new System.EventHandler(this.TxtSearchEmployee_Enter);
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Select";
+            this.Column1.Name = "Column1";
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Designation";
+            this.Column2.Name = "Column2";
+            // 
+            // Column3
+            // 
+            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column3.HeaderText = "Employee Name";
+            this.Column3.Name = "Column3";
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Basic Pay";
+            this.Column4.Name = "Column4";
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Employee Number";
+            this.Column5.Name = "Column5";
+            this.Column5.Visible = false;
             // 
             // TravelUI
             // 
@@ -995,11 +995,6 @@ namespace Ta_Maker
         private System.Windows.Forms.DataGridViewTextBoxColumn designation;
         private System.Windows.Forms.DataGridViewTextBoxColumn empname;
         private System.Windows.Forms.DataGridViewTextBoxColumn salary;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DateTimePicker DtArrTime;
         private MaterialSkin.Controls.MaterialLabel materialLabel3;
         private MaterialSkin.Controls.MaterialLabel materialLabel1;
@@ -1018,5 +1013,10 @@ namespace Ta_Maker
         private MaterialSkin.Controls.MaterialTextBox TxtDays2;
         private MaterialSkin.Controls.MaterialTextBox TxtDays;
         private MaterialSkin.Controls.MaterialTextBox TxtAdvace;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
     }
 }

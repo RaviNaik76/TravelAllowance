@@ -91,11 +91,11 @@ namespace TaMaker.DataClassLibrary
             {
                 if (unit.Length > 0)
                 {
-                    Cmd.CommandText = ($"SELECT * FROM Employee WHERE EmpStation='{unit}' AND EmpName Like '{searchText}%' ORDER BY EmpShort");
+                    Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber FROM Employee WHERE EmpStation='{unit}' AND EmpName Like '{searchText}%' ORDER BY EmpShort");
                 }
                 else
                 {
-                    Cmd.CommandText = ($"SELECT * FROM Employee WHERE EmpName Like '{searchText} %' ORDER BY EmpShort");
+                    Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber FROM Employee WHERE EmpName Like '{searchText} %' ORDER BY EmpShort");
                 }
                 DbConnection.OpenConnection();
                 using (SQLiteDataReader dr = Cmd.ExecuteReader())
@@ -105,10 +105,10 @@ namespace TaMaker.DataClassLibrary
                     {
                         int n = dgv.Rows.Add();
                         dgv.Rows[n].Cells[0].Value = false;
-                        dgv.Rows[n].Cells[1].Value = dr.GetValue(1);
-                        dgv.Rows[n].Cells[2].Value = dr.GetValue(2);
-                        dgv.Rows[n].Cells[3].Value = dr.GetValue(3);
-                        dgv.Rows[n].Cells[4].Value = dr.GetValue(4);
+                        dgv.Rows[n].Cells[1].Value = dr.GetValue(0);
+                        dgv.Rows[n].Cells[2].Value = dr.GetValue(1);
+                        dgv.Rows[n].Cells[3].Value = dr.GetValue(2);
+                        dgv.Rows[n].Cells[4].Value = dr.GetValue(3);
                     }
                 }
                 DbConnection.CloseConnection();
