@@ -5,10 +5,10 @@ namespace TaMaker.DataClassLibrary
 {
     public class TaValueSuplier
     {
-        public static double GetTaValue(string desgnation, string placeType, string desnType)
+        public static double GetTaValue(string desgnation, string placeType, string forceType)
         {
             double Tavalue = 0.0;
-            DataTable dt = GetTaValueTable(desgnation, placeType, desnType);
+            DataTable dt = GetTaValueTable(desgnation, placeType, forceType);
 
             if (dt.Rows.Count > 0)
             {
@@ -35,10 +35,10 @@ namespace TaMaker.DataClassLibrary
         }
 
 
-        public static DataTable GetTaValueTable(string desg, string placeType, string desnType)
+        public static DataTable GetTaValueTable(string desg, string placeType, string forceType)
         {
             DataTable dt = new DataTable();
-            int empSort = SourceSuplier.GetEmployeSort(desg, desnType);
+            int empSort = SourceSuplier.GetEmployeSort(desg, forceType);
 
             if (desg.Length > 0 && placeType.Length > 0)
             {
@@ -58,19 +58,7 @@ namespace TaMaker.DataClassLibrary
                             Cmd.CommandText = ($"SELECT * FROM TaValue WHERE EmpClass = 'I'");
                             break;
                     }
-                    //if (empSort >= 2 && empSort <= 3)
-                    //{
-                    //    Cmd.CommandText = ($"SELECT * FROM TaValue WHERE EmpClass = 'II'");
-                    //}
-                    //else if (empSort > 3)
-                    //{
-                    //    Cmd.CommandText = ($"SELECT * FROM TaValue WHERE EmpClass = 'III'");
-                    //}
-                    //else
-                    //{
-                    //    Cmd.CommandText = ($"SELECT * FROM TaValue WHERE EmpClass = 'I'");
-                    //}
-
+                   
                     DbConnection.OpenConnection();
                     SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(Cmd);
                     dataAdapter.Fill(dt);

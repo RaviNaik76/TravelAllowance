@@ -378,7 +378,7 @@ namespace Ta_Maker
             // EMPNAME
             // 
             this.EMPNAME.Text = "EMPLYEE NAME";
-            this.EMPNAME.Width = 349;
+            this.EMPNAME.Width = 245;
             // 
             // SALARY
             // 

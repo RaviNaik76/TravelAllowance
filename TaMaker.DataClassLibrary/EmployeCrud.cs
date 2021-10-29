@@ -85,17 +85,32 @@ namespace TaMaker.DataClassLibrary
             }
         }
 
-        public static void SearchEmployee(DataGridView dgv, string unit, string searchText)
+        public static void SearchEmployee(DataGridView dgv, string unit, string searchText, string searchBy)
         {
             using (var Cmd = new SQLiteCommand(DbConnection.Conn))
             {
                 if (unit.Length > 0)
                 {
-                    Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber FROM Employee WHERE EmpStation='{unit}' AND EmpName Like '{searchText}%' ORDER BY EmpShort");
+                    if (searchBy == "Name")
+                    {
+                        Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber FROM Employee WHERE EmpStation='{unit}' AND EmpName Like '{searchText}%' ORDER BY EmpShort");
+                    }
+                    else
+                    {
+                        Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber FROM Employee WHERE EmpStation='{unit}' AND EmpDesignation Like '{searchText}%' ORDER BY EmpShort");
+                    }
                 }
                 else
                 {
-                    Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber FROM Employee WHERE EmpName Like '{searchText} %' ORDER BY EmpShort");
+                    if (searchBy == "Name")
+                    {
+                        Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber FROM Employee WHERE EmpName Like '{searchText} %' ORDER BY EmpShort");
+                    }
+                    else
+                    {
+                        Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber FROM Employee WHERE EmpDesignation Like '{searchText}%' ORDER BY EmpShort");
+                    }
+                    
                 }
                 DbConnection.OpenConnection();
                 using (SQLiteDataReader dr = Cmd.ExecuteReader())

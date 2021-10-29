@@ -76,16 +76,19 @@ namespace Ta_Maker
             this.salary = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PanelEmployee = new System.Windows.Forms.Panel();
             this.DgvEmployee = new System.Windows.Forms.DataGridView();
-            this.Okey = new System.Windows.Forms.Button();
-            this.CancelEmployee = new System.Windows.Forms.Button();
-            this.DeselectAll = new System.Windows.Forms.Button();
-            this.SelectAll = new System.Windows.Forms.Button();
-            this.TxtSearchEmployee = new MaterialSkin.Controls.MaterialTextBox();
             this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Okey = new System.Windows.Forms.Button();
+            this.CancelEmployee = new System.Windows.Forms.Button();
+            this.DeselectAll = new System.Windows.Forms.Button();
+            this.SelectAll = new System.Windows.Forms.Button();
+            this.TxtSearchEmployee = new MaterialSkin.Controls.MaterialTextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.RbByName = new MaterialSkin.Controls.MaterialRadioButton();
+            this.RbByDesignation = new MaterialSkin.Controls.MaterialRadioButton();
             this.TravellTabControl.SuspendLayout();
             this.TabAddTravel.SuspendLayout();
             this.materialCard2.SuspendLayout();
@@ -97,6 +100,7 @@ namespace Ta_Maker
             ((System.ComponentModel.ISupportInitialize)(this.DgvSelectedEmployee)).BeginInit();
             this.PanelEmployee.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvEmployee)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // TravellTabControl
@@ -833,6 +837,33 @@ namespace Ta_Maker
             this.DgvEmployee.TabIndex = 26;
             this.DgvEmployee.TabStop = false;
             // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Select";
+            this.Column1.Name = "Column1";
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Designation";
+            this.Column2.Name = "Column2";
+            // 
+            // Column3
+            // 
+            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column3.HeaderText = "Employee Name";
+            this.Column3.Name = "Column3";
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Basic Pay";
+            this.Column4.Name = "Column4";
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Employee Number";
+            this.Column5.Name = "Column5";
+            this.Column5.Visible = false;
+            // 
             // Okey
             // 
             this.Okey.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -882,7 +913,7 @@ namespace Ta_Maker
             this.TxtSearchEmployee.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.TxtSearchEmployee.Hint = "Search Employee";
             this.TxtSearchEmployee.LeadingIcon = null;
-            this.TxtSearchEmployee.Location = new System.Drawing.Point(283, 158);
+            this.TxtSearchEmployee.Location = new System.Drawing.Point(147, 1);
             this.TxtSearchEmployee.MaxLength = 50;
             this.TxtSearchEmployee.MinimumSize = new System.Drawing.Size(0, 30);
             this.TxtSearchEmployee.MouseState = MaterialSkin.MouseState.OUT;
@@ -891,7 +922,7 @@ namespace Ta_Maker
             this.TxtSearchEmployee.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.TxtSearchEmployee.ShortcutsEnabled = false;
             this.TxtSearchEmployee.ShowSelectionMargin = true;
-            this.TxtSearchEmployee.Size = new System.Drawing.Size(418, 36);
+            this.TxtSearchEmployee.Size = new System.Drawing.Size(419, 36);
             this.TxtSearchEmployee.TabIndex = 0;
             this.TxtSearchEmployee.Text = "";
             this.TxtSearchEmployee.TrailingIcon = null;
@@ -899,43 +930,61 @@ namespace Ta_Maker
             this.TxtSearchEmployee.TextChanged += new System.EventHandler(this.TxtSearchEmployee_TextChanged);
             this.TxtSearchEmployee.Enter += new System.EventHandler(this.TxtSearchEmployee_Enter);
             // 
-            // Column1
+            // panel1
             // 
-            this.Column1.HeaderText = "Select";
-            this.Column1.Name = "Column1";
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.RbByDesignation);
+            this.panel1.Controls.Add(this.RbByName);
+            this.panel1.Controls.Add(this.TxtSearchEmployee);
+            this.panel1.Location = new System.Drawing.Point(136, 159);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(697, 32);
+            this.panel1.TabIndex = 27;
             // 
-            // Column2
+            // RbByName
             // 
-            this.Column2.HeaderText = "Designation";
-            this.Column2.Name = "Column2";
+            this.RbByName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.RbByName.AutoSize = true;
+            this.RbByName.Depth = 0;
+            this.RbByName.Location = new System.Drawing.Point(579, 0);
+            this.RbByName.Margin = new System.Windows.Forms.Padding(0);
+            this.RbByName.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.RbByName.MouseState = MaterialSkin.MouseState.HOVER;
+            this.RbByName.Name = "RbByName";
+            this.RbByName.Ripple = true;
+            this.RbByName.Size = new System.Drawing.Size(99, 37);
+            this.RbByName.TabIndex = 0;
+            this.RbByName.TabStop = true;
+            this.RbByName.Text = "By Name";
+            this.RbByName.UseVisualStyleBackColor = true;
             // 
-            // Column3
+            // RbByDesignation
             // 
-            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column3.HeaderText = "Employee Name";
-            this.Column3.Name = "Column3";
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Basic Pay";
-            this.Column4.Name = "Column4";
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "Employee Number";
-            this.Column5.Name = "Column5";
-            this.Column5.Visible = false;
+            this.RbByDesignation.AutoSize = true;
+            this.RbByDesignation.Depth = 0;
+            this.RbByDesignation.Location = new System.Drawing.Point(0, 0);
+            this.RbByDesignation.Margin = new System.Windows.Forms.Padding(0);
+            this.RbByDesignation.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.RbByDesignation.MouseState = MaterialSkin.MouseState.HOVER;
+            this.RbByDesignation.Name = "RbByDesignation";
+            this.RbByDesignation.Ripple = true;
+            this.RbByDesignation.Size = new System.Drawing.Size(120, 37);
+            this.RbByDesignation.TabIndex = 0;
+            this.RbByDesignation.TabStop = true;
+            this.RbByDesignation.Text = "Designation";
+            this.RbByDesignation.UseVisualStyleBackColor = true;
             // 
             // TravelUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(995, 674);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.PanelEmployee);
             this.Controls.Add(this.DgvSelectedEmployee);
             this.Controls.Add(this.TravelTabSelector);
             this.Controls.Add(this.TravellTabControl);
-            this.Controls.Add(this.TxtSearchEmployee);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TravelUI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -956,6 +1005,8 @@ namespace Ta_Maker
             ((System.ComponentModel.ISupportInitialize)(this.DgvSelectedEmployee)).EndInit();
             this.PanelEmployee.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DgvEmployee)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1018,5 +1069,8 @@ namespace Ta_Maker
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.Panel panel1;
+        private MaterialSkin.Controls.MaterialRadioButton RbByDesignation;
+        private MaterialSkin.Controls.MaterialRadioButton RbByName;
     }
 }

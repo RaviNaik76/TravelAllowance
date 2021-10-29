@@ -63,18 +63,18 @@ namespace TaMaker.DataClassLibrary
             return HaltingPlace;
         }
 
-        public static Dictionary<int, string> LoadDesignation(string desnType)
+        public static Dictionary<int, string> LoadDesignation(string forceType)
         {
             Dictionary<int, string> Designation = new Dictionary<int, string>();
-            string SqlQuery = ($"SELECT * FROM DesignationTable WHERE ForceType='{ desnType}'");
+            string SqlQuery = ($"SELECT * FROM DesignationTable WHERE ForceType='{ forceType}'");
             LoadSource(SqlQuery, Designation);
             return Designation;
         }
 
-        public static int GetEmployeSort(string desn, string desnType)
+        public static int GetEmployeSort(string desn, string forceType)
         {
             int sorder = -10;
-            Dictionary<int, string> DesgnationList = LoadDesignation(desnType);
+            Dictionary<int, string> DesgnationList = LoadDesignation(forceType);
 
             foreach (KeyValuePair<int, string> ele in DesgnationList)
             {
