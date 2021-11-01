@@ -86,9 +86,6 @@ namespace Ta_Maker
             this.DeselectAll = new System.Windows.Forms.Button();
             this.SelectAll = new System.Windows.Forms.Button();
             this.TxtSearchEmployee = new MaterialSkin.Controls.MaterialTextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.RbByName = new MaterialSkin.Controls.MaterialRadioButton();
-            this.RbByDesignation = new MaterialSkin.Controls.MaterialRadioButton();
             this.TravellTabControl.SuspendLayout();
             this.TabAddTravel.SuspendLayout();
             this.materialCard2.SuspendLayout();
@@ -100,7 +97,6 @@ namespace Ta_Maker
             ((System.ComponentModel.ISupportInitialize)(this.DgvSelectedEmployee)).BeginInit();
             this.PanelEmployee.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvEmployee)).BeginInit();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // TravellTabControl
@@ -110,7 +106,7 @@ namespace Ta_Maker
             this.TravellTabControl.Controls.Add(this.TabAddTravel);
             this.TravellTabControl.Controls.Add(this.TabViewTravel);
             this.TravellTabControl.Depth = 0;
-            this.TravellTabControl.Location = new System.Drawing.Point(21, 224);
+            this.TravellTabControl.Location = new System.Drawing.Point(22, 230);
             this.TravellTabControl.MouseState = MaterialSkin.MouseState.HOVER;
             this.TravellTabControl.Multiline = true;
             this.TravellTabControl.Name = "TravellTabControl";
@@ -771,7 +767,7 @@ namespace Ta_Maker
             this.DgvSelectedEmployee.Name = "DgvSelectedEmployee";
             this.DgvSelectedEmployee.ReadOnly = true;
             this.DgvSelectedEmployee.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DgvSelectedEmployee.Size = new System.Drawing.Size(589, 96);
+            this.DgvSelectedEmployee.Size = new System.Drawing.Size(589, 89);
             this.DgvSelectedEmployee.TabIndex = 2;
             this.DgvSelectedEmployee.TabStop = false;
             // 
@@ -811,9 +807,9 @@ namespace Ta_Maker
             this.PanelEmployee.Controls.Add(this.CancelEmployee);
             this.PanelEmployee.Controls.Add(this.DeselectAll);
             this.PanelEmployee.Controls.Add(this.SelectAll);
-            this.PanelEmployee.Location = new System.Drawing.Point(284, 195);
+            this.PanelEmployee.Location = new System.Drawing.Point(284, 191);
             this.PanelEmployee.Name = "PanelEmployee";
-            this.PanelEmployee.Size = new System.Drawing.Size(418, 35);
+            this.PanelEmployee.Size = new System.Drawing.Size(418, 322);
             this.PanelEmployee.TabIndex = 26;
             this.PanelEmployee.Visible = false;
             // 
@@ -833,7 +829,7 @@ namespace Ta_Maker
             this.DgvEmployee.MultiSelect = false;
             this.DgvEmployee.Name = "DgvEmployee";
             this.DgvEmployee.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DgvEmployee.Size = new System.Drawing.Size(460, 361);
+            this.DgvEmployee.Size = new System.Drawing.Size(460, 286);
             this.DgvEmployee.TabIndex = 26;
             this.DgvEmployee.TabStop = false;
             // 
@@ -867,7 +863,7 @@ namespace Ta_Maker
             // Okey
             // 
             this.Okey.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Okey.Location = new System.Drawing.Point(349, 367);
+            this.Okey.Location = new System.Drawing.Point(349, 291);
             this.Okey.Name = "Okey";
             this.Okey.Size = new System.Drawing.Size(62, 23);
             this.Okey.TabIndex = 6;
@@ -878,7 +874,7 @@ namespace Ta_Maker
             // CancelEmployee
             // 
             this.CancelEmployee.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CancelEmployee.Location = new System.Drawing.Point(276, 367);
+            this.CancelEmployee.Location = new System.Drawing.Point(276, 291);
             this.CancelEmployee.Name = "CancelEmployee";
             this.CancelEmployee.Size = new System.Drawing.Size(62, 23);
             this.CancelEmployee.TabIndex = 6;
@@ -888,7 +884,7 @@ namespace Ta_Maker
             // 
             // DeselectAll
             // 
-            this.DeselectAll.Location = new System.Drawing.Point(80, 367);
+            this.DeselectAll.Location = new System.Drawing.Point(72, 291);
             this.DeselectAll.Name = "DeselectAll";
             this.DeselectAll.Size = new System.Drawing.Size(72, 23);
             this.DeselectAll.TabIndex = 6;
@@ -897,7 +893,7 @@ namespace Ta_Maker
             // 
             // SelectAll
             // 
-            this.SelectAll.Location = new System.Drawing.Point(3, 367);
+            this.SelectAll.Location = new System.Drawing.Point(3, 291);
             this.SelectAll.Name = "SelectAll";
             this.SelectAll.Size = new System.Drawing.Size(62, 23);
             this.SelectAll.TabIndex = 6;
@@ -913,7 +909,7 @@ namespace Ta_Maker
             this.TxtSearchEmployee.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.TxtSearchEmployee.Hint = "Search Employee";
             this.TxtSearchEmployee.LeadingIcon = null;
-            this.TxtSearchEmployee.Location = new System.Drawing.Point(147, 1);
+            this.TxtSearchEmployee.Location = new System.Drawing.Point(284, 155);
             this.TxtSearchEmployee.MaxLength = 50;
             this.TxtSearchEmployee.MinimumSize = new System.Drawing.Size(0, 30);
             this.TxtSearchEmployee.MouseState = MaterialSkin.MouseState.OUT;
@@ -922,7 +918,7 @@ namespace Ta_Maker
             this.TxtSearchEmployee.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.TxtSearchEmployee.ShortcutsEnabled = false;
             this.TxtSearchEmployee.ShowSelectionMargin = true;
-            this.TxtSearchEmployee.Size = new System.Drawing.Size(419, 36);
+            this.TxtSearchEmployee.Size = new System.Drawing.Size(418, 36);
             this.TxtSearchEmployee.TabIndex = 0;
             this.TxtSearchEmployee.Text = "";
             this.TxtSearchEmployee.TrailingIcon = null;
@@ -930,58 +926,13 @@ namespace Ta_Maker
             this.TxtSearchEmployee.TextChanged += new System.EventHandler(this.TxtSearchEmployee_TextChanged);
             this.TxtSearchEmployee.Enter += new System.EventHandler(this.TxtSearchEmployee_Enter);
             // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.RbByDesignation);
-            this.panel1.Controls.Add(this.RbByName);
-            this.panel1.Controls.Add(this.TxtSearchEmployee);
-            this.panel1.Location = new System.Drawing.Point(136, 159);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(697, 32);
-            this.panel1.TabIndex = 27;
-            // 
-            // RbByName
-            // 
-            this.RbByName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.RbByName.AutoSize = true;
-            this.RbByName.Depth = 0;
-            this.RbByName.Location = new System.Drawing.Point(579, 0);
-            this.RbByName.Margin = new System.Windows.Forms.Padding(0);
-            this.RbByName.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.RbByName.MouseState = MaterialSkin.MouseState.HOVER;
-            this.RbByName.Name = "RbByName";
-            this.RbByName.Ripple = true;
-            this.RbByName.Size = new System.Drawing.Size(99, 37);
-            this.RbByName.TabIndex = 0;
-            this.RbByName.TabStop = true;
-            this.RbByName.Text = "By Name";
-            this.RbByName.UseVisualStyleBackColor = true;
-            // 
-            // RbByDesignation
-            // 
-            this.RbByDesignation.AutoSize = true;
-            this.RbByDesignation.Depth = 0;
-            this.RbByDesignation.Location = new System.Drawing.Point(0, 0);
-            this.RbByDesignation.Margin = new System.Windows.Forms.Padding(0);
-            this.RbByDesignation.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.RbByDesignation.MouseState = MaterialSkin.MouseState.HOVER;
-            this.RbByDesignation.Name = "RbByDesignation";
-            this.RbByDesignation.Ripple = true;
-            this.RbByDesignation.Size = new System.Drawing.Size(120, 37);
-            this.RbByDesignation.TabIndex = 0;
-            this.RbByDesignation.TabStop = true;
-            this.RbByDesignation.Text = "Designation";
-            this.RbByDesignation.UseVisualStyleBackColor = true;
-            // 
             // TravelUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(995, 674);
-            this.Controls.Add(this.panel1);
+            this.ClientSize = new System.Drawing.Size(995, 666);
             this.Controls.Add(this.PanelEmployee);
+            this.Controls.Add(this.TxtSearchEmployee);
             this.Controls.Add(this.DgvSelectedEmployee);
             this.Controls.Add(this.TravelTabSelector);
             this.Controls.Add(this.TravellTabControl);
@@ -1005,8 +956,6 @@ namespace Ta_Maker
             ((System.ComponentModel.ISupportInitialize)(this.DgvSelectedEmployee)).EndInit();
             this.PanelEmployee.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DgvEmployee)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1069,8 +1018,5 @@ namespace Ta_Maker
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.Panel panel1;
-        private MaterialSkin.Controls.MaterialRadioButton RbByDesignation;
-        private MaterialSkin.Controls.MaterialRadioButton RbByName;
     }
 }

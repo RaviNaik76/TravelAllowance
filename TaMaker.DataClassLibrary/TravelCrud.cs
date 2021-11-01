@@ -63,7 +63,8 @@ namespace TaMaker.DataClassLibrary
             //string min = mindate.ToString("yyyy-MM-dd HH:mm:ss");
             //string max = maxdate.ToString("yyyy-MM-dd HH:mm:ss");
             //string Query = ($"SELECT * FROM Travell WHERE Dep_Date BETWEEN '{ min }' AND '{ max }' AND EmpNo ={ kgid}");
-            string Query = ($"SELECT * FROM Travell WHERE MonthYear='{mYear}' AND EmpNo ={kgid}");
+            
+            string Query = ($"SELECT Dep_Place, Dep_Date, Arr_Place, Arr_Date, Dest_Kms, Jou_Reason, Halt_Place, DayRate, NoOfDay, FareAmt, TotalTA, AdvanceTA, Jou_Mode, Warrant_No, Shd_No, Destination, GroupNo FROM Travell WHERE MonthYear='{mYear}' AND EmpNo ={kgid}");
             DbConnection.OpenConnection();
             DataTable dt = new DataTable();
             SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(Query, DbConnection.Conn);
@@ -94,28 +95,7 @@ namespace TaMaker.DataClassLibrary
 
         public void FormatTravellGrid(DataGridView dataGridView)
         {
-            dataGridView.Columns[0].Width = 200;
-            dataGridView.Columns[1].Width = 130;
-            dataGridView.Columns[2].Width = 200;
-            dataGridView.Columns[3].Width = 130;
-            dataGridView.Columns[4].Width = 60;
-            dataGridView.Columns[5].Width = 100;
-            dataGridView.Columns[6].Width = 250;
-            dataGridView.Columns[7].Width = 60;
-            dataGridView.Columns[8].Width = 60;
-            dataGridView.Columns[9].Width = 60;
-            dataGridView.Columns[10].Width = 40;
-            dataGridView.Columns[11].Width = 100;
-            dataGridView.Columns[12].Width = 60;
-
-            //dataGridView.Columns[13].Visible = false;
-            //dataGridView.Columns[14].Visible = false;
-            dataGridView.Columns[15].Visible = false;
             dataGridView.Columns[16].Visible = false;
-            dataGridView.Columns[17].Visible = false;
-            dataGridView.Columns[18].Visible = false;
-            dataGridView.Columns[19].Visible = false;
-
             dataGridView.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dataGridView.DefaultCellStyle.NullValue = "";
             SetGridColor(dataGridView);

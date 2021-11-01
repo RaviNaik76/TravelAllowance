@@ -1,6 +1,7 @@
 ﻿using MaterialSkin.Controls;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using TaMaker.BaseClassLibrary;
 using TaMaker.DataClassLibrary;
@@ -11,6 +12,7 @@ namespace Ta_Maker
     {
         string forceType = UserInterface.Properties.Settings.Default["ForceType"].ToString();
         string unit = UserInterface.Properties.Settings.Default["UnitName"].ToString();
+        List<Employee> employees = new List<Employee>();
 
         public EmployeUI()
         {
@@ -40,6 +42,7 @@ namespace Ta_Maker
                 TxtEmpNo.Focus();
             }
             else { MessageBox.Show("Please set your Unit in Unit Setting", "TA_Maker", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+            RbByName.Checked = true;
         }
 
         private void BtnInsert_Click(object sender, EventArgs e)
@@ -47,8 +50,9 @@ namespace Ta_Maker
             if (CmbDesignation.SelectedIndex != -1 && CmbStation.SelectedIndex != -1)
             {
                 NewEmployee(true);
+                LblMsg.Text = "Employee Added";
             }
-            else { MessageBox.Show("All the fields required", "TA_Maker", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+            else { LblMsg.Text = ""; MessageBox.Show("All the fields required", "TA_Maker", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
 
         private void NewEmployee(bool save)
@@ -84,17 +88,17 @@ namespace Ta_Maker
         private void BtnDelete_Click(object sender, EventArgs e)
         {
             EmployeCrud employeCrud = new EmployeCrud();
-            try
+            ListViewItem item = EmployeListView.SelectedItems[0];
+            if (int.TryParse(item.Text, out int kgid))
             {
-                employeCrud.DeleteEmployee(int.Parse(TxtEmpNo.Text));
+                employeCrud.DeleteEmployee(kgid);
                 ClearAllFields();
                 TxtEmpNo.Enabled = true;
+                LblMsg.Text = "Employee Deleted";
+                BtnLoadEmployee_Click(sender, e);
                 TxtEmpNo.Focus();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "TA_Maker", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            else { LblMsg.Text ="Could`t Delete"; }
         }
 
         private void BtnClear_Click(object sender, EventArgs e)
@@ -143,17 +147,8 @@ namespace Ta_Maker
 
         private void BtnLoadEmployee_Click(object sender, EventArgs e)
         {
-            List<Employee> employees = EmployeCrud.ViewEmployee(unit);
-            EmployeListView.Items.Clear();
-            foreach (var employee in employees)
-            {
-                ListViewItem item = new ListViewItem(employee.EmpNumber.ToString());
-                item.SubItems.Add(employee.EmpDesignation);
-                item.SubItems.Add(employee.EmpName);
-                item.SubItems.Add(employee.EmpSalary.ToString());
-                item.SubItems.Add(employee.EmpStation);
-                EmployeListView.Items.Add(item);
-            }
+            employees = EmployeCrud.ViewEmployee(unit);
+            AssignListView(employees);
         }
 
         private void BtnDelete_Enter(object sender, EventArgs e)
@@ -194,6 +189,32 @@ namespace Ta_Maker
         private void BtnClear_Leave(object sender, EventArgs e)
         {
             BtnClear.Type = MaterialButton.MaterialButtonType.Contained;
+        }
+
+        private void TxtSearchEmployee_TextChanged(object sender, EventArgs e)
+        {
+            if (TxtSearchEmployee.Text.Length > 0)
+            {
+                var empls = employees.Where(emp => emp.EmpName.StartsWith(TxtSearchEmployee.Text.ToUpper()));
+                if (RbByDesignation.Checked) { empls = employees.Where(emp => emp.EmpDesignation.StartsWith(TxtSearchEmployee.Text.ToUpper()));}
+                
+                if (empls != null) { AssignListView(empls);}
+            }
+            else {AssignListView(employees);}
+        }
+
+        private void AssignListView(IEnumerable<Employee> employees)
+        {
+            EmployeListView.Items.Clear();
+            foreach (Employee employee in employees)
+            {
+                ListViewItem item = new ListViewItem(employee.EmpNumber.ToString());
+                item.SubItems.Add(employee.EmpDesignation);
+                item.SubItems.Add(employee.EmpName);
+                item.SubItems.Add(employee.EmpSalary.ToString());
+                item.SubItems.Add(employee.EmpStation);
+                EmployeListView.Items.Add(item);
+            }
         }
     }
 }

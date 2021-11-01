@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Windows.Forms;
 using TaMaker.BaseClassLibrary;
 using TaMaker.DataClassLibrary;
@@ -139,7 +140,6 @@ namespace Ta_Maker
                 }
 
                 SetMonthYearToDate();
-                RbByDesignation.Checked = true;
                 TxtSearchEmployee.Focus();
             }
             else { MessageBox.Show("Please set your Unit in Unit Setting", "TA_Maker", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
@@ -255,11 +255,10 @@ namespace Ta_Maker
         private void BtnDelete_Click(object sender, EventArgs e)
         {
             DataGridViewRow row = GridTravelView.CurrentRow;
-            int id = int.Parse(row.Cells[17].Value.ToString());
-            if (id > 0)
+            if (int.TryParse(row.Cells[17].Value.ToString(), out int gno))
             {
                 TravelCrud travelCrud = new TravelCrud();
-                travelCrud.DeleteTravell(id);
+                travelCrud.DeleteTravell(gno);
                 BtnDelete.Enabled = false;
                 BtnLoadTravel_Click(sender, e);
             }
@@ -274,7 +273,7 @@ namespace Ta_Maker
 
         private void TxtSearchEmployee_Enter(object sender, EventArgs e)
         {
-            PanelEmployee.Height = 395;
+            PanelEmployee.Height = 322;
             PanelEmployee.Visible = true;
         }
 
@@ -292,14 +291,8 @@ namespace Ta_Maker
                     }
                 }
                 //Load all employee
-                if (RbByName.Checked == true)
-                {
-                    EmployeCrud.SearchEmployee(DgvEmployee, unit, TxtSearchEmployee.Text, "Name");
-                }
-                else
-                {
-                    EmployeCrud.SearchEmployee(DgvEmployee, unit, TxtSearchEmployee.Text, "Designation");
-                }
+                EmployeCrud.SearchEmployee(DgvEmployee, unit, TxtSearchEmployee.Text);
+                
                 //Add selected row again to grid
                 if (rows.Count > 0)
                 {
@@ -309,14 +302,14 @@ namespace Ta_Maker
                     }
                 }
             }
-            else 
+            else
             {
                 List<DataGridViewRow> rows = new List<DataGridViewRow>();
                 foreach (DataGridViewRow i in DgvEmployee.Rows)
                 {
                     if ((bool)i.Cells[0].Value == true)
                     {
-                         rows.Add(i);
+                        rows.Add(i);
                     }
                 }
 
@@ -347,7 +340,6 @@ namespace Ta_Maker
         }
 
         //============================================= METHODS ==============================
-        
         private void LoadEmployee()
         {
             List<Employee> EmployeeList = EmployeCrud.ViewEmployee(unit);

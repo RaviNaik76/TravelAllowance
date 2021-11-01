@@ -85,32 +85,17 @@ namespace TaMaker.DataClassLibrary
             }
         }
 
-        public static void SearchEmployee(DataGridView dgv, string unit, string searchText, string searchBy)
+        public static void SearchEmployee(DataGridView dgv, string unit, string searchText)
         {
             using (var Cmd = new SQLiteCommand(DbConnection.Conn))
             {
                 if (unit.Length > 0)
                 {
-                    if (searchBy == "Name")
-                    {
-                        Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber FROM Employee WHERE EmpStation='{unit}' AND EmpName Like '{searchText}%' ORDER BY EmpShort");
-                    }
-                    else
-                    {
-                        Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber FROM Employee WHERE EmpStation='{unit}' AND EmpDesignation Like '{searchText}%' ORDER BY EmpShort");
-                    }
+                    Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber FROM Employee WHERE EmpStation='{unit}' AND EmpName Like '{searchText}%' OR EmpDesignation Like '{searchText}%' ORDER BY EmpShort");
                 }
                 else
                 {
-                    if (searchBy == "Name")
-                    {
-                        Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber FROM Employee WHERE EmpName Like '{searchText} %' ORDER BY EmpShort");
-                    }
-                    else
-                    {
-                        Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber FROM Employee WHERE EmpDesignation Like '{searchText}%' ORDER BY EmpShort");
-                    }
-                    
+                    Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber FROM Employee WHERE EmpName Like '{searchText}%' OR EmpDesignation Like '{searchText}%' ORDER BY EmpShort");
                 }
                 DbConnection.OpenConnection();
                 using (SQLiteDataReader dr = Cmd.ExecuteReader())
