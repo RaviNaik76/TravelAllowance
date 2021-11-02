@@ -710,6 +710,7 @@ namespace Ta_Maker
             this.TravelViewTabControl.SelectedIndex = 0;
             this.TravelViewTabControl.Size = new System.Drawing.Size(935, 321);
             this.TravelViewTabControl.TabIndex = 0;
+            this.TravelViewTabControl.SelectedIndexChanged += new System.EventHandler(this.TravelViewTabControl_SelectedIndexChanged);
             // 
             // tabPage1
             // 

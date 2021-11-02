@@ -81,8 +81,7 @@ namespace TaMaker.DataClassLibrary
                             EmpNo int not null,
                             GroupNo int,
                             MonthYear varchar(50),
-                            Remarks text,
-                            FOREIGN KEY(EmpNo) REFERENCES Employee(EmployeeNumber)
+                            Remarks text
                         )";
             SqlQueryList.Add(SqlQuery);
 
@@ -133,31 +132,15 @@ namespace TaMaker.DataClassLibrary
         {
             List<String> InsertQueryList = new List<string>();
 
-            SqlQuery = @"INSERT OR IGNORE INTO Employee 
-                                (EmpNumber, EmpDesignation, EmpName, EmpSalary, EmpStation, EmpShort) values 
-                                (145895, 'CHC 1504', 'RAVI NAIK', 35500, 'DANDELI TOWN', 6), 
-                                (145896, 'CHC 1475', 'RAMADAS NAIK', 39500, 'DANDELI RURAL', 6)";
-
-            InsertQueryList.Add(SqlQuery);
-
-            SqlQuery = @"INSERT OR IGNORE INTO Travell
-                                (Dep_Place, Dep_Date, Arr_Place, Arr_Date, Dest_Kms, Jou_Reason, Halt_Place, DayRate, NoOfDay, FareAmt, TotalTA, AdvanceTA, Jou_Mode, Warrant_No, Shd_No, Destination, EmpNo, GroupNo, MonthYear) values 
-                                ('dandeli', '2020-10-01 10:20:05', 'KARWAR', '2020-10-01 10:20:05', 95, 'tapal', 'karwar', 130, 1.5, 230, 195, 100, 'ksrtc', '145456, 245687', '5, 45', 'State Others', 145895, 1, 'January 2021'),
-                                ('dandeli', '2020-10-01 10:20:05', 'KARWAR', '2020-10-01 10:20:05', 95, 'tapal', 'karwar', 130, 1.5, 230, 195, 100, 'ksrtc', '654789, 456987', '5, 45', 'State Others', 145896, 2, 'January 2021')";
-
-            InsertQueryList.Add(SqlQuery);
-
             SqlQuery = @"INSERT OR IGNORE INTO TaValue
-                                (EmpClass, NormalTa, MetroTa, BangloreTa,
-                                  OutOfStateTa, OutOfStateMetroTa) values 
+                                (EmpClass, NormalTa, MetroTa, BangloreTa, OutOfStateTa, OutOfStateMetroTa) values 
                                 ('I', 400.00, 500.00, 600.00, 600.00, 800.00),
                                 ('II', 300.00, 400.00, 400.00, 400.00, 600.00),
                                 ('III', 200.00, 300.00, 300.00, 300.00, 500.00)";
 
             InsertQueryList.Add(SqlQuery);
 
-            SqlQuery = @"INSERT OR IGNORE INTO SourceTable
-                                (SourceName, SourceType) values 
+            SqlQuery = @"INSERT OR IGNORE INTO SourceTable (SourceName, SourceType) values 
                                 ('UTTARA KANNADA', 'District'),
                                 ('DAKSHINA KANNADA', 'District'),
                                 ('UDUPI', 'District'),
@@ -222,17 +205,15 @@ namespace TaMaker.DataClassLibrary
                                 ('ISD', 'Office')";
             InsertQueryList.Add(SqlQuery);
 
-            SqlQuery = @"INSERT OR IGNORE INTO Units
-                                (UnitName, UnitType, UnitDist) values 
+            SqlQuery = @"INSERT OR IGNORE INTO Units (UnitName, UnitType, UnitDist) values 
                                 ('DANDELI TOWN', 'POLICE STATION', 'UTTARA KANNADA'),
                                 ('DANDELI RURAL', 'POLICE STATION', 'UTTARA KANNADA'),
                                 ('DAR KARWAR', 'DAR', 'UTTARA KANNADA'),
                                 ('DAR MT KARWAR', 'DAR', 'UTTARA KANNADA')";
             InsertQueryList.Add(SqlQuery);
 
-            SqlQuery = @"INSERT OR IGNORE INTO DesignationTable
-                                (Designation, ForceType, SortOrder) values 
-                                ('ADDL SP', 'CIVIL', 1),
+            SqlQuery = @"INSERT OR IGNORE INTO DesignationTable (Designation, ForceType, SortOrder) values 
+                                ('ASP', 'CIVIL', 1),
                                 ('DSP', 'CIVIL', 2),
                                 ('CPI', 'CIVIL', 3),
                                 ('PSI', 'CIVIL', 4),

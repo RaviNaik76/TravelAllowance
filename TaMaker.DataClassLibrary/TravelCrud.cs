@@ -64,7 +64,7 @@ namespace TaMaker.DataClassLibrary
             //string max = maxdate.ToString("yyyy-MM-dd HH:mm:ss");
             //string Query = ($"SELECT * FROM Travell WHERE Dep_Date BETWEEN '{ min }' AND '{ max }' AND EmpNo ={ kgid}");
             
-            string Query = ($"SELECT Dep_Place, Dep_Date, Arr_Place, Arr_Date, Dest_Kms, Jou_Reason, Halt_Place, DayRate, NoOfDay, FareAmt, TotalTA, AdvanceTA, Jou_Mode, Warrant_No, Shd_No, Destination, GroupNo FROM Travell WHERE MonthYear='{mYear}' AND EmpNo ={kgid}");
+            string Query = ($"SELECT Dep_Place, Dep_Date, Arr_Place, Arr_Date, Dest_Kms, Jou_Reason, Halt_Place, DayRate, NoOfDay, FareAmt, TotalTA, AdvanceTA, Jou_Mode, Warrant_No, Shd_No, Destination, GroupNo FROM Travell WHERE MonthYear='{mYear}' AND EmpNo ={kgid} ORDER BY Dep_Date, Arr_Date");
             DbConnection.OpenConnection();
             DataTable dt = new DataTable();
             SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(Query, DbConnection.Conn);
@@ -110,6 +110,7 @@ namespace TaMaker.DataClassLibrary
                 Parent = tp,
                 AllowUserToAddRows = false,
                 AllowUserToDeleteRows = false,
+                ReadOnly = true,
                 SelectionMode = DataGridViewSelectionMode.FullRowSelect,
                 DataSource = dt
             };
@@ -129,6 +130,19 @@ namespace TaMaker.DataClassLibrary
                 dataGridView.RowsDefaultCellStyle.BackColor = System.Drawing.Color.LightGreen;
                 dataGridView.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.LightSkyBlue;
             }
+        }
+
+        public int GetColumnIndexByName(DataGridView grid, string name)
+        {
+            for (int i = 0; i < grid.Columns.Count; i++)
+            {
+                if (grid.Columns[i].HeaderText.ToLower().Trim() == name.ToLower().Trim())
+                {
+                    return i;
+                }
+            }
+
+            return -1;
         }
     }
 }

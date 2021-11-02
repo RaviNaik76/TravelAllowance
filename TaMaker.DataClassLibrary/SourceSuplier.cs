@@ -70,19 +70,19 @@ namespace TaMaker.DataClassLibrary
             LoadSource(SqlQuery, Designation);
             return Designation;
         }
-
+       
         public static int GetEmployeSort(string desn, string forceType)
         {
             int sorder = -10;
-            Dictionary<int, string> DesgnationList = LoadDesignation(forceType);
-
-            foreach (KeyValuePair<int, string> ele in DesgnationList)
+            string SqlQuery = ($"SELECT SortOrder FROM DesignationTable WHERE ForceType='{forceType}' AND Designation='{desn}'");
+            DbConnection.OpenConnection();
+            SQLiteCommand Cmd = new SQLiteCommand(SqlQuery, DbConnection.Conn);
+            SQLiteDataReader reader = Cmd.ExecuteReader();
+            while (reader.Read())
             {
-                if (ele.Value == (desn))
-                {
-                    sorder = ele.Key;
-                }
+                sorder = int.Parse(reader.GetValue(0).ToString());
             }
+            DbConnection.CloseConnection();
 
             return sorder;
         }

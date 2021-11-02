@@ -196,7 +196,8 @@ namespace Ta_Maker
             if (TxtSearchEmployee.Text.Length > 0)
             {
                 var empls = employees.Where(emp => emp.EmpName.StartsWith(TxtSearchEmployee.Text.ToUpper()));
-                if (RbByDesignation.Checked) { empls = employees.Where(emp => emp.EmpDesignation.StartsWith(TxtSearchEmployee.Text.ToUpper()));}
+                if (RbByDesignation.Checked) 
+                { empls = employees.Where(emp => emp.EmpDesignation.StartsWith(TxtSearchEmployee.Text.ToUpper()));}
                 
                 if (empls != null) { AssignListView(empls);}
             }

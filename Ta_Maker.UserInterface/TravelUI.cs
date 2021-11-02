@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Windows.Forms;
 using TaMaker.BaseClassLibrary;
 using TaMaker.DataClassLibrary;
@@ -254,16 +253,17 @@ namespace Ta_Maker
 
         private void BtnDelete_Click(object sender, EventArgs e)
         {
-            DataGridViewRow row = GridTravelView.CurrentRow;
-            if (int.TryParse(row.Cells[17].Value.ToString(), out int gno))
+            TravelCrud travelCrud = new TravelCrud();
+            int index = travelCrud.GetColumnIndexByName(GridTravelView, "GroupNo");
+            if (index > 0)
             {
-                TravelCrud travelCrud = new TravelCrud();
-                travelCrud.DeleteTravell(gno);
+                DataGridViewRow row = GridTravelView.CurrentRow;
+                travelCrud.DeleteTravell(int.Parse(row.Cells[index].Value.ToString()));
                 BtnDelete.Enabled = false;
                 BtnLoadTravel_Click(sender, e);
+                BtnLoadTravel.Focus();
             }
             else { MessageBox.Show("Please select row", "TA Maker", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
-            BtnLoadTravel.Focus();
         }
 
         private void GridTravelView_MouseClick(object sender, MouseEventArgs e)
@@ -440,5 +440,12 @@ namespace Ta_Maker
             }
         }
 
+        private void TravelViewTabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (TravelViewTabControl.SelectedTab != tabPage1)
+            {
+                BtnDelete.Enabled = false;
+            }
+        }
     }
 }
