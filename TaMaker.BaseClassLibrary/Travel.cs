@@ -42,5 +42,7 @@ namespace TaMaker.BaseClassLibrary
         [Required]
         public string MonthYear { get; set; }
         public string Remarks { get; set; }
+        public string Designation { get; set; }
+        public double Salary { get; set; }
     }
 }

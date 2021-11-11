@@ -40,13 +40,15 @@ namespace Ta_Maker
             this.TxtSalary = new MaterialSkin.Controls.MaterialTextBox();
             this.TxtName = new MaterialSkin.Controls.MaterialTextBox();
             this.TxtDesig = new MaterialSkin.Controls.MaterialTextBox();
+            this.CmbStatus = new MaterialSkin.Controls.MaterialComboBox();
             this.CmbDesignation = new MaterialSkin.Controls.MaterialComboBox();
             this.TxtEmpNo = new MaterialSkin.Controls.MaterialTextBox();
             this.TabViewEmployee = new System.Windows.Forms.TabPage();
+            this.CkInclude = new MaterialSkin.Controls.MaterialCheckbox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.RbByDesignation = new MaterialSkin.Controls.MaterialRadioButton();
-            this.TxtSearchEmployee = new MaterialSkin.Controls.MaterialTextBox();
             this.RbByName = new MaterialSkin.Controls.MaterialRadioButton();
+            this.TxtSearchEmployee = new MaterialSkin.Controls.MaterialTextBox();
             this.BtnLoadEmployee = new MaterialSkin.Controls.MaterialButton();
             this.EmployeListView = new MaterialSkin.Controls.MaterialListView();
             this.EMPNO = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -54,6 +56,7 @@ namespace Ta_Maker
             this.EMPNAME = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SALARY = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.WORKINGUNIT = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.STATUS = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.EmployeTabSelector = new MaterialSkin.Controls.MaterialTabSelector();
             this.LblMsg = new MaterialSkin.Controls.MaterialLabel();
             this.EmployeeTabControl.SuspendLayout();
@@ -88,6 +91,7 @@ namespace Ta_Maker
             this.TabAddEmployee.Controls.Add(this.TxtSalary);
             this.TabAddEmployee.Controls.Add(this.TxtName);
             this.TabAddEmployee.Controls.Add(this.TxtDesig);
+            this.TabAddEmployee.Controls.Add(this.CmbStatus);
             this.TabAddEmployee.Controls.Add(this.CmbDesignation);
             this.TabAddEmployee.Controls.Add(this.TxtEmpNo);
             this.TabAddEmployee.Location = new System.Drawing.Point(4, 22);
@@ -268,6 +272,32 @@ namespace Ta_Maker
             this.TxtDesig.Text = "";
             this.TxtDesig.TrailingIcon = null;
             // 
+            // CmbStatus
+            // 
+            this.CmbStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CmbStatus.AutoResize = false;
+            this.CmbStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.CmbStatus.Depth = 0;
+            this.CmbStatus.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.CmbStatus.DropDownHeight = 174;
+            this.CmbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CmbStatus.DropDownWidth = 121;
+            this.CmbStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.CmbStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.CmbStatus.FormattingEnabled = true;
+            this.CmbStatus.Hint = "Employee Status";
+            this.CmbStatus.IntegralHeight = false;
+            this.CmbStatus.ItemHeight = 43;
+            this.CmbStatus.Location = new System.Drawing.Point(360, 35);
+            this.CmbStatus.MaxDropDownItems = 4;
+            this.CmbStatus.MouseState = MaterialSkin.MouseState.OUT;
+            this.CmbStatus.Name = "CmbStatus";
+            this.CmbStatus.Size = new System.Drawing.Size(336, 49);
+            this.CmbStatus.StartIndex = 0;
+            this.CmbStatus.TabIndex = 2;
+            this.CmbStatus.Visible = false;
+            // 
             // CmbDesignation
             // 
             this.CmbDesignation.AutoResize = false;
@@ -293,8 +323,6 @@ namespace Ta_Maker
             // 
             // TxtEmpNo
             // 
-            this.TxtEmpNo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.TxtEmpNo.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.TxtEmpNo.Depth = 0;
             this.TxtEmpNo.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
@@ -305,7 +333,7 @@ namespace Ta_Maker
             this.TxtEmpNo.MouseState = MaterialSkin.MouseState.OUT;
             this.TxtEmpNo.Multiline = false;
             this.TxtEmpNo.Name = "TxtEmpNo";
-            this.TxtEmpNo.Size = new System.Drawing.Size(484, 50);
+            this.TxtEmpNo.Size = new System.Drawing.Size(239, 50);
             this.TxtEmpNo.TabIndex = 1;
             this.TxtEmpNo.Text = "";
             this.TxtEmpNo.TrailingIcon = null;
@@ -313,6 +341,7 @@ namespace Ta_Maker
             // TabViewEmployee
             // 
             this.TabViewEmployee.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.TabViewEmployee.Controls.Add(this.CkInclude);
             this.TabViewEmployee.Controls.Add(this.panel1);
             this.TabViewEmployee.Controls.Add(this.TxtSearchEmployee);
             this.TabViewEmployee.Controls.Add(this.BtnLoadEmployee);
@@ -323,6 +352,22 @@ namespace Ta_Maker
             this.TabViewEmployee.Size = new System.Drawing.Size(760, 381);
             this.TabViewEmployee.TabIndex = 1;
             this.TabViewEmployee.Text = "VIEW EMPLOYEE";
+            // 
+            // CkInclude
+            // 
+            this.CkInclude.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.CkInclude.AutoSize = true;
+            this.CkInclude.Depth = 0;
+            this.CkInclude.Location = new System.Drawing.Point(509, 332);
+            this.CkInclude.Margin = new System.Windows.Forms.Padding(0);
+            this.CkInclude.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.CkInclude.MouseState = MaterialSkin.MouseState.HOVER;
+            this.CkInclude.Name = "CkInclude";
+            this.CkInclude.Ripple = true;
+            this.CkInclude.Size = new System.Drawing.Size(86, 37);
+            this.CkInclude.TabIndex = 29;
+            this.CkInclude.Text = "Include";
+            this.CkInclude.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -349,6 +394,23 @@ namespace Ta_Maker
             this.RbByDesignation.Text = "Designation";
             this.RbByDesignation.UseVisualStyleBackColor = true;
             // 
+            // RbByName
+            // 
+            this.RbByName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.RbByName.AutoSize = true;
+            this.RbByName.Depth = 0;
+            this.RbByName.Location = new System.Drawing.Point(129, -3);
+            this.RbByName.Margin = new System.Windows.Forms.Padding(0);
+            this.RbByName.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.RbByName.MouseState = MaterialSkin.MouseState.HOVER;
+            this.RbByName.Name = "RbByName";
+            this.RbByName.Ripple = true;
+            this.RbByName.Size = new System.Drawing.Size(99, 37);
+            this.RbByName.TabIndex = 0;
+            this.RbByName.TabStop = true;
+            this.RbByName.Text = "By Name";
+            this.RbByName.UseVisualStyleBackColor = true;
+            // 
             // TxtSearchEmployee
             // 
             this.TxtSearchEmployee.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -371,23 +433,6 @@ namespace Ta_Maker
             this.TxtSearchEmployee.TrailingIcon = null;
             this.TxtSearchEmployee.UseTallSize = false;
             this.TxtSearchEmployee.TextChanged += new System.EventHandler(this.TxtSearchEmployee_TextChanged);
-            // 
-            // RbByName
-            // 
-            this.RbByName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.RbByName.AutoSize = true;
-            this.RbByName.Depth = 0;
-            this.RbByName.Location = new System.Drawing.Point(129, -3);
-            this.RbByName.Margin = new System.Windows.Forms.Padding(0);
-            this.RbByName.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.RbByName.MouseState = MaterialSkin.MouseState.HOVER;
-            this.RbByName.Name = "RbByName";
-            this.RbByName.Ripple = true;
-            this.RbByName.Size = new System.Drawing.Size(99, 37);
-            this.RbByName.TabIndex = 0;
-            this.RbByName.TabStop = true;
-            this.RbByName.Text = "By Name";
-            this.RbByName.UseVisualStyleBackColor = true;
             // 
             // BtnLoadEmployee
             // 
@@ -421,7 +466,8 @@ namespace Ta_Maker
             this.DESIGNATION,
             this.EMPNAME,
             this.SALARY,
-            this.WORKINGUNIT});
+            this.WORKINGUNIT,
+            this.STATUS});
             this.EmployeListView.Depth = 0;
             this.EmployeListView.FullRowSelect = true;
             this.EmployeListView.HideSelection = false;
@@ -462,6 +508,11 @@ namespace Ta_Maker
             this.WORKINGUNIT.Text = "WORKING UNIT";
             this.WORKINGUNIT.Width = 130;
             // 
+            // STATUS
+            // 
+            this.STATUS.Text = "STATUS";
+            this.STATUS.Width = 5;
+            // 
             // EmployeTabSelector
             // 
             this.EmployeTabSelector.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -478,17 +529,17 @@ namespace Ta_Maker
             // 
             // LblMsg
             // 
-            this.LblMsg.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LblMsg.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.LblMsg.AutoSize = true;
             this.LblMsg.Depth = 0;
             this.LblMsg.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.LblMsg.ForeColor = System.Drawing.Color.Red;
-            this.LblMsg.Location = new System.Drawing.Point(371, 76);
+            this.LblMsg.Location = new System.Drawing.Point(173, 74);
+            this.LblMsg.MinimumSize = new System.Drawing.Size(500, 0);
             this.LblMsg.MouseState = MaterialSkin.MouseState.HOVER;
             this.LblMsg.Name = "LblMsg";
             this.LblMsg.Size = new System.Drawing.Size(1, 0);
-            this.LblMsg.TabIndex = 2;
+            this.LblMsg.TabIndex = 3;
             this.LblMsg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // EmployeUI
@@ -532,7 +583,6 @@ namespace Ta_Maker
         private MaterialSkin.Controls.MaterialTextBox TxtDesig;
         private MaterialSkin.Controls.MaterialComboBox CmbDesignation;
         private MaterialSkin.Controls.MaterialTextBox TxtEmpNo;
-        private MaterialSkin.Controls.MaterialLabel LblMsg;
         private MaterialSkin.Controls.MaterialButton BtnLoadEmployee;
         private MaterialSkin.Controls.MaterialListView EmployeListView;
         private System.Windows.Forms.ColumnHeader EMPNO;
@@ -544,5 +594,9 @@ namespace Ta_Maker
         private System.Windows.Forms.Panel panel1;
         private MaterialSkin.Controls.MaterialRadioButton RbByDesignation;
         private MaterialSkin.Controls.MaterialRadioButton RbByName;
+        private MaterialSkin.Controls.MaterialComboBox CmbStatus;
+        private System.Windows.Forms.ColumnHeader STATUS;
+        private MaterialSkin.Controls.MaterialCheckbox CkInclude;
+        private MaterialSkin.Controls.MaterialLabel LblMsg;
     }
 }

@@ -15,6 +15,7 @@ namespace Ta_Maker
         private string monthYear = ($"{UserInterface.Properties.Settings.Default["DMonth"]} {UserInterface.Properties.Settings.Default["DYear"]}");
         string unit = UserInterface.Properties.Settings.Default["UnitName"].ToString();
         string remarks = "";
+        bool marked;
 
         public TravelUI()
         {
@@ -66,23 +67,45 @@ namespace Ta_Maker
         {
             int GroupNo = SourceSuplier.GetGroupId() + 1;
             string forceType = UserInterface.Properties.Settings.Default["ForceType"].ToString();
-            //loop employee grid (for every employee)
+            
             if (DgvSelectedEmployee.Rows.Count >= 1)
             {
+                //check already exists or not
+                bool DataExists = true;
                 foreach (DataGridViewRow row in DgvSelectedEmployee.Rows)
-                {   //get salary and emp number
+                {
                     int Kgid = int.Parse(row.Cells[0].Value.ToString());
-                    string[] design = row.Cells[1].Value.ToString().Split();
-
-                    //get perday ta
-                    double PerDayTa = TaValueSuplier.GetTaValue(design[0], CmbDestination.Text.ToString(), forceType);
-
-                    //ADD DATA TO CLASS
-                    Travel travell = NewTravel(PerDayTa, Kgid, GroupNo);
-                    //Add to database
-                    _ = TravelCrud.AddTravell(travell);
+                    DateTime fDate = GetFromatedDate(out DateTime tDate);
+                    bool DataNotIn = TravelCrud.CheckTravell(Kgid, monthYear, fDate);
+                    if (DataNotIn)
+                    {
+                        DataExists = false;
+                    }
                 }
-                BtnClearAll_Click(sender, e);
+
+                if (DataExists)
+                {
+                    //loop employee grid (for every employee)
+                    foreach (DataGridViewRow row in DgvSelectedEmployee.Rows)
+                    {   
+                        //get salary and emp number
+                        int Kgid = int.Parse(row.Cells[0].Value.ToString());
+                        string[] design = row.Cells[1].Value.ToString().Split();
+                        string fulldesign = row.Cells[1].Value.ToString();
+                        double salary = double.Parse(row.Cells[3].Value.ToString());
+
+                        //get perday ta
+                        double PerDayTa = TaValueSuplier.GetTaValue(design[0], CmbDestination.Text.ToString(), forceType);
+                        
+                        //ADD DATA TO CLASS
+                        Travel travell = NewTravel(PerDayTa, Kgid, GroupNo, fulldesign, salary);
+                        
+                        //Add to database
+                        _ = TravelCrud.AddTravell(travell);
+                    }
+                    BtnClearAll_Click(sender, e);
+                }
+                else { MessageBox.Show("Data Already Exists within the Date Range", "Travel Entry"); }
             }
             else {MessageBox.Show("No Employee Selected", "Travel Entry Error");}
         }
@@ -136,6 +159,12 @@ namespace Ta_Maker
                 foreach (var item in haltingPlaces)
                 {
                     CmbHalting.Items.Add(item.Value);
+                }
+
+                marked = FinalPrintMark.GetFinalMark(monthYear);
+                if (marked)
+                {
+                    BtnAddTravel.Enabled = false;
                 }
 
                 SetMonthYearToDate();
@@ -268,7 +297,10 @@ namespace Ta_Maker
 
         private void GridTravelView_MouseClick(object sender, MouseEventArgs e)
         {
-            BtnDelete.Enabled = true;
+            if (!marked)
+            {
+                BtnDelete.Enabled = true;
+            }
         }
 
         private void TxtSearchEmployee_Enter(object sender, EventArgs e)
@@ -291,7 +323,9 @@ namespace Ta_Maker
                     }
                 }
                 //Load all employee
-                EmployeCrud.SearchEmployee(DgvEmployee, unit, TxtSearchEmployee.Text);
+                bool IsNameChecked = false;
+                if (CkByName.Checked) {IsNameChecked = true;}
+                EmployeCrud.SearchEmployee(DgvEmployee, unit, TxtSearchEmployee.Text, IsNameChecked);
                 
                 //Add selected row again to grid
                 if (rows.Count > 0)
@@ -351,19 +385,23 @@ namespace Ta_Maker
             }
         }
 
-        private Travel NewTravel(double PerDayTa, int Kgid, int GroupNo)
+        private Travel NewTravel(double PerDayTa, int Kgid, int GroupNo, string designation, double salary)
         {
             DateTime fDate = GetFromatedDate(out DateTime tDate);
-            double Days = PrepareTravel(PerDayTa, out double totalTA);
+            
             //divid the hole amt to all employees
+            if (TxtFair.Text.Length == 0)
+            {TxtFair.Text = "0";}
             double fairamt = double.Parse(TxtFair.Text);
             if (fairamt > 0)
             {
                 if (DgvSelectedEmployee.Rows.Count > 0)
                 {
-                    fairamt /= DgvSelectedEmployee.Rows.Count;
+                   fairamt /= DgvSelectedEmployee.Rows.Count;
                 }
             }
+
+            double Days = PrepareTravel(PerDayTa, fairamt, out double totalTA);
 
             Travel travel = new Travel()
             {
@@ -386,28 +424,16 @@ namespace Ta_Maker
                 EmpNo = Kgid,
                 GroupNo = GroupNo,
                 MonthYear = monthYear,
-                Remarks = remarks
+                Remarks = remarks,
+                Designation = designation,
+                Salary = salary
             };
             return travel;
         }
 
-        private double PrepareTravel(double PerDayTa, out double totalTA)
+        private double PrepareTravel(double PerDayTa, double fairAmt, out double totalTA)
         {
             double Days;
-            double.TryParse(TxtDays2.Text, out double extraDays);
-            if (extraDays > 0)
-            {
-                Days = double.Parse(TxtDays.Text) + double.Parse(TxtDays2.Text);
-                totalTA = double.Parse(TxtDays.Text) * PerDayTa;
-                totalTA += (double.Parse(TxtDays2.Text) * (PerDayTa / 2));
-                remarks = ($"Rule 518 ({TxtDays.Text} x {PerDayTa}, {TxtDays2.Text} x {PerDayTa / 2})");
-            }
-            else
-            {
-                Days = double.Parse(TxtDays.Text);
-                totalTA = (PerDayTa * double.Parse(TxtDays.Text) + double.Parse(TxtFair.Text));
-                remarks = "";
-            }
             if (TxtAdvace.Text.Length == 0)
             {
                 TxtAdvace.Text = "0";
@@ -416,10 +442,23 @@ namespace Ta_Maker
             {
                 TxtKms.Text = "0";
             }
-            if (TxtFair.Text.Length == 0)
+           
+            double.TryParse(TxtDays2.Text, out double extraDays);
+            if (extraDays > 0)
             {
-                TxtFair.Text = "0";
+                Days = double.Parse(TxtDays.Text) + double.Parse(TxtDays2.Text);
+                totalTA = double.Parse(TxtDays.Text) * PerDayTa;
+                totalTA += (double.Parse(TxtDays2.Text) * (PerDayTa / 2));
+                totalTA += fairAmt + double.Parse(TxtAdvace.Text);
+                remarks = ($"Rule 518 ({TxtDays.Text} x {PerDayTa}, {TxtDays2.Text} x {PerDayTa / 2})");
             }
+            else
+            {
+                Days = double.Parse(TxtDays.Text);
+                totalTA = (PerDayTa * double.Parse(TxtDays.Text) + fairAmt + double.Parse(TxtAdvace.Text));
+                remarks = "";
+            }
+           
             return Days;
         }
 

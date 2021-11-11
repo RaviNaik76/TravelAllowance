@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.Windows.Forms;
@@ -17,8 +18,8 @@ namespace TaMaker.DataClassLibrary
             using (var Cmd = new SQLiteCommand(DbConnection.Conn))
             {
                 Cmd.CommandText = ($"INSERT OR IGNORE INTO Travell "
-                                + " (Dep_Place, Dep_Date, Arr_Place, Arr_Date, Dest_Kms, Jou_Reason, Halt_Place, DayRate, NoOfDay, FareAmt, TotalTA, AdvanceTA, Jou_Mode, Warrant_No, Shd_No, Destination, EmpNo, GroupNo, MonthYear, Remarks) values "
-                                + " (@dep_place, @dep_date, @arr_place, @arr_date, @dkms, @jreason, @halting, @dayrate, @days, @famt, @ta, @adv, @jmode, @wno, @shd, @dest, @empno, @groupno, @myear, @remark)");
+                                + " (Dep_Place, Dep_Date, Arr_Place, Arr_Date, Dest_Kms, Jou_Reason, Halt_Place, DayRate, NoOfDay, FareAmt, TotalTA, AdvanceTA, Jou_Mode, Warrant_No, Shd_No, Destination, EmpNo, GroupNo, MonthYear, Remarks, Designation, Salary) values "
+                                + " (@dep_place, @dep_date, @arr_place, @arr_date, @dkms, @jreason, @halting, @dayrate, @days, @famt, @ta, @adv, @jmode, @wno, @shd, @dest, @empno, @groupno, @myear, @remark, @desig, @salary)");
 
                 Cmd.Parameters.AddWithValue("@dep_place", travell.Dep_Place);
                 Cmd.Parameters.AddWithValue("@dep_date", travell.Dep_Date);
@@ -40,6 +41,8 @@ namespace TaMaker.DataClassLibrary
                 Cmd.Parameters.AddWithValue("@groupno", travell.GroupNo);
                 Cmd.Parameters.AddWithValue("@myear", travell.MonthYear);
                 Cmd.Parameters.AddWithValue("@remark", travell.Remarks);
+                Cmd.Parameters.AddWithValue("@desig", travell.Designation);
+                Cmd.Parameters.AddWithValue("@salary", travell.Salary);
                 Cmd.ExecuteNonQuery();
             }
             DbConnection.CloseConnection();
@@ -73,16 +76,56 @@ namespace TaMaker.DataClassLibrary
             return dt;
         }
 
+        public static int CheckTravell(int kgid)
+        {
+            string Query = ($"SELECT Dep_Place, Dep_Date, Arr_Place, Arr_Date, Dest_Kms FROM Travell WHERE EmpNo ={kgid} ORDER BY Dep_Date");
+            DbConnection.OpenConnection();
+            DataTable dt = new DataTable();
+            SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(Query, DbConnection.Conn);
+            dataAdapter.Fill(dt);
+            DbConnection.CloseConnection();
+            return dt.Rows.Count;
+        }
+
+        public static bool CheckTravell(int kgid, string mYear, DateTime fdate)
+        {
+            bool IsIn = false;
+            using (var Cmd = new SQLiteCommand(DbConnection.Conn))
+            {
+                Cmd.CommandText = ($"SELECT Dep_Date, Arr_Date FROM Travell WHERE MonthYear='{mYear}' AND EmpNo ={kgid} ORDER BY Dep_Date");
+
+                DbConnection.OpenConnection();
+
+                using (SQLiteDataReader dr = Cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        DateTime from = DateTime.Parse(dr.GetValue(0).ToString());
+                        DateTime to = DateTime.Parse(dr.GetValue(1).ToString());
+                        if (fdate >= from && fdate <= to)
+                        {
+                            IsIn = true;
+                        }
+                    }
+                }
+                DbConnection.CloseConnection();
+            }
+            return IsIn;
+        }
+
         public void AsaignDataToEmployeeGrid(DataGridView DgvEmployee, List<Employee> emplist, bool check)
         {
             foreach (Employee item in emplist)
             {
-                int n = DgvEmployee.Rows.Add();
-                DgvEmployee.Rows[n].Cells[0].Value = check;
-                DgvEmployee.Rows[n].Cells[1].Value = item.EmpDesignation.ToString();
-                DgvEmployee.Rows[n].Cells[2].Value = item.EmpName.ToString();
-                DgvEmployee.Rows[n].Cells[3].Value = item.EmpSalary.ToString();
-                DgvEmployee.Rows[n].Cells[4].Value = item.EmpNumber.ToString();
+                if (item.EmpStatus != "DELETE" && item.EmpStatus != "RETAIRED" && item.EmpStatus != "TRANSFFER")
+                {
+                    int n = DgvEmployee.Rows.Add();
+                    DgvEmployee.Rows[n].Cells[0].Value = check;
+                    DgvEmployee.Rows[n].Cells[1].Value = item.EmpDesignation.ToString();
+                    DgvEmployee.Rows[n].Cells[2].Value = item.EmpName.ToString();
+                    DgvEmployee.Rows[n].Cells[3].Value = item.EmpSalary.ToString();
+                    DgvEmployee.Rows[n].Cells[4].Value = item.EmpNumber.ToString();
+                }
             }
 
             DgvEmployee.Columns[0].Width = 40;

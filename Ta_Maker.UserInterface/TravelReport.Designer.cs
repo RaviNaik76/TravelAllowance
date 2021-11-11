@@ -31,9 +31,10 @@ namespace Ta_Maker
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TravelReport));
             this.TravelReportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
-            this.CmbMonth = new MaterialSkin.Controls.MaterialComboBox();
-            this.CmbYear = new MaterialSkin.Controls.MaterialComboBox();
             this.BtnShowReport = new MaterialSkin.Controls.MaterialButton();
+            this.CmbYear = new System.Windows.Forms.ComboBox();
+            this.CmbMonth = new System.Windows.Forms.ComboBox();
+            this.BtnFinalMark = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // TravelReportViewer
@@ -41,70 +42,20 @@ namespace Ta_Maker
             this.TravelReportViewer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TravelReportViewer.Location = new System.Drawing.Point(6, 122);
+            this.TravelReportViewer.Location = new System.Drawing.Point(6, 105);
             this.TravelReportViewer.Name = "TravelReportViewer";
             this.TravelReportViewer.ServerReport.BearerToken = null;
-            this.TravelReportViewer.Size = new System.Drawing.Size(1323, 498);
+            this.TravelReportViewer.Size = new System.Drawing.Size(1323, 515);
             this.TravelReportViewer.TabIndex = 0;
-            // 
-            // CmbMonth
-            // 
-            this.CmbMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CmbMonth.AutoResize = false;
-            this.CmbMonth.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.CmbMonth.Depth = 0;
-            this.CmbMonth.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.CmbMonth.DropDownHeight = 174;
-            this.CmbMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CmbMonth.DropDownWidth = 121;
-            this.CmbMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.CmbMonth.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.CmbMonth.FormattingEnabled = true;
-            this.CmbMonth.Hint = "Select Month";
-            this.CmbMonth.IntegralHeight = false;
-            this.CmbMonth.ItemHeight = 43;
-            this.CmbMonth.Location = new System.Drawing.Point(924, 67);
-            this.CmbMonth.MaxDropDownItems = 4;
-            this.CmbMonth.MouseState = MaterialSkin.MouseState.OUT;
-            this.CmbMonth.Name = "CmbMonth";
-            this.CmbMonth.Size = new System.Drawing.Size(201, 49);
-            this.CmbMonth.StartIndex = 0;
-            this.CmbMonth.TabIndex = 3;
-            // 
-            // CmbYear
-            // 
-            this.CmbYear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CmbYear.AutoResize = false;
-            this.CmbYear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.CmbYear.Depth = 0;
-            this.CmbYear.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.CmbYear.DropDownHeight = 174;
-            this.CmbYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CmbYear.DropDownWidth = 121;
-            this.CmbYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.CmbYear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.CmbYear.FormattingEnabled = true;
-            this.CmbYear.Hint = "Select Year";
-            this.CmbYear.IntegralHeight = false;
-            this.CmbYear.ItemHeight = 43;
-            this.CmbYear.Location = new System.Drawing.Point(753, 67);
-            this.CmbYear.MaxDropDownItems = 4;
-            this.CmbYear.MouseState = MaterialSkin.MouseState.OUT;
-            this.CmbYear.Name = "CmbYear";
-            this.CmbYear.Size = new System.Drawing.Size(150, 49);
-            this.CmbYear.StartIndex = 0;
-            this.CmbYear.TabIndex = 2;
-            this.CmbYear.SelectedIndexChanged += new System.EventHandler(this.CmbYear_SelectedIndexChanged);
             // 
             // BtnShowReport
             // 
-            this.BtnShowReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnShowReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BtnShowReport.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             this.BtnShowReport.Depth = 0;
             this.BtnShowReport.HighEmphasis = true;
             this.BtnShowReport.Icon = null;
-            this.BtnShowReport.Location = new System.Drawing.Point(1205, 77);
+            this.BtnShowReport.Location = new System.Drawing.Point(1205, 66);
             this.BtnShowReport.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.BtnShowReport.MouseState = MaterialSkin.MouseState.HOVER;
             this.BtnShowReport.Name = "BtnShowReport";
@@ -116,14 +67,44 @@ namespace Ta_Maker
             this.BtnShowReport.UseVisualStyleBackColor = true;
             this.BtnShowReport.Click += new System.EventHandler(this.BtnShowReport_Click);
             // 
+            // CmbYear
+            // 
+            this.CmbYear.FormattingEnabled = true;
+            this.CmbYear.Location = new System.Drawing.Point(825, 73);
+            this.CmbYear.Name = "CmbYear";
+            this.CmbYear.Size = new System.Drawing.Size(121, 21);
+            this.CmbYear.TabIndex = 5;
+            this.CmbYear.SelectedIndexChanged += new System.EventHandler(this.CmbYear_SelectedIndexChanged);
+            // 
+            // CmbMonth
+            // 
+            this.CmbMonth.FormattingEnabled = true;
+            this.CmbMonth.Location = new System.Drawing.Point(1005, 73);
+            this.CmbMonth.Name = "CmbMonth";
+            this.CmbMonth.Size = new System.Drawing.Size(164, 21);
+            this.CmbMonth.TabIndex = 6;
+            this.CmbMonth.SelectedIndexChanged += new System.EventHandler(this.CmbMonth_SelectedIndexChanged);
+            // 
+            // BtnFinalMark
+            // 
+            this.BtnFinalMark.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnFinalMark.Location = new System.Drawing.Point(563, 70);
+            this.BtnFinalMark.Name = "BtnFinalMark";
+            this.BtnFinalMark.Size = new System.Drawing.Size(171, 28);
+            this.BtnFinalMark.TabIndex = 7;
+            this.BtnFinalMark.Text = "Mark as Final Print";
+            this.BtnFinalMark.UseVisualStyleBackColor = true;
+            this.BtnFinalMark.Click += new System.EventHandler(this.BtnFinalMark_Click);
+            // 
             // TravelReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1335, 626);
-            this.Controls.Add(this.BtnShowReport);
+            this.Controls.Add(this.BtnFinalMark);
             this.Controls.Add(this.CmbMonth);
             this.Controls.Add(this.CmbYear);
+            this.Controls.Add(this.BtnShowReport);
             this.Controls.Add(this.TravelReportViewer);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TravelReport";
@@ -138,8 +119,9 @@ namespace Ta_Maker
         #endregion
 
         private Microsoft.Reporting.WinForms.ReportViewer TravelReportViewer;
-        private MaterialSkin.Controls.MaterialComboBox CmbMonth;
-        private MaterialSkin.Controls.MaterialComboBox CmbYear;
         private MaterialSkin.Controls.MaterialButton BtnShowReport;
+        private System.Windows.Forms.ComboBox CmbYear;
+        private System.Windows.Forms.ComboBox CmbMonth;
+        private System.Windows.Forms.Button BtnFinalMark;
     }
 }

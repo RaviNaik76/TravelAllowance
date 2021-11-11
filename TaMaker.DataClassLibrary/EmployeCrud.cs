@@ -16,29 +16,30 @@ namespace TaMaker.DataClassLibrary
                 if (unit.Length > 0)
                 {
                     Cmd.CommandText = ($"SELECT * FROM EmployeeView WHERE EmpStation='{ unit }' ORDER BY EmpShort");
-                }
-                else
-                {
-                    Cmd.CommandText = "SELECT * FROM EmployeeView ORDER BY EmpShort";
-                }
-                DbConnection.OpenConnection();
+                    DbConnection.OpenConnection();
 
-                SQLiteDataReader dr = Cmd.ExecuteReader();
-                while (dr.Read())
-                {
-                    Employee emp = new Employee()
+                    SQLiteDataReader dr = Cmd.ExecuteReader();
+                    while (dr.Read())
                     {
-                        EmpNumber = (int)dr.GetValue(0),
-                        EmpDesignation = (string)dr.GetValue(1),
-                        EmpName = (string)dr.GetValue(2),
-                        EmpSalary = double.Parse(dr.GetValue(3).ToString()),
-                        EmpStation = (string)dr.GetValue(4),
-                        EmpShort = (int)dr.GetValue(5)
-                    };
+                        Employee emp = new Employee()
+                        {
+                            EmpNumber = int.Parse(dr.GetValue(0).ToString()),
+                            EmpDesignation = (string)dr.GetValue(1),
+                            EmpName = (string)dr.GetValue(2),
+                            EmpSalary = double.Parse(dr.GetValue(3).ToString()),
+                            EmpStation = (string)dr.GetValue(4),
+                            EmpShort = int.Parse(dr.GetValue(5).ToString()),
+                            EmpStatus = dr.GetValue(6).ToString()
+                        };
 
-                    employees.Add(emp);
+                        employees.Add(emp);
+                    }
+                    DbConnection.CloseConnection();
                 }
-                DbConnection.CloseConnection();
+                //else
+                //{
+                //    Cmd.CommandText = "SELECT * FROM EmployeeView ORDER BY EmpShort";
+                //}
             }
 
             return employees;
@@ -59,7 +60,7 @@ namespace TaMaker.DataClassLibrary
                 else
                 {
                     Cmd.CommandText = @"UPDATE Employee SET EmpDesignation=@Desig, EmpName=@empName, EmpSalary=@empSalary, "
-                                       + " EmpStation =@empPs, EmpShort=@empOrder WHERE EmpNumber =" + emp.EmpNumber + "";
+                                       + " EmpStation =@empPs, EmpShort=@empOrder, EmpStatus=@status WHERE EmpNumber =" + emp.EmpNumber + "";
                 }
 
                 Cmd.Parameters.AddWithValue("@Desig", emp.EmpDesignation);
@@ -67,6 +68,7 @@ namespace TaMaker.DataClassLibrary
                 Cmd.Parameters.AddWithValue("@empSalary", emp.EmpSalary);
                 Cmd.Parameters.AddWithValue("@empPs", emp.EmpStation);
                 Cmd.Parameters.AddWithValue("@empOrder", emp.EmpShort);
+                Cmd.Parameters.AddWithValue("@status", emp.EmpStatus);
 
                 DbConnection.OpenConnection();
                 Cmd.ExecuteNonQuery();
@@ -85,33 +87,47 @@ namespace TaMaker.DataClassLibrary
             }
         }
 
-        public static void SearchEmployee(DataGridView dgv, string unit, string searchText)
+        public static void SearchEmployee(DataGridView dgv, string unit, string searchText, bool check)
         {
             using (var Cmd = new SQLiteCommand(DbConnection.Conn))
             {
                 if (unit.Length > 0)
                 {
-                    Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber FROM Employee WHERE EmpStation='{unit}' AND EmpName Like '{searchText}%' OR EmpDesignation Like '{searchText}%' ORDER BY EmpShort");
-                }
-                else
-                {
-                    Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber FROM Employee WHERE EmpName Like '{searchText}%' OR EmpDesignation Like '{searchText}%' ORDER BY EmpShort");
-                }
-                DbConnection.OpenConnection();
-                using (SQLiteDataReader dr = Cmd.ExecuteReader())
-                {
-                    dgv.Rows.Clear();
-                    while (dr.Read())
+                    if (check)
                     {
-                        int n = dgv.Rows.Add();
-                        dgv.Rows[n].Cells[0].Value = false;
-                        dgv.Rows[n].Cells[1].Value = dr.GetValue(0);
-                        dgv.Rows[n].Cells[2].Value = dr.GetValue(1);
-                        dgv.Rows[n].Cells[3].Value = dr.GetValue(2);
-                        dgv.Rows[n].Cells[4].Value = dr.GetValue(3);
+                        Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber, EmpStatus FROM Employee WHERE EmpName Like '{searchText}%' AND EmpStation='{unit}' ORDER BY EmpShort");
                     }
+                    else
+                    {
+                        Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber, EmpStatus FROM Employee WHERE EmpDesignation Like '{searchText}%' AND EmpStation='{unit}' ORDER BY EmpShort");
+                    }
+                   // Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber, EmpStatus FROM Employee WHERE EmpName Like '{searchText}%' OR EmpDesignation Like '{searchText}%' AND EmpStation='{unit}' ORDER BY EmpShort");
+                    DbConnection.OpenConnection();
+
+                    using (SQLiteDataReader dr = Cmd.ExecuteReader())
+                    {
+                        dgv.Rows.Clear();
+                        while (dr.Read())
+                        {
+                            string status = dr.GetValue(4).ToString();
+                            if (status != "DELETE" && status != "RETAIRED" && status != "TRANSFFER")
+                            {
+                                int n = dgv.Rows.Add();
+                                dgv.Rows[n].Cells[0].Value = false;
+                                dgv.Rows[n].Cells[1].Value = dr.GetValue(0);
+                                dgv.Rows[n].Cells[2].Value = dr.GetValue(1);
+                                dgv.Rows[n].Cells[3].Value = dr.GetValue(2);
+                                dgv.Rows[n].Cells[4].Value = dr.GetValue(3);
+                            }
+                        }
+                    }
+                    DbConnection.CloseConnection();
                 }
-                DbConnection.CloseConnection();
+                //else
+                //{
+                //    Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber, EmpStatus FROM Employee WHERE EmpName Like '{searchText}%' OR EmpDesignation Like '{searchText}%' AND EmpStatus IS NULL ORDER BY EmpShort");
+                //}
+               
             }
         }
     }

@@ -86,6 +86,7 @@ namespace Ta_Maker
             this.DeselectAll = new System.Windows.Forms.Button();
             this.SelectAll = new System.Windows.Forms.Button();
             this.TxtSearchEmployee = new MaterialSkin.Controls.MaterialTextBox();
+            this.CkByName = new System.Windows.Forms.CheckBox();
             this.TravellTabControl.SuspendLayout();
             this.TabAddTravel.SuspendLayout();
             this.materialCard2.SuspendLayout();
@@ -803,6 +804,7 @@ namespace Ta_Maker
             this.PanelEmployee.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PanelEmployee.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.PanelEmployee.Controls.Add(this.CkByName);
             this.PanelEmployee.Controls.Add(this.DgvEmployee);
             this.PanelEmployee.Controls.Add(this.Okey);
             this.PanelEmployee.Controls.Add(this.CancelEmployee);
@@ -875,7 +877,7 @@ namespace Ta_Maker
             // CancelEmployee
             // 
             this.CancelEmployee.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CancelEmployee.Location = new System.Drawing.Point(276, 291);
+            this.CancelEmployee.Location = new System.Drawing.Point(280, 291);
             this.CancelEmployee.Name = "CancelEmployee";
             this.CancelEmployee.Size = new System.Drawing.Size(62, 23);
             this.CancelEmployee.TabIndex = 6;
@@ -885,7 +887,7 @@ namespace Ta_Maker
             // 
             // DeselectAll
             // 
-            this.DeselectAll.Location = new System.Drawing.Point(72, 291);
+            this.DeselectAll.Location = new System.Drawing.Point(68, 291);
             this.DeselectAll.Name = "DeselectAll";
             this.DeselectAll.Size = new System.Drawing.Size(72, 23);
             this.DeselectAll.TabIndex = 6;
@@ -927,6 +929,17 @@ namespace Ta_Maker
             this.TxtSearchEmployee.TextChanged += new System.EventHandler(this.TxtSearchEmployee_TextChanged);
             this.TxtSearchEmployee.Enter += new System.EventHandler(this.TxtSearchEmployee_Enter);
             // 
+            // CkByName
+            // 
+            this.CkByName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.CkByName.AutoSize = true;
+            this.CkByName.Location = new System.Drawing.Point(172, 293);
+            this.CkByName.Name = "CkByName";
+            this.CkByName.Size = new System.Drawing.Size(106, 17);
+            this.CkByName.TabIndex = 27;
+            this.CkByName.Text = "Search By Name";
+            this.CkByName.UseVisualStyleBackColor = true;
+            // 
             // TravelUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -956,6 +969,7 @@ namespace Ta_Maker
             ((System.ComponentModel.ISupportInitialize)(this.GridTravelView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DgvSelectedEmployee)).EndInit();
             this.PanelEmployee.ResumeLayout(false);
+            this.PanelEmployee.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvEmployee)).EndInit();
             this.ResumeLayout(false);
 
@@ -1019,5 +1033,6 @@ namespace Ta_Maker
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.CheckBox CkByName;
     }
 }

@@ -51,74 +51,88 @@ namespace TaMaker.DataClassLibrary
 
             SqlQuery = @"CREATE TABLE IF NOT EXISTS Employee 
                         (
-                            EmpNumber int not null primary key,
-                            EmpDesignation varchar(20),
-                            EmpName varchar(100),
-                            EmpSalary double, 
-                            EmpStation varchar(50),
-                            EmpShort int
+                            EmpNumber INTEGER NOT NULL,
+	                        EmpDesignation TEXT,
+	                        EmpName TEXT,
+	                        EmpSalary REAL,
+	                        EmpStation TEXT,
+	                        EmpShort INTEGER,
+	                        EmpStatus TEXT,
+	                        PRIMARY KEY(EmpNumber)
                         )";
             SqlQueryList.Add(SqlQuery);
 
             SqlQuery = @"CREATE TABLE IF NOT EXISTS Travell 
                         ( 
-                            Dep_Place varchar(50),
-                            Dep_Date text,
-                            Arr_Place varchar(50),
-                            Arr_Date text,
-                            Dest_Kms int,
-                            Jou_Reason varchar(50),
-                            Halt_Place varchar(50),
-                            DayRate double,
-                            NoOfDay double,
-                            FareAmt double,
-                            TotalTA double,
-                            AdvanceTA double,
-                            Jou_Mode varchar(50),
-                            Warrant_No text,
-                            Shd_No text,
-                            Destination varchar(50),
-                            EmpNo int not null,
-                            GroupNo int,
-                            MonthYear varchar(50),
-                            Remarks text
+                            Dep_Place TEXT,
+                            Dep_Date TEXT,
+	                        Arr_Place TEXT,
+	                        Arr_Date TEXT,
+	                        Dest_Kms INTEGER,
+	                        Jou_Reason TEXT,
+	                        Halt_Place TEXT,
+	                        DayRate REAL,
+	                        NoOfDay REAL,
+	                        FareAmt REAL,
+	                        TotalTA REAL,
+	                        AdvanceTA REAL,
+	                        Jou_Mode TEXT,
+	                        Warrant_No TEXT,
+	                        Shd_No TEXT,
+	                        Destination TEXT,
+	                        EmpNo INTEGER NOT NULL,
+	                        GroupNo INTEGER,
+	                        MonthYear TEXT,
+	                        Remarks TEXT,
+	                        Designation TEXT,
+	                        Salary REAL,
+	                        FOREIGN KEY(EmpNo) REFERENCES Employee(EmployeeNumber)
                         )";
             SqlQueryList.Add(SqlQuery);
 
             SqlQuery = @"CREATE TABLE IF NOT EXISTS TaValue 
                         (
-                            EmpClass text not null,
-                            NormalTa decimal, 
-                            MetroTa decimal,
-                            BangloreTa decimal,
-                            OutOfStateTa decimal,
-                            OutOfStateMetroTa decimal
+                            EmpClass TEXT NOT NULL,
+                            NormalTa REAL,
+	                        MetroTa REAL,
+	                        BangloreTa REAL,
+	                        OutOfStateTa REAL,
+	                        OutOfStateMetroTa REAL
                         )";
 
             SqlQueryList.Add(SqlQuery);
 
             SqlQuery = @"CREATE TABLE IF NOT EXISTS SourceTable 
                         (
-                            SourceName text not null,
-                            SourceType varchar(20) not null
+                            SourceName TEXT NOT NULL,
+                            SourceType TEXT NOT NULL
                         )";
 
             SqlQueryList.Add(SqlQuery);
 
             SqlQuery = @"CREATE TABLE IF NOT EXISTS DesignationTable 
                         (
-                            Designation text not null,
-                            ForceType text,
-                            SortOrder int not null
+                            Designation TEXT NOT NULL,
+                            ForceType TEXT,
+	                        SortOrder INTEGER NOT NULL
                         )";
 
             SqlQueryList.Add(SqlQuery);
 
             SqlQuery = @"CREATE TABLE IF NOT EXISTS Units 
                         (
-                            UnitName text not null,
-                            UnitType varchar(20) not null,
-                            UnitDist text not null
+                            UnitName TEXT NOT NULL,
+                            UnitType TEXT NOT NULL,
+                            UnitDist TEXT NOT NULL
+                        )";
+
+            SqlQueryList.Add(SqlQuery);
+
+            SqlQuery = @"CREATE TABLE IF NOT EXISTS Marking 
+                        (
+                            M_Year TEXT NOT NULL,
+                            Mark TEXT NOT NULL,
+                            MarkedDate TEXT NOT NULL
                         )";
 
             SqlQueryList.Add(SqlQuery);
@@ -202,7 +216,13 @@ namespace TaMaker.DataClassLibrary
                                 ('INT', 'Office'),
                                 ('DAR', 'Office'),
                                 ('DAR MT', 'Office'),
-                                ('ISD', 'Office')";
+                                ('ISD', 'Office'),
+                                ('PRAMOTION', 'Status'),
+                                ('TRANSFFER', 'Status'),
+                                ('RETAIRED', 'Status'),
+                                ('SALARY HIKE', 'Status'),
+                                ('OTHERS', 'Status'),
+                                ('DELETE', 'Status')";
             InsertQueryList.Add(SqlQuery);
 
             SqlQuery = @"INSERT OR IGNORE INTO Units (UnitName, UnitType, UnitDist) values 
@@ -251,6 +271,10 @@ namespace TaMaker.DataClassLibrary
 
             SqlQuery = @"CREATE VIEW IF NOT EXISTS OfficeTypeView AS 
                         SELECT * FROM SourceTable WHERE SourceType='Office'";
+            ViewsQueryList.Add(SqlQuery);
+
+            SqlQuery = @"CREATE VIEW IF NOT EXISTS EmpStatusView AS 
+                        SELECT * FROM SourceTable WHERE SourceType='Status'";
             ViewsQueryList.Add(SqlQuery);
 
             SqlQuery = @"CREATE VIEW IF NOT EXISTS DesignationView AS 

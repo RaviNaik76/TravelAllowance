@@ -1,6 +1,7 @@
 ﻿using MaterialSkin.Controls;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using TaMaker.BaseClassLibrary;
@@ -12,6 +13,7 @@ namespace Ta_Maker
     {
         string forceType = UserInterface.Properties.Settings.Default["ForceType"].ToString();
         string unit = UserInterface.Properties.Settings.Default["UnitName"].ToString();
+        private string monthYear = ($"{UserInterface.Properties.Settings.Default["DMonth"]} {UserInterface.Properties.Settings.Default["DYear"]}");
         List<Employee> employees = new List<Employee>();
 
         public EmployeUI()
@@ -38,6 +40,13 @@ namespace Ta_Maker
                 {
                     CmbStation.Items.Add(item.Value);
                 }
+
+                Dictionary<int, string> EmpStatus = SourceSuplier.LoadEmpStatus();
+                foreach (var item in EmpStatus)
+                {
+                    CmbStatus.Items.Add(item.Value);
+                }
+
                 CmbStation.SelectedItem = unit;
                 TxtEmpNo.Focus();
             }
@@ -66,6 +75,7 @@ namespace Ta_Maker
                     EmpName = TxtName.Text.ToUpper(),
                     EmpSalary = double.Parse(TxtSalary.Text),
                     EmpStation = CmbStation.Text,
+                    EmpStatus = CmbStatus.Text,
                     EmpShort = SourceSuplier.GetEmployeSort(CmbDesignation.Text, forceType)
                 };
                 EmployeCrud employeCrud = new EmployeCrud();
@@ -80,9 +90,15 @@ namespace Ta_Maker
 
         private void BtnModify_Click(object sender, EventArgs e)
         {
-            NewEmployee(false);
-            TxtEmpNo.Enabled = true;
-            TxtEmpNo.Focus();
+            DataTable dt = TravelCrud.ViewTravell(monthYear, int.Parse(TxtEmpNo.Text));
+            if (dt.Rows.Count == 0)
+            {
+                NewEmployee(false);
+                TxtEmpNo.Enabled = true;
+                CmbStatus.Visible = false;
+                TxtEmpNo.Focus();
+            }
+            else { LblMsg.Text = "You con't Change Salary, Designation in this Month"; }
         }
 
         private void BtnDelete_Click(object sender, EventArgs e)
@@ -91,12 +107,19 @@ namespace Ta_Maker
             ListViewItem item = EmployeListView.SelectedItems[0];
             if (int.TryParse(item.Text, out int kgid))
             {
-                employeCrud.DeleteEmployee(kgid);
-                ClearAllFields();
-                TxtEmpNo.Enabled = true;
-                LblMsg.Text = "Employee Deleted";
-                BtnLoadEmployee_Click(sender, e);
-                TxtEmpNo.Focus();
+                //get travel details
+                int DataIn = TravelCrud.CheckTravell(kgid);
+                if (DataIn == 0)
+                {
+                    employeCrud.DeleteEmployee(kgid);
+                    ClearAllFields();
+                    TxtEmpNo.Enabled = true;
+                    LblMsg.Text = "Employee Deleted";
+                    BtnLoadEmployee_Click(sender, e);
+                    TxtEmpNo.Focus();
+                }
+                else { LblMsg.Text = "You Could`t Delete this Employee, Please contact Admin"; }
+                
             }
             else { LblMsg.Text ="Could`t Delete"; }
         }
@@ -119,6 +142,7 @@ namespace Ta_Maker
             BtnInsert.Enabled = true;
             BtnDelete.Enabled = false;
             BtnModify.Enabled = false;
+            CmbStatus.Visible = false;
             TxtEmpNo.Focus();
         }
 
@@ -137,9 +161,11 @@ namespace Ta_Maker
             TxtName.Text = item.SubItems[2].Text;
             TxtSalary.Text = item.SubItems[3].Text;
             CmbStation.Text = item.SubItems[4].Text;
+            CmbStatus.Text = item.SubItems[5].Text;
             TxtEmpNo.Enabled = false;
 
             this.EmployeeTabControl.SelectedTab = TabAddEmployee;
+            CmbStatus.Visible = true;
             BtnInsert.Enabled = false;
             BtnDelete.Enabled = true;
             BtnModify.Enabled = true;
@@ -209,13 +235,28 @@ namespace Ta_Maker
             EmployeListView.Items.Clear();
             foreach (Employee employee in employees)
             {
-                ListViewItem item = new ListViewItem(employee.EmpNumber.ToString());
-                item.SubItems.Add(employee.EmpDesignation);
-                item.SubItems.Add(employee.EmpName);
-                item.SubItems.Add(employee.EmpSalary.ToString());
-                item.SubItems.Add(employee.EmpStation);
-                EmployeListView.Items.Add(item);
+                if (CkInclude.Checked)
+                {
+                    ListViewItem item = new ListViewItem(employee.EmpNumber.ToString());
+                    item.SubItems.Add(employee.EmpDesignation);
+                    item.SubItems.Add(employee.EmpName);
+                    item.SubItems.Add(employee.EmpSalary.ToString());
+                    item.SubItems.Add(employee.EmpStation);
+                    item.SubItems.Add(employee.EmpStatus);
+                    EmployeListView.Items.Add(item);
+                }
+                else if (employee.EmpStatus != "DELETE" && employee.EmpStatus != "RETAIRED" && employee.EmpStatus != "TRANSFFER")
+                {
+                    ListViewItem item = new ListViewItem(employee.EmpNumber.ToString());
+                    item.SubItems.Add(employee.EmpDesignation);
+                    item.SubItems.Add(employee.EmpName);
+                    item.SubItems.Add(employee.EmpSalary.ToString());
+                    item.SubItems.Add(employee.EmpStation);
+                    item.SubItems.Add(employee.EmpStatus);
+                    EmployeListView.Items.Add(item);
+                }
             }
         }
+
     }
 }

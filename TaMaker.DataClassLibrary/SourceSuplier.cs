@@ -21,6 +21,13 @@ namespace TaMaker.DataClassLibrary
             return OfficeType;
         }
 
+        public static Dictionary<int, string> LoadEmpStatus()
+        {
+            Dictionary<int, string> OfficeType = new Dictionary<int, string>();
+            string SqlQuery = "SELECT * FROM EmpStatusView";
+            LoadSource(SqlQuery, OfficeType);
+            return OfficeType;
+        }
 
         public static Dictionary<int, string> LoadPlaces()
         {
@@ -98,7 +105,10 @@ namespace TaMaker.DataClassLibrary
                 SQLiteDataReader reader = Cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    groupId = int.Parse(reader.GetValue(0).ToString());
+                    if (reader.GetValue(0).ToString() != "")
+                    {
+                        groupId = int.Parse(reader.GetValue(0).ToString());
+                    }
                 }
             }
             finally

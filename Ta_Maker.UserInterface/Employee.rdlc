@@ -15,13 +15,16 @@
               <Width>2.94979cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>6.21896cm</Width>
+              <Width>5.84854cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>2.5cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>3.61125cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>2.36771cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -214,6 +217,37 @@
                     </Textbox>
                   </CellContents>
                 </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox3">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Status</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox3</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <BackgroundColor>PaleTurquoise</BackgroundColor>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
               </TablixCells>
             </TablixRow>
             <TablixRow>
@@ -369,7 +403,6 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -402,12 +435,43 @@
                     </Textbox>
                   </CellContents>
                 </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="EmpStatus">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!EmpStatus.Value</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>EmpStatus</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
               </TablixCells>
             </TablixRow>
           </TablixRows>
         </TablixBody>
         <TablixColumnHierarchy>
           <TablixMembers>
+            <TablixMember />
             <TablixMember />
             <TablixMember />
             <TablixMember />
@@ -430,7 +494,7 @@
         <Top>0.17639cm</Top>
         <Left>0.34078cm</Left>
         <Height>1.2cm</Height>
-        <Width>19.38042cm</Width>
+        <Width>21.37771cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -441,7 +505,7 @@
     <Height>0.77083in</Height>
     <Style />
   </Body>
-  <Width>8.11842in</Width>
+  <Width>8.7485in</Width>
   <Page>
     <PageHeader>
       <Height>2.36361cm</Height>
@@ -469,7 +533,7 @@
           <Top>0.74965cm</Top>
           <Left>0.34078cm</Left>
           <Height>1.27cm</Height>
-          <Width>19.38042cm</Width>
+          <Width>21.37771cm</Width>
           <Style>
             <Border>
               <Style>None</Style>
@@ -511,7 +575,7 @@
           </Paragraphs>
           <rd:DefaultName>Textbox12</rd:DefaultName>
           <Top>0.34078cm</Top>
-          <Left>15.76599cm</Left>
+          <Left>17.76328cm</Left>
           <Height>0.6cm</Height>
           <Width>3.95521cm</Width>
           <Style>
@@ -577,10 +641,14 @@
           <DataField>EmpStation</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="EmpStatus">
+          <DataField>EmpStatus</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
-        <rd:DataSetName>DataSet1</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\naikr\source\repos\Ta_Maker\Ta_Maker\Rpt_DataSet.xsd</rd:SchemaPath>
+        <rd:DataSetName>Ta_DataSet</rd:DataSetName>
+        <rd:SchemaPath>C:\Users\naikr\Documents\GitHub\TravelAllowance\Ta_Maker.UserInterface\Rpt_DataSet.xsd</rd:SchemaPath>
         <rd:TableName>Employee</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />

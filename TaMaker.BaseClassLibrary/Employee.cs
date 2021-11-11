@@ -19,5 +19,6 @@ namespace TaMaker.BaseClassLibrary
         [Required]
         [Range(1, 15)]
         public int EmpShort { get; set; }
+        public string EmpStatus { get; set; }
     }
 }
