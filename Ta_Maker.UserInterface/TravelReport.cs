@@ -26,7 +26,7 @@ namespace Ta_Maker
 
             CmbYear.Text = UserInterface.Properties.Settings.Default["DYear"].ToString();
             CmbMonth.Text = UserInterface.Properties.Settings.Default["DMonth"].ToString();
-
+            
             CmbMonth_SelectedIndexChanged(sender, e);
         }
 
@@ -41,37 +41,22 @@ namespace Ta_Maker
 
         private void BtnShowReport_Click(object sender, EventArgs e)
         {
-            //if new marked
-            //insert myear, mark, date to table
-
             ReportData reportData = new ReportData();
             string myear = ($"{ CmbMonth.Text} { CmbYear.Text}");
             string unit = UserInterface.Properties.Settings.Default["UnitName"].ToString();
             DataTable dt = reportData.GetReportData(unit, myear);
-            string utype = UserInterface.Properties.Settings.Default["UnitType"].ToString();
-
-            string forceType = UserInterface.Properties.Settings.Default["ForceType"].ToString();
-            ReportParameter rp1;
-            if (forceType == "DAR" || forceType == "KSRP")
-            {
-                rp1 = new ReportParameter("RP_Station", unit);
-            }
-            else { rp1 = new ReportParameter("RP_Station", ($"{unit} {utype}")); }
+          
+            ReportParameter rp1 = new ReportParameter("RP_Station", unit);
             ReportParameter rp2 = new ReportParameter("RP_MonthYear", myear.ToString());
-
             ReportParameter rp3 = new ReportParameter();
-
-            if (!marked)
+            if (dt.Rows.Count > 0)
             {
-               rp3 = new ReportParameter("watermark", "DRAFT COPY");
+                if (!marked)
+                {
+                    rp3 = new ReportParameter("watermark", "DRAFT COPY");
+                }
             }
-            //this.TravelReportViewer.LocalReport.EnableExternalImages = true;
-            //string appPath = Path.GetDirectoryName(Application.ExecutablePath);
-            //ReportParameter watermarkParameter = new ReportParameter("watermark", "", false);
-            //if (showWatermark)
-            //watermarkParameter = new ReportParameter("watermark", (appPath + "/DRAFT.png").ToString(), false);
-            //ReportParameter parameter = new ReportParameter("DraftImagePath", imagePath);
-
+           
             this.TravelReportViewer.LocalReport.ReportPath = "TravellReport.rdlc";
             TravelReportViewer.LocalReport.SetParameters(new ReportParameter[] { rp1, rp2, rp3 });
             ReportDataSource rds = new ReportDataSource("TravellDataSet", dt);
@@ -85,7 +70,8 @@ namespace Ta_Maker
         {
             //check marked as final or not
             string myear = ($"{ CmbMonth.Text} { CmbYear.Text}");
-            marked = FinalPrintMark.GetFinalMark(myear);
+            string unit = UserInterface.Properties.Settings.Default["UnitName"].ToString();
+            marked = FinalPrintMark.GetFinalMark(myear, unit);
             //if marked checkbox checked and desable
             if (marked)
             {
@@ -99,9 +85,31 @@ namespace Ta_Maker
         {
             if (MessageBox.Show("You canot Add/Edit Travel. Are you sure? ", "TA Maker", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
-                //save marke
                 string myear = ($"{ CmbMonth.Text} { CmbYear.Text}");
-                FinalPrintMark.AddFinalMark(myear, "Marked", DateTime.Now.ToString());
+                //check who had advance ta
+                DataTable dt = TravelCrud.GetAdvanceTaHolder(myear);
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        int kgid = int.Parse(row[0].ToString());
+                        DataTable dataTable = TravelCrud.GetVeriationAmount(myear, kgid);
+                        double Fair = double.Parse(dataTable.Rows[0][0].ToString());
+                        double Advance = double.Parse(dataTable.Rows[0][1].ToString());
+                        double TotalTa = double.Parse(dataTable.Rows[0][2].ToString());
+                        double LessTotalTa = ((Fair + Advance) - TotalTa);
+                        //if (advance+fair) > totalTa 
+                        if (LessTotalTa > 0)
+                        {
+                            //insert to ExcessAdvance (KGID, ExcessAmt, M_Year)
+                            TravelCrud.AddDefAmt(kgid, LessTotalTa, myear, "Credited");
+                        }
+                    }
+                }
+                
+                //save marke
+                string unit = UserInterface.Properties.Settings.Default["UnitName"].ToString();
+                FinalPrintMark.AddFinalMark(myear, unit, "Marked", DateTime.Now.ToString());
                 BtnFinalMark.Enabled = false;
             }
         }

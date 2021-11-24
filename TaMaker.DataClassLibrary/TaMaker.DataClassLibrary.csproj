@@ -54,12 +54,14 @@
   <ItemGroup>
     <Compile Include="CreateDb.cs" />
     <Compile Include="DbConnection.cs" />
+    <Compile Include="Designation.cs" />
     <Compile Include="DistrictUnits.cs" />
     <Compile Include="EmployeCrud.cs" />
     <Compile Include="FinalPrintMark.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportData.cs" />
     <Compile Include="SourceSuplier.cs" />
+    <Compile Include="TaValue.cs" />
     <Compile Include="TaValueSuplier.cs" />
     <Compile Include="TravelCrud.cs" />
   </ItemGroup>

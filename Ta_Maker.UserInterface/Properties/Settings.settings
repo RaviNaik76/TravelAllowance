@@ -11,15 +11,6 @@
     <Setting Name="UnitName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="UnitDist" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="UnitType" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="ForceType" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="ThemeMe" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>

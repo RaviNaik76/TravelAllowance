@@ -1968,7 +1968,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Sum(Fields!TotalTA.Value) - Sum(Fields!FareAmt.Value) - Sum(Fields!AdvanceTA.Value))</Value>
+                                  <Value>=iif(Sum(Sum(Fields!TotalTA.Value) - Sum(Fields!FareAmt.Value) - Sum(Fields!AdvanceTA.Value))&gt;0,Sum(Sum(Fields!TotalTA.Value) - Sum(Fields!FareAmt.Value) - Sum(Fields!AdvanceTA.Value)),0)</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>'₹'#,0.00;('₹'#,0.00)</Format>
@@ -3230,6 +3230,9 @@
                 <TablixColumn>
                   <Width>1in</Width>
                 </TablixColumn>
+                <TablixColumn>
+                  <Width>1in</Width>
+                </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
@@ -3368,7 +3371,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Total TA</Value>
+                                  <Value>Total Payable</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -3376,6 +3379,37 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox24</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>LightGreen</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox6">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Deductable</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox6</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -3524,7 +3558,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Sum(Fields!TotalTA.Value) - Sum(Fields!FareAmt.Value) - Sum(Fields!AdvanceTA.Value))</Value>
+                                  <Value>=iif(Sum(Sum(Fields!TotalTA.Value) - Sum(Fields!FareAmt.Value) - Sum(Fields!AdvanceTA.Value))&gt;0,Sum(Sum(Fields!TotalTA.Value) - Sum(Fields!FareAmt.Value) - Sum(Fields!AdvanceTA.Value)),0)</Value>
                                   <Style>
                                     <Format>'₹'#,0.00;('₹'#,0.00)</Format>
                                   </Style>
@@ -3534,6 +3568,36 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>TotalTA1</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox8">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=iif(Sum(Sum(Fields!TotalTA.Value) - Sum(Fields!FareAmt.Value) - Sum(Fields!AdvanceTA.Value))&gt;0,0,Sum(Sum(Fields!TotalTA.Value) - Sum(Fields!FareAmt.Value) - Sum(Fields!AdvanceTA.Value)))</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox8</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -3685,7 +3749,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Sum(Fields!TotalTA.Value) - Sum(Fields!FareAmt.Value) - Sum(Fields!AdvanceTA.Value))</Value>
+                                  <Value>=iif(Sum(Sum(Fields!TotalTA.Value) - Sum(Fields!FareAmt.Value) - Sum(Fields!AdvanceTA.Value))&gt;0,Sum(Sum(Fields!TotalTA.Value) - Sum(Fields!FareAmt.Value) - Sum(Fields!AdvanceTA.Value)),0)</Value>
                                   <Style>
                                     <Format>'₹'#,0.00;('₹'#,0.00)</Format>
                                   </Style>
@@ -3709,12 +3773,44 @@
                         </Textbox>
                       </CellContents>
                     </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox9">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=iif(Sum(Sum(Fields!TotalTA.Value) - Sum(Fields!FareAmt.Value) - Sum(Fields!AdvanceTA.Value))&gt;0,0,Sum(Sum(Fields!TotalTA.Value) - Sum(Fields!FareAmt.Value) - Sum(Fields!AdvanceTA.Value)))</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox9</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>LightGreen</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
                   </TablixCells>
                 </TablixRow>
               </TablixRows>
             </TablixBody>
             <TablixColumnHierarchy>
               <TablixMembers>
+                <TablixMember />
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
@@ -3744,7 +3840,7 @@
             <Top>4.01611in</Top>
             <Left>3.70708in</Left>
             <Height>0.75in</Height>
-            <Width>5.77083in</Width>
+            <Width>6.77083in</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -3978,7 +4074,6 @@
         </PageHeader>
         <PageFooter>
           <Height>0.47917in</Height>
-          <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
             <Textbox Name="Textbox149">
@@ -4030,6 +4125,36 @@
               <Height>0.25in</Height>
               <Width>1.26042in</Width>
               <ZIndex>1</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox10">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Deductable amount will deduct automaticaly in next bill</Value>
+                      <Style />
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox10</rd:DefaultName>
+              <Top>0.13541in</Top>
+              <Left>5.35291in</Left>
+              <Height>0.25in</Height>
+              <Width>3.625in</Width>
+              <ZIndex>2</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>

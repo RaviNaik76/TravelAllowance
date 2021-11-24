@@ -5,20 +5,34 @@ namespace TaMaker.DataClassLibrary
 {
     public class SourceSuplier
     {
-        public static Dictionary<int, string> LoadDistrict()
+        public void AddSource(string sName, string sType)
         {
-            Dictionary<int, string> District = new Dictionary<int, string>();
-            string SqlQuery = "SELECT * FROM DistrictView";
-            LoadSource(SqlQuery, District);
-            return District;
+            using (var Cmd = new SQLiteCommand(DbConnection.Conn))
+            {
+                Cmd.CommandText = ($"INSERT INTO SourceTable (SourceName, SourceType) values (@sname, @stype)");
+                Cmd.Parameters.AddWithValue("@sname", sName);
+                Cmd.Parameters.AddWithValue("@stype", sType);
+
+                DbConnection.OpenConnection();
+                Cmd.ExecuteNonQuery();
+                DbConnection.CloseConnection();
+            }
         }
 
-        public static Dictionary<int, string> LoadOfficeType()
+        public static Dictionary<int, string> LoadEmpClass()
         {
-            Dictionary<int, string> OfficeType = new Dictionary<int, string>();
-            string SqlQuery = "SELECT * FROM OfficeTypeView";
-            LoadSource(SqlQuery, OfficeType);
-            return OfficeType;
+            Dictionary<int, string> EmpClass = new Dictionary<int, string>();
+            string SqlQuery = "SELECT EmpClass FROM TaValue";
+            LoadSource(SqlQuery, EmpClass);
+            return EmpClass;
+        }
+
+        public static Dictionary<int, string> LoadUnits()
+        {
+            Dictionary<int, string> UnitList = new Dictionary<int, string>();
+            string SqlQuery = "SELECT * FROM SourceTable WHERE SourceType='Unit'";
+            LoadSource(SqlQuery, UnitList);
+            return UnitList;
         }
 
         public static Dictionary<int, string> LoadEmpStatus()
@@ -33,22 +47,6 @@ namespace TaMaker.DataClassLibrary
         {
             Dictionary<int, string> PlaceList = new Dictionary<int, string>();
             string SqlQuery = "SELECT * FROM PlacesView";
-            LoadSource(SqlQuery, PlaceList);
-            return PlaceList;
-        }
-
-        public static Dictionary<int, string> LoadStation(string uType, string uDist)
-        {
-            Dictionary<int, string> PlaceList = new Dictionary<int, string>();
-            string SqlQuery = ($"SELECT * FROM Units WHERE UnitType='{uType}' AND UnitDist='{uDist }'");
-            LoadSource(SqlQuery, PlaceList);
-            return PlaceList;
-        }
-
-        public static Dictionary<int, string> LoadStation()
-        {
-            Dictionary<int, string> PlaceList = new Dictionary<int, string>();
-            string SqlQuery = "SELECT * FROM Units";
             LoadSource(SqlQuery, PlaceList);
             return PlaceList;
         }
@@ -70,18 +68,18 @@ namespace TaMaker.DataClassLibrary
             return HaltingPlace;
         }
 
-        public static Dictionary<int, string> LoadDesignation(string forceType)
+        public static Dictionary<int, string> LoadDesignation(string unit)
         {
             Dictionary<int, string> Designation = new Dictionary<int, string>();
-            string SqlQuery = ($"SELECT * FROM DesignationTable WHERE ForceType='{ forceType}'");
+            string SqlQuery = ($"SELECT Designation, SortOrder FROM DesignationTable WHERE UnitName='{unit}'");
             LoadSource(SqlQuery, Designation);
             return Designation;
         }
-       
-        public static int GetEmployeSort(string desn, string forceType)
+
+        public static int GetEmployeSort(string desn, string unit)
         {
             int sorder = -10;
-            string SqlQuery = ($"SELECT SortOrder FROM DesignationTable WHERE ForceType='{forceType}' AND Designation='{desn}'");
+            string SqlQuery = ($"SELECT SortOrder FROM DesignationTable WHERE UnitName='{unit}' AND Designation='{desn}'");
             DbConnection.OpenConnection();
             SQLiteCommand Cmd = new SQLiteCommand(SqlQuery, DbConnection.Conn);
             SQLiteDataReader reader = Cmd.ExecuteReader();

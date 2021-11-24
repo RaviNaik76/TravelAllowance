@@ -7,6 +7,7 @@ namespace Ta_Maker.UserInterface
     public partial class MDIParent : Form
     {
         string dbpath = Properties.Resources.DbPath;
+        string unit = UserInterface.Properties.Settings.Default["UnitName"].ToString();
 
         public MDIParent()
         {
@@ -55,16 +56,24 @@ namespace Ta_Maker.UserInterface
 
         private void mONTHYEARSETTINGToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MonthYear monthYearSetting = new MonthYear();
-            monthYearSetting.MdiParent = this;
-            monthYearSetting.Show();
+            if (unit.Length > 0)
+            {
+                MonthYear monthYearSetting = new MonthYear();
+                monthYearSetting.MdiParent = this;
+                monthYearSetting.Show();
+            }
+            else { LblMsg.Text = "Please Set Unit and try"; }
         }
 
         private void eMPLOYEEDETAILSToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            EmployeUI employeUI = new EmployeUI();
-            employeUI.MdiParent = this;
-            employeUI.Show();
+            if (unit.Length > 0)
+            {
+                EmployeUI employeUI = new EmployeUI();
+                employeUI.MdiParent = this;
+                employeUI.Show();
+            }
+            else { LblMsg.Text = "Please Set Unit and try"; }
         }
 
         private void tRAVELDETAILSToolStripMenuItem_Click(object sender, EventArgs e)
@@ -74,32 +83,37 @@ namespace Ta_Maker.UserInterface
             travelUI.Show();
         }
 
-        private void uNITDETAILSToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AddUnits addUnits = new AddUnits();
-            addUnits.MdiParent = this;
-            addUnits.Show();
-        }
-
         private void eMPLOYEEREPORTToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            EmployeReport employeReport = new EmployeReport();
-            employeReport.MdiParent = this;
-            employeReport.Show();
+            if (unit.Length > 0)
+            {
+                EmployeReport employeReport = new EmployeReport();
+                employeReport.MdiParent = this;
+                employeReport.Show();
+            }
+            else { LblMsg.Text = "Please Set Unit and try"; }
         }
 
         private void mONTHLYREPORTToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TravelReport travelReport = new TravelReport();
-            travelReport.MdiParent = this;
-            travelReport.Show();
+            if (unit.Length > 0)
+            {
+                TravelReport travelReport = new TravelReport();
+                travelReport.MdiParent = this;
+                travelReport.Show();
+            }
+            else { LblMsg.Text = "Please Set Unit and try"; }
         }
 
         private void rEPORTEXPORTToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ReportExport reportExport = new ReportExport();
-            reportExport.MdiParent = this;
-            reportExport.Show();
+            if (unit.Length > 0)
+            {
+                ReportExport reportExport = new ReportExport();
+                reportExport.MdiParent = this;
+                reportExport.Show();
+            }
+            else { LblMsg.Text = "Please Set Unit and try"; }
         }
 
         private void MDIParent_Load(object sender, EventArgs e)
@@ -125,6 +139,18 @@ namespace Ta_Maker.UserInterface
             ChangeTheme changeTheme = new ChangeTheme();
             changeTheme.MdiParent = this;
             changeTheme.Show();
+        }
+
+        private void dESIGNATIONSETTINGToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (unit.Length > 0)
+            {
+                DesignationEditor de = new DesignationEditor();
+                de.MdiParent = this;
+                de.Show();
+            }
+            else { LblMsg.Text = "Please Set Unit and try"; }
+            
         }
     }
 }

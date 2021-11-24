@@ -16,22 +16,37 @@ namespace Ta_Maker.UserInterface
 
         private void AddUnits_Load(object sender, EventArgs e)
         {
+
             CmbOfficeType.Items.Add("DISTRICT");
-            //CmbOfficeType.Enabled = false;
 
-            Dictionary<int, string> OfficeType = SourceSuplier.LoadOfficeType();
+            //string forceType = UserInterface.Properties.Settings.Default["ForceType"].ToString();
+            //switch (forceType)
+            //{
+            //    case "CIVIL":
+            //        Dictionary<int, string> OfficeType = SourceSuplier.LoadOfficeType();
+            //        CmbOfficeType2.Items.Clear();
+            //        foreach (var item in OfficeType)
+            //        {
+            //            CmbOfficeType2.Items.Add(item.Value);
+            //        }
+            //        break;
+            //    case "DAR":
+            //        CmbOfficeType2.Items.Clear();
+            //        CmbOfficeType2.Items.Add("DAR");
+            //        break;
+            //    case "KSRP":
+            //        CmbOfficeType2.Items.Clear();
+            //        CmbOfficeType2.Items.Add("KSRP");
+            //        break;
+            //}
+            
 
-            foreach (var item in OfficeType)
-            {
-                CmbOfficeType2.Items.Add(item.Value);
-            }
+            //Dictionary<int, string> District = SourceSuplier.LoadDistrict();
 
-            Dictionary<int, string> District = SourceSuplier.LoadDistrict();
-
-            foreach (var item in District)
-            {
-                CmbDistrict.Items.Add(item.Value);
-            }
+            //foreach (var item in District)
+            //{
+            //    CmbDistrict.Items.Add(item.Value);
+            //}
         }
 
         private void BtnSaveDist_Click(object sender, EventArgs e)

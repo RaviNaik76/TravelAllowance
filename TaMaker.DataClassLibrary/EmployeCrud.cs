@@ -29,17 +29,14 @@ namespace TaMaker.DataClassLibrary
                             EmpSalary = double.Parse(dr.GetValue(3).ToString()),
                             EmpStation = (string)dr.GetValue(4),
                             EmpShort = int.Parse(dr.GetValue(5).ToString()),
-                            EmpStatus = dr.GetValue(6).ToString()
+                            EmpGroup = dr.GetValue(6).ToString(),
+                            EmpStatus = dr.GetValue(7).ToString()
                         };
 
                         employees.Add(emp);
                     }
                     DbConnection.CloseConnection();
                 }
-                //else
-                //{
-                //    Cmd.CommandText = "SELECT * FROM EmployeeView ORDER BY EmpShort";
-                //}
             }
 
             return employees;
@@ -53,14 +50,14 @@ namespace TaMaker.DataClassLibrary
                 if (save)
                 {
                     Cmd.CommandText = ($"INSERT OR IGNORE INTO Employee "
-                                       + " (EmpNumber, EmpDesignation, EmpName, EmpSalary, EmpStation, EmpShort) values "
-                                       + " (@empNo, @Desig, @empName, @empSalary, @empPs, @empOrder)");
+                                       + " (EmpNumber, EmpDesignation, EmpName, EmpSalary, EmpStation, EmpShort, EmpGroup) values "
+                                       + " (@empNo, @Desig, @empName, @empSalary, @empPs, @empOrder, @empgroup)");
                     Cmd.Parameters.AddWithValue("@empNo", emp.EmpNumber);
                 }
                 else
                 {
                     Cmd.CommandText = @"UPDATE Employee SET EmpDesignation=@Desig, EmpName=@empName, EmpSalary=@empSalary, "
-                                       + " EmpStation =@empPs, EmpShort=@empOrder, EmpStatus=@status WHERE EmpNumber =" + emp.EmpNumber + "";
+                                       + " EmpStation =@empPs, EmpShort=@empOrder, EmpGroup=@empgroup, EmpStatus=@status WHERE EmpNumber =" + emp.EmpNumber + "";
                 }
 
                 Cmd.Parameters.AddWithValue("@Desig", emp.EmpDesignation);
@@ -68,6 +65,7 @@ namespace TaMaker.DataClassLibrary
                 Cmd.Parameters.AddWithValue("@empSalary", emp.EmpSalary);
                 Cmd.Parameters.AddWithValue("@empPs", emp.EmpStation);
                 Cmd.Parameters.AddWithValue("@empOrder", emp.EmpShort);
+                Cmd.Parameters.AddWithValue("@empgroup", emp.EmpGroup);
                 Cmd.Parameters.AddWithValue("@status", emp.EmpStatus);
 
                 DbConnection.OpenConnection();
@@ -101,7 +99,7 @@ namespace TaMaker.DataClassLibrary
                     {
                         Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber, EmpStatus FROM Employee WHERE EmpDesignation Like '{searchText}%' AND EmpStation='{unit}' ORDER BY EmpShort");
                     }
-                   // Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber, EmpStatus FROM Employee WHERE EmpName Like '{searchText}%' OR EmpDesignation Like '{searchText}%' AND EmpStation='{unit}' ORDER BY EmpShort");
+                   
                     DbConnection.OpenConnection();
 
                     using (SQLiteDataReader dr = Cmd.ExecuteReader())
@@ -123,11 +121,6 @@ namespace TaMaker.DataClassLibrary
                     }
                     DbConnection.CloseConnection();
                 }
-                //else
-                //{
-                //    Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber, EmpStatus FROM Employee WHERE EmpName Like '{searchText}%' OR EmpDesignation Like '{searchText}%' AND EmpStatus IS NULL ORDER BY EmpShort");
-                //}
-               
             }
         }
     }

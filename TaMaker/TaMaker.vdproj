@@ -1337,7 +1337,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:TaMaker"
         "ProductCode" = "8:{28DED563-EBC0-4CDF-804E-C5EB7BD020AD}"
-        "PackageCode" = "8:{EF798BFF-B660-4BE7-AC34-E2190D172756}"
+        "PackageCode" = "8:{C269916E-7790-44F5-89F0-6C920FD4B34C}"
         "UpgradeCode" = "8:{AF98EFEB-47F2-4B26-BF91-8F1D5208D680}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"

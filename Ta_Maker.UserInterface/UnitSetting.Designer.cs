@@ -30,63 +30,15 @@ namespace Ta_Maker
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UnitSetting));
-            this.CmbDist2 = new MaterialSkin.Controls.MaterialComboBox();
-            this.CmbOffice2 = new MaterialSkin.Controls.MaterialComboBox();
             this.CmbUnitName = new MaterialSkin.Controls.MaterialComboBox();
             this.BtnDefaltUnit = new MaterialSkin.Controls.MaterialButton();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.RbtnKsrp = new MaterialSkin.Controls.MaterialRadioButton();
-            this.RbtnDar = new MaterialSkin.Controls.MaterialRadioButton();
-            this.RbtnCivil = new MaterialSkin.Controls.MaterialRadioButton();
-            this.groupBox1.SuspendLayout();
+            this.materialCard1 = new MaterialSkin.Controls.MaterialCard();
+            this.materialCard2 = new MaterialSkin.Controls.MaterialCard();
+            this.btnAddUnits = new MaterialSkin.Controls.MaterialButton();
+            this.TxtSourceName = new MaterialSkin.Controls.MaterialTextBox();
+            this.materialCard1.SuspendLayout();
+            this.materialCard2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // CmbDist2
-            // 
-            this.CmbDist2.AutoResize = false;
-            this.CmbDist2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.CmbDist2.Depth = 0;
-            this.CmbDist2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.CmbDist2.DropDownHeight = 174;
-            this.CmbDist2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CmbDist2.DropDownWidth = 121;
-            this.CmbDist2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.CmbDist2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.CmbDist2.FormattingEnabled = true;
-            this.CmbDist2.Hint = "Select District";
-            this.CmbDist2.IntegralHeight = false;
-            this.CmbDist2.ItemHeight = 43;
-            this.CmbDist2.Location = new System.Drawing.Point(30, 154);
-            this.CmbDist2.MaxDropDownItems = 4;
-            this.CmbDist2.MouseState = MaterialSkin.MouseState.OUT;
-            this.CmbDist2.Name = "CmbDist2";
-            this.CmbDist2.Size = new System.Drawing.Size(306, 49);
-            this.CmbDist2.StartIndex = 0;
-            this.CmbDist2.TabIndex = 3;
-            // 
-            // CmbOffice2
-            // 
-            this.CmbOffice2.AutoResize = false;
-            this.CmbOffice2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.CmbOffice2.Depth = 0;
-            this.CmbOffice2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.CmbOffice2.DropDownHeight = 174;
-            this.CmbOffice2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CmbOffice2.DropDownWidth = 121;
-            this.CmbOffice2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.CmbOffice2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.CmbOffice2.FormattingEnabled = true;
-            this.CmbOffice2.Hint = "Select Office Type";
-            this.CmbOffice2.IntegralHeight = false;
-            this.CmbOffice2.ItemHeight = 43;
-            this.CmbOffice2.Location = new System.Drawing.Point(30, 222);
-            this.CmbOffice2.MaxDropDownItems = 4;
-            this.CmbOffice2.MouseState = MaterialSkin.MouseState.OUT;
-            this.CmbOffice2.Name = "CmbOffice2";
-            this.CmbOffice2.Size = new System.Drawing.Size(306, 49);
-            this.CmbOffice2.StartIndex = 0;
-            this.CmbOffice2.TabIndex = 4;
-            this.CmbOffice2.SelectedIndexChanged += new System.EventHandler(this.CmbOffice2_SelectedIndexChanged);
             // 
             // CmbUnitName
             // 
@@ -103,7 +55,7 @@ namespace Ta_Maker
             this.CmbUnitName.Hint = "Select Unit Name";
             this.CmbUnitName.IntegralHeight = false;
             this.CmbUnitName.ItemHeight = 43;
-            this.CmbUnitName.Location = new System.Drawing.Point(30, 286);
+            this.CmbUnitName.Location = new System.Drawing.Point(19, 17);
             this.CmbUnitName.MaxDropDownItems = 4;
             this.CmbUnitName.MouseState = MaterialSkin.MouseState.OUT;
             this.CmbUnitName.Name = "CmbUnitName";
@@ -118,7 +70,7 @@ namespace Ta_Maker
             this.BtnDefaltUnit.Depth = 0;
             this.BtnDefaltUnit.HighEmphasis = true;
             this.BtnDefaltUnit.Icon = null;
-            this.BtnDefaltUnit.Location = new System.Drawing.Point(91, 353);
+            this.BtnDefaltUnit.Location = new System.Drawing.Point(80, 84);
             this.BtnDefaltUnit.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.BtnDefaltUnit.MouseState = MaterialSkin.MouseState.HOVER;
             this.BtnDefaltUnit.Name = "BtnDefaltUnit";
@@ -130,96 +82,99 @@ namespace Ta_Maker
             this.BtnDefaltUnit.UseVisualStyleBackColor = true;
             this.BtnDefaltUnit.Click += new System.EventHandler(this.BtnDefaltUnit_Click);
             // 
-            // groupBox1
+            // materialCard1
             // 
-            this.groupBox1.Controls.Add(this.RbtnKsrp);
-            this.groupBox1.Controls.Add(this.RbtnDar);
-            this.groupBox1.Controls.Add(this.RbtnCivil);
-            this.groupBox1.Location = new System.Drawing.Point(15, 67);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(341, 64);
-            this.groupBox1.TabIndex = 7;
-            this.groupBox1.TabStop = false;
+            this.materialCard1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard1.Controls.Add(this.CmbUnitName);
+            this.materialCard1.Controls.Add(this.BtnDefaltUnit);
+            this.materialCard1.Depth = 0;
+            this.materialCard1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard1.Location = new System.Drawing.Point(17, 163);
+            this.materialCard1.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard1.Name = "materialCard1";
+            this.materialCard1.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard1.Size = new System.Drawing.Size(342, 131);
+            this.materialCard1.TabIndex = 7;
             // 
-            // RbtnKsrp
+            // materialCard2
             // 
-            this.RbtnKsrp.AutoSize = true;
-            this.RbtnKsrp.Depth = 0;
-            this.RbtnKsrp.Location = new System.Drawing.Point(253, 14);
-            this.RbtnKsrp.Margin = new System.Windows.Forms.Padding(0);
-            this.RbtnKsrp.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.RbtnKsrp.MouseState = MaterialSkin.MouseState.HOVER;
-            this.RbtnKsrp.Name = "RbtnKsrp";
-            this.RbtnKsrp.Ripple = true;
-            this.RbtnKsrp.Size = new System.Drawing.Size(75, 37);
-            this.RbtnKsrp.TabIndex = 5;
-            this.RbtnKsrp.TabStop = true;
-            this.RbtnKsrp.Text = "KSRP";
-            this.RbtnKsrp.UseVisualStyleBackColor = true;
+            this.materialCard2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard2.Controls.Add(this.btnAddUnits);
+            this.materialCard2.Controls.Add(this.TxtSourceName);
+            this.materialCard2.Depth = 0;
+            this.materialCard2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard2.Location = new System.Drawing.Point(17, 78);
+            this.materialCard2.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard2.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard2.Name = "materialCard2";
+            this.materialCard2.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard2.Size = new System.Drawing.Size(342, 67);
+            this.materialCard2.TabIndex = 8;
             // 
-            // RbtnDar
+            // btnAddUnits
             // 
-            this.RbtnDar.AutoSize = true;
-            this.RbtnDar.Depth = 0;
-            this.RbtnDar.Location = new System.Drawing.Point(135, 14);
-            this.RbtnDar.Margin = new System.Windows.Forms.Padding(0);
-            this.RbtnDar.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.RbtnDar.MouseState = MaterialSkin.MouseState.HOVER;
-            this.RbtnDar.Name = "RbtnDar";
-            this.RbtnDar.Ripple = true;
-            this.RbtnDar.Size = new System.Drawing.Size(66, 37);
-            this.RbtnDar.TabIndex = 4;
-            this.RbtnDar.TabStop = true;
-            this.RbtnDar.Text = "DAR";
-            this.RbtnDar.UseVisualStyleBackColor = true;
+            this.btnAddUnits.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnAddUnits.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnAddUnits.Depth = 0;
+            this.btnAddUnits.HighEmphasis = true;
+            this.btnAddUnits.Icon = null;
+            this.btnAddUnits.Location = new System.Drawing.Point(237, 16);
+            this.btnAddUnits.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btnAddUnits.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnAddUnits.Name = "btnAddUnits";
+            this.btnAddUnits.Size = new System.Drawing.Size(87, 36);
+            this.btnAddUnits.TabIndex = 21;
+            this.btnAddUnits.Text = "ADD UNIT";
+            this.btnAddUnits.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnAddUnits.UseAccentColor = false;
+            this.btnAddUnits.UseVisualStyleBackColor = true;
+            this.btnAddUnits.Click += new System.EventHandler(this.btnAddUnits_Click);
             // 
-            // RbtnCivil
+            // TxtSourceName
             // 
-            this.RbtnCivil.AutoSize = true;
-            this.RbtnCivil.Depth = 0;
-            this.RbtnCivil.Location = new System.Drawing.Point(15, 14);
-            this.RbtnCivil.Margin = new System.Windows.Forms.Padding(0);
-            this.RbtnCivil.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.RbtnCivil.MouseState = MaterialSkin.MouseState.HOVER;
-            this.RbtnCivil.Name = "RbtnCivil";
-            this.RbtnCivil.Ripple = true;
-            this.RbtnCivil.Size = new System.Drawing.Size(72, 37);
-            this.RbtnCivil.TabIndex = 3;
-            this.RbtnCivil.TabStop = true;
-            this.RbtnCivil.Text = "CIVIL";
-            this.RbtnCivil.UseVisualStyleBackColor = true;
+            this.TxtSourceName.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TxtSourceName.Depth = 0;
+            this.TxtSourceName.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.TxtSourceName.Hint = "Enter Unit Name";
+            this.TxtSourceName.LeadingIcon = null;
+            this.TxtSourceName.Location = new System.Drawing.Point(19, 8);
+            this.TxtSourceName.MaxLength = 50;
+            this.TxtSourceName.MouseState = MaterialSkin.MouseState.OUT;
+            this.TxtSourceName.Multiline = false;
+            this.TxtSourceName.Name = "TxtSourceName";
+            this.TxtSourceName.Size = new System.Drawing.Size(197, 50);
+            this.TxtSourceName.TabIndex = 20;
+            this.TxtSourceName.Text = "";
+            this.TxtSourceName.TrailingIcon = null;
             // 
             // UnitSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(376, 406);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.BtnDefaltUnit);
-            this.Controls.Add(this.CmbUnitName);
-            this.Controls.Add(this.CmbOffice2);
-            this.Controls.Add(this.CmbDist2);
+            this.ClientSize = new System.Drawing.Size(376, 309);
+            this.Controls.Add(this.materialCard2);
+            this.Controls.Add(this.materialCard1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "UnitSetting";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Unit Setting";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.UnitSetting_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.materialCard1.ResumeLayout(false);
+            this.materialCard1.PerformLayout();
+            this.materialCard2.ResumeLayout(false);
+            this.materialCard2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-        private MaterialSkin.Controls.MaterialComboBox CmbDist2;
-        private MaterialSkin.Controls.MaterialComboBox CmbOffice2;
         private MaterialSkin.Controls.MaterialComboBox CmbUnitName;
         private MaterialSkin.Controls.MaterialButton BtnDefaltUnit;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private MaterialSkin.Controls.MaterialRadioButton RbtnKsrp;
-        private MaterialSkin.Controls.MaterialRadioButton RbtnDar;
-        private MaterialSkin.Controls.MaterialRadioButton RbtnCivil;
+        private MaterialSkin.Controls.MaterialCard materialCard1;
+        private MaterialSkin.Controls.MaterialCard materialCard2;
+        private MaterialSkin.Controls.MaterialButton btnAddUnits;
+        private MaterialSkin.Controls.MaterialTextBox TxtSourceName;
     }
 }

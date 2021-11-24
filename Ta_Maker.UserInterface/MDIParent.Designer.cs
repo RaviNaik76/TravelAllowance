@@ -40,16 +40,16 @@ namespace Ta_Maker.UserInterface
             this.uSERSETTINGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uNITSETTINGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mONTHYEARSETTINGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tHEMESToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dATAENTRYToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eMPLOYEEDETAILSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tRAVELDETAILSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.uNITDETAILSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rEPORTSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eMPLOYEEREPORTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mONTHLYREPORTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rEPORTEXPORTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hELPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tHEMESToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dESIGNATIONSETTINGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -119,7 +119,8 @@ namespace Ta_Maker.UserInterface
             this.uSERSETTINGToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.uNITSETTINGToolStripMenuItem,
             this.mONTHYEARSETTINGToolStripMenuItem,
-            this.tHEMESToolStripMenuItem});
+            this.tHEMESToolStripMenuItem,
+            this.dESIGNATIONSETTINGToolStripMenuItem});
             this.uSERSETTINGToolStripMenuItem.Name = "uSERSETTINGToolStripMenuItem";
             this.uSERSETTINGToolStripMenuItem.Size = new System.Drawing.Size(93, 20);
             this.uSERSETTINGToolStripMenuItem.Text = "USER SETTING";
@@ -138,12 +139,18 @@ namespace Ta_Maker.UserInterface
             this.mONTHYEARSETTINGToolStripMenuItem.Text = "MONTH YEAR SETTING";
             this.mONTHYEARSETTINGToolStripMenuItem.Click += new System.EventHandler(this.mONTHYEARSETTINGToolStripMenuItem_Click);
             // 
+            // tHEMESToolStripMenuItem
+            // 
+            this.tHEMESToolStripMenuItem.Name = "tHEMESToolStripMenuItem";
+            this.tHEMESToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.tHEMESToolStripMenuItem.Text = "THEMES";
+            this.tHEMESToolStripMenuItem.Click += new System.EventHandler(this.tHEMESToolStripMenuItem_Click);
+            // 
             // dATAENTRYToolStripMenuItem
             // 
             this.dATAENTRYToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.eMPLOYEEDETAILSToolStripMenuItem,
-            this.tRAVELDETAILSToolStripMenuItem,
-            this.uNITDETAILSToolStripMenuItem});
+            this.tRAVELDETAILSToolStripMenuItem});
             this.dATAENTRYToolStripMenuItem.Name = "dATAENTRYToolStripMenuItem";
             this.dATAENTRYToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
             this.dATAENTRYToolStripMenuItem.Text = "DATA ENTRY";
@@ -151,23 +158,16 @@ namespace Ta_Maker.UserInterface
             // eMPLOYEEDETAILSToolStripMenuItem
             // 
             this.eMPLOYEEDETAILSToolStripMenuItem.Name = "eMPLOYEEDETAILSToolStripMenuItem";
-            this.eMPLOYEEDETAILSToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.eMPLOYEEDETAILSToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.eMPLOYEEDETAILSToolStripMenuItem.Text = "EMPLOYEE DETAILS";
             this.eMPLOYEEDETAILSToolStripMenuItem.Click += new System.EventHandler(this.eMPLOYEEDETAILSToolStripMenuItem_Click);
             // 
             // tRAVELDETAILSToolStripMenuItem
             // 
             this.tRAVELDETAILSToolStripMenuItem.Name = "tRAVELDETAILSToolStripMenuItem";
-            this.tRAVELDETAILSToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.tRAVELDETAILSToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.tRAVELDETAILSToolStripMenuItem.Text = "TRAVEL DETAILS";
             this.tRAVELDETAILSToolStripMenuItem.Click += new System.EventHandler(this.tRAVELDETAILSToolStripMenuItem_Click);
-            // 
-            // uNITDETAILSToolStripMenuItem
-            // 
-            this.uNITDETAILSToolStripMenuItem.Name = "uNITDETAILSToolStripMenuItem";
-            this.uNITDETAILSToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.uNITDETAILSToolStripMenuItem.Text = "UNIT DETAILS";
-            this.uNITDETAILSToolStripMenuItem.Click += new System.EventHandler(this.uNITDETAILSToolStripMenuItem_Click);
             // 
             // rEPORTSToolStripMenuItem
             // 
@@ -206,12 +206,12 @@ namespace Ta_Maker.UserInterface
             this.hELPToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.hELPToolStripMenuItem.Text = "HELP";
             // 
-            // tHEMESToolStripMenuItem
+            // dESIGNATIONSETTINGToolStripMenuItem
             // 
-            this.tHEMESToolStripMenuItem.Name = "tHEMESToolStripMenuItem";
-            this.tHEMESToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
-            this.tHEMESToolStripMenuItem.Text = "THEMES";
-            this.tHEMESToolStripMenuItem.Click += new System.EventHandler(this.tHEMESToolStripMenuItem_Click);
+            this.dESIGNATIONSETTINGToolStripMenuItem.Name = "dESIGNATIONSETTINGToolStripMenuItem";
+            this.dESIGNATIONSETTINGToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.dESIGNATIONSETTINGToolStripMenuItem.Text = "DESIGNATION SETTING";
+            this.dESIGNATIONSETTINGToolStripMenuItem.Click += new System.EventHandler(this.dESIGNATIONSETTINGToolStripMenuItem_Click);
             // 
             // MDIParent
             // 
@@ -249,7 +249,6 @@ namespace Ta_Maker.UserInterface
         private System.Windows.Forms.ToolStripMenuItem dATAENTRYToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem eMPLOYEEDETAILSToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tRAVELDETAILSToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem uNITDETAILSToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rEPORTSToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem eMPLOYEEREPORTToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mONTHLYREPORTToolStripMenuItem;
@@ -257,6 +256,7 @@ namespace Ta_Maker.UserInterface
         private System.Windows.Forms.ToolStripMenuItem hELPToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel LblMsg;
         private System.Windows.Forms.ToolStripMenuItem tHEMESToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dESIGNATIONSETTINGToolStripMenuItem;
     }
 }
 

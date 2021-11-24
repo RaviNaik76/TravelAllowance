@@ -62,42 +62,6 @@ namespace Ta_Maker.UserInterface.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string UnitDist {
-            get {
-                return ((string)(this["UnitDist"]));
-            }
-            set {
-                this["UnitDist"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string UnitType {
-            get {
-                return ((string)(this["UnitType"]));
-            }
-            set {
-                this["UnitType"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ForceType {
-            get {
-                return ((string)(this["ForceType"]));
-            }
-            set {
-                this["ForceType"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string ThemeMe {
             get {
                 return ((string)(this["ThemeMe"]));

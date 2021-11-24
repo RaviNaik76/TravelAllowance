@@ -34,7 +34,6 @@ namespace Ta_Maker
             this.CmbYear = new MaterialSkin.Controls.MaterialComboBox();
             this.CmbMonth = new MaterialSkin.Controls.MaterialComboBox();
             this.BtnGenarateReport = new MaterialSkin.Controls.MaterialButton();
-            this.BtnFinalMark = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ExportReport
@@ -62,7 +61,7 @@ namespace Ta_Maker
             this.CmbYear.Hint = "Select Year";
             this.CmbYear.IntegralHeight = false;
             this.CmbYear.ItemHeight = 43;
-            this.CmbYear.Location = new System.Drawing.Point(98, 171);
+            this.CmbYear.Location = new System.Drawing.Point(98, 133);
             this.CmbYear.MaxDropDownItems = 4;
             this.CmbYear.MouseState = MaterialSkin.MouseState.OUT;
             this.CmbYear.Name = "CmbYear";
@@ -86,14 +85,13 @@ namespace Ta_Maker
             this.CmbMonth.Hint = "Select Month";
             this.CmbMonth.IntegralHeight = false;
             this.CmbMonth.ItemHeight = 43;
-            this.CmbMonth.Location = new System.Drawing.Point(98, 236);
+            this.CmbMonth.Location = new System.Drawing.Point(98, 198);
             this.CmbMonth.MaxDropDownItems = 4;
             this.CmbMonth.MouseState = MaterialSkin.MouseState.OUT;
             this.CmbMonth.Name = "CmbMonth";
             this.CmbMonth.Size = new System.Drawing.Size(281, 49);
             this.CmbMonth.StartIndex = 0;
             this.CmbMonth.TabIndex = 1;
-            this.CmbMonth.SelectedIndexChanged += new System.EventHandler(this.CmbMonth_SelectedIndexChanged);
             // 
             // BtnGenarateReport
             // 
@@ -102,7 +100,7 @@ namespace Ta_Maker
             this.BtnGenarateReport.Depth = 0;
             this.BtnGenarateReport.HighEmphasis = true;
             this.BtnGenarateReport.Icon = null;
-            this.BtnGenarateReport.Location = new System.Drawing.Point(157, 307);
+            this.BtnGenarateReport.Location = new System.Drawing.Point(157, 269);
             this.BtnGenarateReport.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.BtnGenarateReport.MouseState = MaterialSkin.MouseState.HOVER;
             this.BtnGenarateReport.Name = "BtnGenarateReport";
@@ -114,23 +112,11 @@ namespace Ta_Maker
             this.BtnGenarateReport.UseVisualStyleBackColor = true;
             this.BtnGenarateReport.Click += new System.EventHandler(this.BtnGenarateReport_Click);
             // 
-            // BtnFinalMark
-            // 
-            this.BtnFinalMark.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnFinalMark.Location = new System.Drawing.Point(128, 124);
-            this.BtnFinalMark.Name = "BtnFinalMark";
-            this.BtnFinalMark.Size = new System.Drawing.Size(227, 31);
-            this.BtnFinalMark.TabIndex = 4;
-            this.BtnFinalMark.Text = "Take Final Print";
-            this.BtnFinalMark.UseVisualStyleBackColor = true;
-            this.BtnFinalMark.Click += new System.EventHandler(this.BtnFinalMark_Click);
-            // 
             // ReportExport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(492, 373);
-            this.Controls.Add(this.BtnFinalMark);
+            this.ClientSize = new System.Drawing.Size(492, 336);
             this.Controls.Add(this.BtnGenarateReport);
             this.Controls.Add(this.CmbMonth);
             this.Controls.Add(this.CmbYear);
@@ -151,6 +137,5 @@ namespace Ta_Maker
         private MaterialSkin.Controls.MaterialComboBox CmbYear;
         private MaterialSkin.Controls.MaterialComboBox CmbMonth;
         private MaterialSkin.Controls.MaterialButton BtnGenarateReport;
-        private System.Windows.Forms.Button BtnFinalMark;
     }
 }

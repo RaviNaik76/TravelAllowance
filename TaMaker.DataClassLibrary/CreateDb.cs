@@ -57,6 +57,7 @@ namespace TaMaker.DataClassLibrary
 	                        EmpSalary REAL,
 	                        EmpStation TEXT,
 	                        EmpShort INTEGER,
+                            EmpGroup TEXT,
 	                        EmpStatus TEXT,
 	                        PRIMARY KEY(EmpNumber)
                         )";
@@ -112,18 +113,10 @@ namespace TaMaker.DataClassLibrary
 
             SqlQuery = @"CREATE TABLE IF NOT EXISTS DesignationTable 
                         (
+                            Id INTEGER NOT NULL,
                             Designation TEXT NOT NULL,
-                            ForceType TEXT,
-	                        SortOrder INTEGER NOT NULL
-                        )";
-
-            SqlQueryList.Add(SqlQuery);
-
-            SqlQuery = @"CREATE TABLE IF NOT EXISTS Units 
-                        (
-                            UnitName TEXT NOT NULL,
-                            UnitType TEXT NOT NULL,
-                            UnitDist TEXT NOT NULL
+	                        SortOrder INTEGER NOT NULL,
+                            UnitName TEXT
                         )";
 
             SqlQueryList.Add(SqlQuery);
@@ -131,8 +124,20 @@ namespace TaMaker.DataClassLibrary
             SqlQuery = @"CREATE TABLE IF NOT EXISTS Marking 
                         (
                             M_Year TEXT NOT NULL,
+                            Unit TEXT NOT NULL,
                             Mark TEXT NOT NULL,
                             MarkedDate TEXT NOT NULL
+                        )";
+
+            SqlQueryList.Add(SqlQuery);
+
+
+            SqlQuery = @"CREATE TABLE IF NOT EXISTS ExcessAdvance 
+                        (
+                            KGID INTEGER NOT NULL,
+                            ExcessAmt REAL NOT NULL,
+                            M_Year TEXT NOT NULL,
+                            Status TEXT
                         )";
 
             SqlQueryList.Add(SqlQuery);
@@ -148,16 +153,14 @@ namespace TaMaker.DataClassLibrary
 
             SqlQuery = @"INSERT OR IGNORE INTO TaValue
                                 (EmpClass, NormalTa, MetroTa, BangloreTa, OutOfStateTa, OutOfStateMetroTa) values 
-                                ('I', 400.00, 500.00, 600.00, 600.00, 800.00),
-                                ('II', 300.00, 400.00, 400.00, 400.00, 600.00),
-                                ('III', 200.00, 300.00, 300.00, 300.00, 500.00)";
+                                ('A', 400.00, 500.00, 600.00, 600.00, 800.00),
+                                ('B', 300.00, 400.00, 400.00, 400.00, 600.00),
+                                ('C', 200.00, 300.00, 300.00, 300.00, 500.00),
+                                ('D', 200.00, 300.00, 300.00, 300.00, 500.00)";
 
             InsertQueryList.Add(SqlQuery);
 
             SqlQuery = @"INSERT OR IGNORE INTO SourceTable (SourceName, SourceType) values 
-                                ('UTTARA KANNADA', 'District'),
-                                ('DAKSHINA KANNADA', 'District'),
-                                ('UDUPI', 'District'),
                                 ('Banglore', 'Place'),
                                 ('State Metro', 'Place'),
                                 ('State Others', 'Place'),
@@ -207,54 +210,14 @@ namespace TaMaker.DataClassLibrary
                                 ('Srinagar~81', 'Holting'),
                                 ('Out of State Metro', 'Place'),
                                 ('Out of State Others', 'Place'),
-                                ('DSP OFFICE', 'Office'),
-                                ('CPI OFFICE', 'Office'),
-                                ('POLICE STATION', 'Office'),
-                                ('FMS UNIT', 'Office'),
-                                ('TRAFFIC AID UNIT', 'Office'),
-                                ('OUT POST', 'Office'),
-                                ('INT', 'Office'),
-                                ('DAR', 'Office'),
-                                ('DAR MT', 'Office'),
-                                ('ISD', 'Office'),
-                                ('PRAMOTION', 'Status'),
+                                ('DELETE', 'Status'),
                                 ('TRANSFFER', 'Status'),
                                 ('RETAIRED', 'Status'),
-                                ('SALARY HIKE', 'Status'),
-                                ('OTHERS', 'Status'),
-                                ('DELETE', 'Status')";
-            InsertQueryList.Add(SqlQuery);
-
-            SqlQuery = @"INSERT OR IGNORE INTO Units (UnitName, UnitType, UnitDist) values 
-                                ('DANDELI TOWN', 'POLICE STATION', 'UTTARA KANNADA'),
-                                ('DANDELI RURAL', 'POLICE STATION', 'UTTARA KANNADA'),
-                                ('DAR KARWAR', 'DAR', 'UTTARA KANNADA'),
-                                ('DAR MT KARWAR', 'DAR', 'UTTARA KANNADA')";
-            InsertQueryList.Add(SqlQuery);
-
-            SqlQuery = @"INSERT OR IGNORE INTO DesignationTable (Designation, ForceType, SortOrder) values 
-                                ('ASP', 'CIVIL', 1),
-                                ('DSP', 'CIVIL', 2),
-                                ('CPI', 'CIVIL', 3),
-                                ('PSI', 'CIVIL', 4),
-                                ('WPSI', 'CIVIL', 5),
-                                ('ASI', 'CIVIL', 6),
-                                ('WASI', 'CIVIL', 7),
-                                ('CHC', 'CIVIL', 8),
-                                ('WHC', 'CIVIL', 9),
-                                ('CPC', 'CIVIL', 10),
-                                ('WPC', 'CIVIL', 11),
-                                ('DSP', 'DAR', 2),
-                                ('RPI', 'DAR', 3),
-                                ('RSI', 'DAR', 4),
-                                ('ARSI', 'DAR', 5),
-                                ('AHC', 'DAR', 6),
-                                ('APC', 'DAR', 7)";
+                                ('OTHERS', 'Status')";
             InsertQueryList.Add(SqlQuery);
 
             ExicuteQueryList(InsertQueryList);
         }
-
 
         //create all required views
         public void CreateRequiredViews()
@@ -265,20 +228,8 @@ namespace TaMaker.DataClassLibrary
                         SELECT * FROM Employee ORDER BY EmpShort ASC";
             ViewsQueryList.Add(SqlQuery);
 
-            SqlQuery = @"CREATE VIEW IF NOT EXISTS DistrictView AS 
-                        SELECT* FROM SourceTable WHERE SourceType = 'District'";
-            ViewsQueryList.Add(SqlQuery);
-
-            SqlQuery = @"CREATE VIEW IF NOT EXISTS OfficeTypeView AS 
-                        SELECT * FROM SourceTable WHERE SourceType='Office'";
-            ViewsQueryList.Add(SqlQuery);
-
             SqlQuery = @"CREATE VIEW IF NOT EXISTS EmpStatusView AS 
                         SELECT * FROM SourceTable WHERE SourceType='Status'";
-            ViewsQueryList.Add(SqlQuery);
-
-            SqlQuery = @"CREATE VIEW IF NOT EXISTS DesignationView AS 
-                        SELECT * FROM SourceTable WHERE SourceType='Designation'";
             ViewsQueryList.Add(SqlQuery);
 
             SqlQuery = @"CREATE VIEW IF NOT EXISTS GroupIdView AS 
@@ -287,10 +238,6 @@ namespace TaMaker.DataClassLibrary
 
             SqlQuery = @"CREATE VIEW IF NOT EXISTS PlacesView AS 
                         SELECT * FROM SourceTable WHERE SourceType='Place'";
-            ViewsQueryList.Add(SqlQuery);
-
-            SqlQuery = @"CREATE VIEW IF NOT EXISTS StationView AS 
-                        SELECT UnitName FROM Units WHERE UnitType='Station'";
             ViewsQueryList.Add(SqlQuery);
 
             SqlQuery = @"CREATE VIEW IF NOT EXISTS VehicleTypeView AS 

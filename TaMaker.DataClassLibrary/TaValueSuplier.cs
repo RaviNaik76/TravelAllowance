@@ -5,10 +5,10 @@ namespace TaMaker.DataClassLibrary
 {
     public class TaValueSuplier
     {
-        public static double GetTaValue(string desgnation, string placeType, string forceType)
+        public static double GetTaValue(string empClass, string placeType)
         {
             double Tavalue = 0.0;
-            DataTable dt = GetTaValueTable(desgnation, placeType, forceType);
+            DataTable dt = GetTaValueTable(empClass);
 
             if (dt.Rows.Count > 0)
             {
@@ -34,37 +34,17 @@ namespace TaMaker.DataClassLibrary
             return Tavalue;
         }
 
-
-        public static DataTable GetTaValueTable(string desg, string placeType, string forceType)
+        public static DataTable GetTaValueTable(string EmpClass)
         {
             DataTable dt = new DataTable();
-            int empSort = SourceSuplier.GetEmployeSort(desg, forceType);
-
-            if (desg.Length > 0 && placeType.Length > 0)
+            using (var Cmd = new SQLiteCommand(DbConnection.Conn))
             {
-                using (var Cmd = new SQLiteCommand(DbConnection.Conn))
-                {
-                    switch (empSort)
-                    {
-                        case int n when n >= 2 && n <= 3:
-                            Cmd.CommandText = ($"SELECT * FROM TaValue WHERE EmpClass = 'II'");
-                            break;
+                Cmd.CommandText = ($"SELECT * FROM TaValue WHERE EmpClass='{EmpClass}'");
 
-                        case int n when n > 3:
-                            Cmd.CommandText = ($"SELECT * FROM TaValue WHERE EmpClass = 'III'");
-                            break;
-
-                        case 1:
-                            Cmd.CommandText = ($"SELECT * FROM TaValue WHERE EmpClass = 'I'");
-                            break;
-                    }
-                   
-                    DbConnection.OpenConnection();
-                    SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(Cmd);
-                    dataAdapter.Fill(dt);
-                    DbConnection.CloseConnection();
-                }
-
+                DbConnection.OpenConnection();
+                SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(Cmd);
+                dataAdapter.Fill(dt);
+                DbConnection.CloseConnection();
             }
             return dt;
         }

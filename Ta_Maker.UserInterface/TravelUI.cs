@@ -65,47 +65,41 @@ namespace Ta_Maker
 
         private void BtnAddTravel_Click(object sender, EventArgs e)
         {
-            int GroupNo = SourceSuplier.GetGroupId() + 1;
-            string forceType = UserInterface.Properties.Settings.Default["ForceType"].ToString();
-            
             if (DgvSelectedEmployee.Rows.Count >= 1)
             {
-                //check already exists or not
-                bool DataExists = true;
-                foreach (DataGridViewRow row in DgvSelectedEmployee.Rows)
+                BtnCalculateDay_Click(sender, e);
+
+                if (ValidForm())
                 {
-                    int Kgid = int.Parse(row.Cells[0].Value.ToString());
-                    DateTime fDate = GetFromatedDate(out DateTime tDate);
-                    bool DataNotIn = TravelCrud.CheckTravell(Kgid, monthYear, fDate);
-                    if (DataNotIn)
+                    if (DataNotExists())
                     {
-                        DataExists = false;
-                    }
-                }
-
-                if (DataExists)
-                {
-                    //loop employee grid (for every employee)
-                    foreach (DataGridViewRow row in DgvSelectedEmployee.Rows)
-                    {   
-                        //get salary and emp number
-                        int Kgid = int.Parse(row.Cells[0].Value.ToString());
-                        string[] design = row.Cells[1].Value.ToString().Split();
-                        string fulldesign = row.Cells[1].Value.ToString();
-                        double salary = double.Parse(row.Cells[3].Value.ToString());
-
-                        //get perday ta
-                        double PerDayTa = TaValueSuplier.GetTaValue(design[0], CmbDestination.Text.ToString(), forceType);
+                        int GroupNo = SourceSuplier.GetGroupId() + 1;
+                        string forceType = UserInterface.Properties.Settings.Default["ForceType"].ToString();
                         
-                        //ADD DATA TO CLASS
-                        Travel travell = NewTravel(PerDayTa, Kgid, GroupNo, fulldesign, salary);
-                        
-                        //Add to database
-                        _ = TravelCrud.AddTravell(travell);
+                        //loop employee grid (for every employee)
+                        foreach (DataGridViewRow row in DgvSelectedEmployee.Rows)
+                        {
+                            //get salary and emp number
+                            int Kgid = int.Parse(row.Cells[0].Value.ToString());
+                           // string[] design = row.Cells[1].Value.ToString().Split();
+                            string design = row.Cells[1].Value.ToString();
+                            double salary = double.Parse(row.Cells[3].Value.ToString());
+                            string empClass = row.Cells[4].Value.ToString();
+
+                            //get perday ta
+                            double PerDayTa = TaValueSuplier.GetTaValue(empClass, CmbDestination.Text.ToString());
+                           
+                            //ADD DATA TO CLASS
+                            Travel travell = NewTravel(PerDayTa, Kgid, GroupNo, design, salary);
+
+                            //Add to database
+                            _ = TravelCrud.AddTravell(travell);
+                        }
+                        BtnClearAll_Click(sender, e);
                     }
-                    BtnClearAll_Click(sender, e);
+                    else { MessageBox.Show("Data Already Exists within the Date Range", "Travel Entry"); }
                 }
-                else { MessageBox.Show("Data Already Exists within the Date Range", "Travel Entry"); }
+                else { MessageBox.Show("Entered Values Not Valid, Please check..", "Travel Entry"); }
             }
             else {MessageBox.Show("No Employee Selected", "Travel Entry Error");}
         }
@@ -137,40 +131,36 @@ namespace Ta_Maker
         {
             TravelCrud travelCrud = new TravelCrud();
             travelCrud.themeMe = UserInterface.Properties.Settings.Default["ThemeMe"].ToString();
-            if (unit.Length > 0)
+            LoadEmployee();
+            //load places metro, etc
+            Dictionary<int, string> Places = SourceSuplier.LoadPlaces();
+            foreach (var item in Places)
             {
-                LoadEmployee();
-                //load places metro, etc
-                Dictionary<int, string> Places = SourceSuplier.LoadPlaces();
-                foreach (var item in Places)
-                {
-                    CmbDestination.Items.Add(item.Value);
-                }
-
-                //load places metro, etc
-                Dictionary<int, string> vehicletype = SourceSuplier.LoadVehicleType();
-                foreach (var item in vehicletype)
-                {
-                    CmbJourneyMode.Items.Add(item.Value);
-                }
-
-                //load places metro, etc
-                Dictionary<int, string> haltingPlaces = SourceSuplier.LoadHaltingPlace();
-                foreach (var item in haltingPlaces)
-                {
-                    CmbHalting.Items.Add(item.Value);
-                }
-
-                marked = FinalPrintMark.GetFinalMark(monthYear);
-                if (marked)
-                {
-                    BtnAddTravel.Enabled = false;
-                }
-
-                SetMonthYearToDate();
-                TxtSearchEmployee.Focus();
+                CmbDestination.Items.Add(item.Value);
             }
-            else { MessageBox.Show("Please set your Unit in Unit Setting", "TA_Maker", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+
+            //load places metro, etc
+            Dictionary<int, string> vehicletype = SourceSuplier.LoadVehicleType();
+            foreach (var item in vehicletype)
+            {
+                CmbJourneyMode.Items.Add(item.Value);
+            }
+
+            //load places metro, etc
+            Dictionary<int, string> haltingPlaces = SourceSuplier.LoadHaltingPlace();
+            foreach (var item in haltingPlaces)
+            {
+                CmbHalting.Items.Add(item.Value);
+            }
+
+            marked = FinalPrintMark.GetFinalMark(monthYear, unit);
+            if (marked)
+            {
+                BtnAddTravel.Enabled = false;
+            }
+
+            SetMonthYearToDate();
+            TxtSearchEmployee.Focus();
         }
 
         private void Okey_Click(object sender, EventArgs e)
@@ -185,6 +175,7 @@ namespace Ta_Maker
                     DgvSelectedEmployee.Rows[n].Cells[1].Value = item.Cells[1].Value.ToString();
                     DgvSelectedEmployee.Rows[n].Cells[2].Value = item.Cells[2].Value.ToString();
                     DgvSelectedEmployee.Rows[n].Cells[3].Value = item.Cells[3].Value.ToString();
+                    DgvSelectedEmployee.Rows[n].Cells[4].Value = item.Cells[5].Value.ToString();
                 }
             }
             TravelCrud travelCrud = new TravelCrud();
@@ -365,15 +356,160 @@ namespace Ta_Maker
 
         private void CmbJourneyMode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (CmbJourneyMode.Text == "KSRTC" || CmbJourneyMode.Text == "Train")
+            if (CmbJourneyMode.Text == "KSRTC" || CmbJourneyMode.Text == "Train" || CmbJourneyMode.Text == "Airoplane")
             {
                 TxtWarrant.Enabled = true;
                 TxtWarrant.Focus();
             }
-            else { TxtWarrant.Enabled = false; }
+            else {
+                TxtWarrant.Text = ""; 
+                TxtWarrant.Enabled = false; }
         }
 
         //============================================= METHODS ==============================
+       
+        private bool ValidForm()
+        {
+            if (IsNull(TxtDepPlace.Text))
+            {
+                return false;
+            }
+            if (IsNull(TxtArrPlace.Text))
+            {
+                return false;
+            }
+            if (IsNull(TxtResion.Text))
+            {
+                return false;
+            }
+            DateTime fDate = GetFromatedDate(out DateTime tDate);
+            if (!(fDate <= tDate))
+            {
+                return false;
+            }
+            DateTime fromDate = DateTime.Parse($"{DtDepDate.Value.Day} {monthYear} {DtDepTime.Text}");
+            DateTime toDate = DateTime.Parse($"{DtArrDate.Value.Day} {monthYear} {DtArrTime.Text}");
+            string month = UserInterface.Properties.Settings.Default["DMonth"].ToString();
+            if (fromDate.Month != fDate.Month && toDate.Month != tDate.Month)
+            {
+                return false;
+            }
+            if (CmbDestination.SelectedIndex == -1)
+            {
+                return false;
+            }
+            if (CmbJourneyMode.SelectedIndex == -1)
+            {
+                return false;
+            }
+            if (!IsNumeric(TxtKms.Text))
+            {
+                return false;
+            }
+            if (IsNumeric(TxtKms.Text))
+            {
+                double Kms = double.Parse(TxtKms.Text);
+                if (Kms <= 8)
+                {
+                    return false;
+                }
+            }
+            if (TxtAdvace.Text.Trim().Length > 0 && !IsNumeric(TxtAdvace.Text))
+            {
+                return false;
+            }
+            if (fDate.Day != tDate.Day)
+            {
+                if (CmbHalting.SelectedIndex == -1)
+                {
+                    return false;
+                }
+            }
+            if (CmbJourneyMode.Text == "Private")
+            {
+                if (TxtFair.Text.Trim().Length != 0 && IsNumeric(TxtFair.Text))
+                {
+                    double fairamt = double.Parse(TxtFair.Text.Trim());
+                    if (fairamt > 0)
+                    {
+                        return false;
+                    }
+                }
+            }
+            if (CmbJourneyMode.Text == "Govt-Vehicle")
+            {
+                if (TxtFair.Text.Trim().Length != 0 && IsNumeric(TxtFair.Text))
+                {
+                    double fairamt = double.Parse(TxtFair.Text.Trim());
+                    if (fairamt > 0)
+                    {
+                        return false;
+                    }
+                }
+            }
+            if (CmbJourneyMode.Text != "Private")
+            {
+                if (CmbJourneyMode.Text != "Govt-Vehicle")
+                {
+                    if (TxtFair.Text.Trim().Length == 0)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        if (IsNumeric(TxtFair.Text))
+                        {
+                            double fairamt = double.Parse(TxtFair.Text.Trim());
+                            if (fairamt <= 0)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                    if (TxtWarrant.Text.Trim().Length == 0)
+                    {
+                        return false;
+                    }
+                }
+            }
+            if (!IsNumeric(TxtDays.Text))
+            {
+                return false;
+            }
+            if (IsNumeric(TxtDays.Text))
+            {
+                double day = double.Parse(TxtDays.Text);
+                if (day <= 0 || day > 30)
+                {
+                    return false;
+                }
+            }
+            if (TxtDays2.Text.Trim().Length > 0 && IsNumeric(TxtDays2.Text))
+            {
+                double day2 = double.Parse(TxtDays2.Text);
+                if (day2 <= 0 || day2 > 60)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+        private bool DataNotExists()
+        {
+            //check already exists or not
+            foreach (DataGridViewRow row in DgvSelectedEmployee.Rows)
+            {
+                int Kgid = int.Parse(row.Cells[0].Value.ToString());
+                DateTime fDate = GetFromatedDate(out DateTime tDate);
+                bool DataNotIn = TravelCrud.CheckTravell(Kgid, monthYear, fDate);
+                if (DataNotIn)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         private void LoadEmployee()
         {
             List<Employee> EmployeeList = EmployeCrud.ViewEmployee(unit);
@@ -385,23 +521,47 @@ namespace Ta_Maker
             }
         }
 
+        private bool IsNumeric(string text)
+        {
+            return double.TryParse(text, out _);
+        }
+
+        private bool IsNull(string text)
+        {
+            return string.IsNullOrEmpty(text);
+        }
+
         private Travel NewTravel(double PerDayTa, int Kgid, int GroupNo, string designation, double salary)
         {
             DateTime fDate = GetFromatedDate(out DateTime tDate);
-            
-            //divid the hole amt to all employees
-            if (TxtFair.Text.Length == 0)
-            {TxtFair.Text = "0";}
+            SetDefaltValue();
             double fairamt = double.Parse(TxtFair.Text);
             if (fairamt > 0)
             {
                 if (DgvSelectedEmployee.Rows.Count > 0)
                 {
-                   fairamt /= DgvSelectedEmployee.Rows.Count;
+                    fairamt /= DgvSelectedEmployee.Rows.Count;
                 }
             }
-
-            double Days = PrepareTravel(PerDayTa, fairamt, out double totalTA);
+            //check previous Excess Advance for kgid
+            double Advance = double.Parse(TxtAdvace.Text);
+            DataTable dt = TravelCrud.GetExcessTaHolder();
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    int KGID = int.Parse(row[0].ToString());
+                    if (KGID == Kgid)
+                    {
+                        //if their add to advanceTA
+                        double ExAmt = int.Parse(row[1].ToString());
+                        Advance += ExAmt;
+                        //delete entry in Deference Table
+                        TravelCrud.LessExcessTa(Kgid, monthYear);
+                    }
+                }
+            }
+            double Days = ReCalculateDays(PerDayTa, fairamt, out double totalTA);
 
             Travel travel = new Travel()
             {
@@ -416,7 +576,7 @@ namespace Ta_Maker
                 NoOfDay = Days,
                 FareAmt = fairamt,
                 TotalTA = totalTA,
-                AdvanceTA = double.Parse(TxtAdvace.Text),
+                AdvanceTA = Advance,
                 Jou_Mode = CmbJourneyMode.Text,
                 Warrant_No = TxtWarrant.Text,
                 Shd_No = ($"{TxtShd.Text}, {TxtShd_No.Text}"),
@@ -431,9 +591,8 @@ namespace Ta_Maker
             return travel;
         }
 
-        private double PrepareTravel(double PerDayTa, double fairAmt, out double totalTA)
+        private void SetDefaltValue()
         {
-            double Days;
             if (TxtAdvace.Text.Length == 0)
             {
                 TxtAdvace.Text = "0";
@@ -442,20 +601,30 @@ namespace Ta_Maker
             {
                 TxtKms.Text = "0";
             }
-           
+            if (TxtFair.Text.Trim().Length == 0)
+            {
+                TxtFair.Text ="0";
+            }
+        }
+
+        private double ReCalculateDays(double PerDayTa, double fairAmt, out double totalTA)
+        {
+            double Days;
+            SetDefaltValue();
+
             double.TryParse(TxtDays2.Text, out double extraDays);
             if (extraDays > 0)
             {
                 Days = double.Parse(TxtDays.Text) + double.Parse(TxtDays2.Text);
                 totalTA = double.Parse(TxtDays.Text) * PerDayTa;
                 totalTA += (double.Parse(TxtDays2.Text) * (PerDayTa / 2));
-                totalTA += fairAmt + double.Parse(TxtAdvace.Text);
+                totalTA += fairAmt;
                 remarks = ($"Rule 518 ({TxtDays.Text} x {PerDayTa}, {TxtDays2.Text} x {PerDayTa / 2})");
             }
             else
             {
                 Days = double.Parse(TxtDays.Text);
-                totalTA = (PerDayTa * double.Parse(TxtDays.Text) + fairAmt + double.Parse(TxtAdvace.Text));
+                totalTA = (PerDayTa * double.Parse(TxtDays.Text) + fairAmt);
                 remarks = "";
             }
            
@@ -484,6 +653,54 @@ namespace Ta_Maker
             if (TravelViewTabControl.SelectedTab != tabPage1)
             {
                 BtnDelete.Enabled = false;
+            }
+        }
+
+        private void TxtShd_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(Char.IsDigit(e.KeyChar) || (e.KeyChar == (char)Keys.Back)))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TxtWarrant_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar !=',') && e.KeyChar !=(char)Keys.Space)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TxtFair_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(Char.IsDigit(e.KeyChar) || (e.KeyChar == (char)Keys.Back)))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TxtKms_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(Char.IsDigit(e.KeyChar) || (e.KeyChar == (char)Keys.Back)))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TxtShd_No_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(Char.IsDigit(e.KeyChar) || (e.KeyChar == (char)Keys.Back)))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TxtAdvace_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(Char.IsDigit(e.KeyChar) || (e.KeyChar == (char)Keys.Back)))
+            {
+                e.Handled = true;
             }
         }
     }

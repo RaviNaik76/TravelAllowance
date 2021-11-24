@@ -70,23 +70,25 @@ namespace Ta_Maker
             this.GridTravelView = new System.Windows.Forms.DataGridView();
             this.TravelTabSelector = new MaterialSkin.Controls.MaterialTabSelector();
             this.DgvSelectedEmployee = new System.Windows.Forms.DataGridView();
-            this.EmpNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.designation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.empname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.salary = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PanelEmployee = new System.Windows.Forms.Panel();
+            this.CkByName = new System.Windows.Forms.CheckBox();
             this.DgvEmployee = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Okey = new System.Windows.Forms.Button();
             this.CancelEmployee = new System.Windows.Forms.Button();
             this.DeselectAll = new System.Windows.Forms.Button();
             this.SelectAll = new System.Windows.Forms.Button();
             this.TxtSearchEmployee = new MaterialSkin.Controls.MaterialTextBox();
-            this.CkByName = new System.Windows.Forms.CheckBox();
+            this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EmpGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EmpNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.designation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.empname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.salary = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Group = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TravellTabControl.SuspendLayout();
             this.TabAddTravel.SuspendLayout();
             this.materialCard2.SuspendLayout();
@@ -149,6 +151,7 @@ namespace Ta_Maker
             // 
             this.TxtDays.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.TxtDays.Depth = 0;
+            this.TxtDays.Enabled = false;
             this.TxtDays.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.TxtDays.Hint = "Total Days";
             this.TxtDays.LeadingIcon = null;
@@ -180,11 +183,13 @@ namespace Ta_Maker
             this.TxtAdvace.TabIndex = 20;
             this.TxtAdvace.Text = "";
             this.TxtAdvace.TrailingIcon = null;
+            this.TxtAdvace.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtAdvace_KeyPress);
             // 
             // TxtDays2
             // 
             this.TxtDays2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.TxtDays2.Depth = 0;
+            this.TxtDays2.Enabled = false;
             this.TxtDays2.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.TxtDays2.Hint = "Half TA";
             this.TxtDays2.LeadingIcon = null;
@@ -216,6 +221,7 @@ namespace Ta_Maker
             this.TxtWarrant.TabIndex = 12;
             this.TxtWarrant.Text = "";
             this.TxtWarrant.TrailingIcon = null;
+            this.TxtWarrant.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtWarrant_KeyPress);
             // 
             // materialCard2
             // 
@@ -445,6 +451,7 @@ namespace Ta_Maker
             this.TxtShd_No.TabIndex = 16;
             this.TxtShd_No.Text = "";
             this.TxtShd_No.TrailingIcon = null;
+            this.TxtShd_No.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtShd_No_KeyPress);
             // 
             // TxtKms
             // 
@@ -464,6 +471,7 @@ namespace Ta_Maker
             this.TxtKms.TabIndex = 15;
             this.TxtKms.Text = "";
             this.TxtKms.TrailingIcon = null;
+            this.TxtKms.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtKms_KeyPress);
             // 
             // TxtFair
             // 
@@ -481,6 +489,7 @@ namespace Ta_Maker
             this.TxtFair.TabIndex = 14;
             this.TxtFair.Text = "";
             this.TxtFair.TrailingIcon = null;
+            this.TxtFair.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtFair_KeyPress);
             // 
             // CmbHalting
             // 
@@ -568,6 +577,7 @@ namespace Ta_Maker
             this.TxtShd.TabIndex = 6;
             this.TxtShd.Text = "";
             this.TxtShd.TrailingIcon = null;
+            this.TxtShd.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtShd_KeyPress);
             // 
             // TxtResion
             // 
@@ -764,7 +774,8 @@ namespace Ta_Maker
             this.EmpNo,
             this.designation,
             this.empname,
-            this.salary});
+            this.salary,
+            this.Group});
             this.DgvSelectedEmployee.Location = new System.Drawing.Point(194, 64);
             this.DgvSelectedEmployee.Name = "DgvSelectedEmployee";
             this.DgvSelectedEmployee.ReadOnly = true;
@@ -772,32 +783,6 @@ namespace Ta_Maker
             this.DgvSelectedEmployee.Size = new System.Drawing.Size(589, 89);
             this.DgvSelectedEmployee.TabIndex = 2;
             this.DgvSelectedEmployee.TabStop = false;
-            // 
-            // EmpNo
-            // 
-            this.EmpNo.HeaderText = "KGID Number";
-            this.EmpNo.Name = "EmpNo";
-            this.EmpNo.ReadOnly = true;
-            this.EmpNo.Width = 120;
-            // 
-            // designation
-            // 
-            this.designation.HeaderText = "Designation";
-            this.designation.Name = "designation";
-            this.designation.ReadOnly = true;
-            // 
-            // empname
-            // 
-            this.empname.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.empname.HeaderText = "Employee Name";
-            this.empname.Name = "empname";
-            this.empname.ReadOnly = true;
-            // 
-            // salary
-            // 
-            this.salary.HeaderText = "Salary";
-            this.salary.Name = "salary";
-            this.salary.ReadOnly = true;
             // 
             // PanelEmployee
             // 
@@ -816,6 +801,17 @@ namespace Ta_Maker
             this.PanelEmployee.TabIndex = 26;
             this.PanelEmployee.Visible = false;
             // 
+            // CkByName
+            // 
+            this.CkByName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.CkByName.AutoSize = true;
+            this.CkByName.Location = new System.Drawing.Point(172, 293);
+            this.CkByName.Name = "CkByName";
+            this.CkByName.Size = new System.Drawing.Size(106, 17);
+            this.CkByName.TabIndex = 27;
+            this.CkByName.Text = "Search By Name";
+            this.CkByName.UseVisualStyleBackColor = true;
+            // 
             // DgvEmployee
             // 
             this.DgvEmployee.AllowUserToAddRows = false;
@@ -827,7 +823,8 @@ namespace Ta_Maker
             this.Column2,
             this.Column3,
             this.Column4,
-            this.Column5});
+            this.Column5,
+            this.EmpGroup});
             this.DgvEmployee.Location = new System.Drawing.Point(-41, 0);
             this.DgvEmployee.MultiSelect = false;
             this.DgvEmployee.Name = "DgvEmployee";
@@ -835,33 +832,6 @@ namespace Ta_Maker
             this.DgvEmployee.Size = new System.Drawing.Size(460, 286);
             this.DgvEmployee.TabIndex = 26;
             this.DgvEmployee.TabStop = false;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Select";
-            this.Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Designation";
-            this.Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column3.HeaderText = "Employee Name";
-            this.Column3.Name = "Column3";
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Basic Pay";
-            this.Column4.Name = "Column4";
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "Employee Number";
-            this.Column5.Name = "Column5";
-            this.Column5.Visible = false;
             // 
             // Okey
             // 
@@ -929,16 +899,71 @@ namespace Ta_Maker
             this.TxtSearchEmployee.TextChanged += new System.EventHandler(this.TxtSearchEmployee_TextChanged);
             this.TxtSearchEmployee.Enter += new System.EventHandler(this.TxtSearchEmployee_Enter);
             // 
-            // CkByName
+            // Column1
             // 
-            this.CkByName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CkByName.AutoSize = true;
-            this.CkByName.Location = new System.Drawing.Point(172, 293);
-            this.CkByName.Name = "CkByName";
-            this.CkByName.Size = new System.Drawing.Size(106, 17);
-            this.CkByName.TabIndex = 27;
-            this.CkByName.Text = "Search By Name";
-            this.CkByName.UseVisualStyleBackColor = true;
+            this.Column1.HeaderText = "Select";
+            this.Column1.Name = "Column1";
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Designation";
+            this.Column2.Name = "Column2";
+            // 
+            // Column3
+            // 
+            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column3.HeaderText = "Employee Name";
+            this.Column3.Name = "Column3";
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Basic Pay";
+            this.Column4.Name = "Column4";
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Employee Number";
+            this.Column5.Name = "Column5";
+            this.Column5.Visible = false;
+            // 
+            // EmpGroup
+            // 
+            this.EmpGroup.HeaderText = "EmpGroup";
+            this.EmpGroup.Name = "EmpGroup";
+            this.EmpGroup.Visible = false;
+            // 
+            // EmpNo
+            // 
+            this.EmpNo.HeaderText = "KGID Number";
+            this.EmpNo.Name = "EmpNo";
+            this.EmpNo.ReadOnly = true;
+            this.EmpNo.Width = 120;
+            // 
+            // designation
+            // 
+            this.designation.HeaderText = "Designation";
+            this.designation.Name = "designation";
+            this.designation.ReadOnly = true;
+            // 
+            // empname
+            // 
+            this.empname.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.empname.HeaderText = "Employee Name";
+            this.empname.Name = "empname";
+            this.empname.ReadOnly = true;
+            // 
+            // salary
+            // 
+            this.salary.HeaderText = "Salary";
+            this.salary.Name = "salary";
+            this.salary.ReadOnly = true;
+            // 
+            // Group
+            // 
+            this.Group.HeaderText = "EmpGroup";
+            this.Group.Name = "Group";
+            this.Group.ReadOnly = true;
+            this.Group.Visible = false;
             // 
             // TravelUI
             // 
@@ -1006,10 +1031,6 @@ namespace Ta_Maker
         private System.Windows.Forms.Button DeselectAll;
         private System.Windows.Forms.Button SelectAll;
         private MaterialSkin.Controls.MaterialTextBox TxtSearchEmployee;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EmpNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn designation;
-        private System.Windows.Forms.DataGridViewTextBoxColumn empname;
-        private System.Windows.Forms.DataGridViewTextBoxColumn salary;
         private System.Windows.Forms.DateTimePicker DtArrTime;
         private MaterialSkin.Controls.MaterialLabel materialLabel3;
         private MaterialSkin.Controls.MaterialLabel materialLabel1;
@@ -1028,11 +1049,17 @@ namespace Ta_Maker
         private MaterialSkin.Controls.MaterialTextBox TxtDays2;
         private MaterialSkin.Controls.MaterialTextBox TxtDays;
         private MaterialSkin.Controls.MaterialTextBox TxtAdvace;
+        private System.Windows.Forms.CheckBox CkByName;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.CheckBox CkByName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EmpGroup;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EmpNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn designation;
+        private System.Windows.Forms.DataGridViewTextBoxColumn empname;
+        private System.Windows.Forms.DataGridViewTextBoxColumn salary;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Group;
     }
 }

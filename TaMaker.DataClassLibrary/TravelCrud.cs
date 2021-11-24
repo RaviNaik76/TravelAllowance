@@ -62,11 +62,6 @@ namespace TaMaker.DataClassLibrary
 
         public static DataTable ViewTravell(string mYear, int kgid)
         {
-            //DateTime mindate = MinMaxDate.GetMinMaxDate(mYear, out DateTime maxdate);
-            //string min = mindate.ToString("yyyy-MM-dd HH:mm:ss");
-            //string max = maxdate.ToString("yyyy-MM-dd HH:mm:ss");
-            //string Query = ($"SELECT * FROM Travell WHERE Dep_Date BETWEEN '{ min }' AND '{ max }' AND EmpNo ={ kgid}");
-            
             string Query = ($"SELECT Dep_Place, Dep_Date, Arr_Place, Arr_Date, Dest_Kms, Jou_Reason, Halt_Place, DayRate, NoOfDay, FareAmt, TotalTA, AdvanceTA, Jou_Mode, Warrant_No, Shd_No, Destination, GroupNo FROM Travell WHERE MonthYear='{mYear}' AND EmpNo ={kgid} ORDER BY Dep_Date, Arr_Date");
             DbConnection.OpenConnection();
             DataTable dt = new DataTable();
@@ -113,6 +108,67 @@ namespace TaMaker.DataClassLibrary
             return IsIn;
         }
 
+        public static DataTable GetAdvanceTaHolder(string mYear)
+        {
+            string Query = ($"SELECT EmpNo FROM Travell WHERE AdvanceTA > 0 AND MonthYear='{mYear}' GROUP BY EmpNo");
+            DbConnection.OpenConnection();
+            DataTable dt = new DataTable();
+            SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(Query, DbConnection.Conn);
+            dataAdapter.Fill(dt);
+            DbConnection.CloseConnection();
+            return dt;
+        }
+
+        public static DataTable GetVeriationAmount(string mYear, int kgid)
+        {
+            string Query = ($"SELECT Sum(FareAmt), Sum(AdvanceTA), Sum(TotalTA) FROM Travell WHERE MonthYear='{mYear}' AND EmpNo={kgid}");
+            DbConnection.OpenConnection();
+            DataTable dt = new DataTable();
+            SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(Query, DbConnection.Conn);
+            dataAdapter.Fill(dt);
+            DbConnection.CloseConnection();
+            return dt;
+        }
+
+        public static DataTable GetExcessTaHolder()
+        {
+            string Query = ($"SELECT * FROM ExcessAdvance WHERE Status='Credited'");
+            DbConnection.OpenConnection();
+            DataTable dt = new DataTable();
+            SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(Query, DbConnection.Conn);
+            dataAdapter.Fill(dt);
+            DbConnection.CloseConnection();
+            return dt;
+        }
+
+        public static void LessExcessTa(int kgid, string myear)
+        {
+            DbConnection.OpenConnection();
+            using (var Cmd = new SQLiteCommand(DbConnection.Conn))
+            {
+                string status = ($"Debited in {myear}");
+                Cmd.CommandText = ($"UPDATE ExcessAdvance SET Status ='{status}' WHERE KGID={kgid}");
+               // Cmd.Parameters.AddWithValue("@status", status);
+                Cmd.ExecuteNonQuery();
+            }
+            DbConnection.CloseConnection();
+        }
+
+        public static void AddDefAmt(int kgid, double amt, string myear, string status)
+        {
+            DbConnection.OpenConnection();
+            using (var Cmd = new SQLiteCommand(DbConnection.Conn))
+            {
+                Cmd.CommandText = ($"INSERT OR IGNORE INTO ExcessAdvance (KGID, ExcessAmt, M_Year, Status) values (@kgid, @examt, @myear, @status)");
+                Cmd.Parameters.AddWithValue("@kgid", kgid);
+                Cmd.Parameters.AddWithValue("@examt", amt);
+                Cmd.Parameters.AddWithValue("@myear", myear);
+                Cmd.Parameters.AddWithValue("@status", status);
+                Cmd.ExecuteNonQuery();
+            }
+            DbConnection.CloseConnection();
+        }
+
         public void AsaignDataToEmployeeGrid(DataGridView DgvEmployee, List<Employee> emplist, bool check)
         {
             foreach (Employee item in emplist)
@@ -125,6 +181,7 @@ namespace TaMaker.DataClassLibrary
                     DgvEmployee.Rows[n].Cells[2].Value = item.EmpName.ToString();
                     DgvEmployee.Rows[n].Cells[3].Value = item.EmpSalary.ToString();
                     DgvEmployee.Rows[n].Cells[4].Value = item.EmpNumber.ToString();
+                    DgvEmployee.Rows[n].Cells[5].Value = item.EmpGroup.ToString();
                 }
             }
 
@@ -162,7 +219,6 @@ namespace TaMaker.DataClassLibrary
 
         public void SetGridColor(DataGridView dataGridView)
         {
-            // string themeMe = UserInterface.Properties.Settings.Default["ThemeMe"].ToString();
             if (themeMe == "DARK")
             {
                 dataGridView.RowsDefaultCellStyle.BackColor = System.Drawing.Color.DarkTurquoise;

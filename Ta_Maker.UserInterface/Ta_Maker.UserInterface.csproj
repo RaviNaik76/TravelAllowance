@@ -104,6 +104,12 @@
     <Compile Include="DatabaseUtility.Designer.cs">
       <DependentUpon>DatabaseUtility.cs</DependentUpon>
     </Compile>
+    <Compile Include="DesignationEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DesignationEditor.Designer.cs">
+      <DependentUpon>DesignationEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="EmployeUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,6 +151,12 @@
     <Compile Include="Rpt_DataSet.designer.cs">
       <DependentUpon>Rpt_DataSet.cs</DependentUpon>
     </Compile>
+    <Compile Include="TaValueEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TaValueEditor.Designer.cs">
+      <DependentUpon>TaValueEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="TravelReport.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -171,6 +183,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DatabaseUtility.resx">
       <DependentUpon>DatabaseUtility.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DesignationEditor.resx">
+      <DependentUpon>DesignationEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Employee.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -203,6 +218,9 @@
     </Compile>
     <EmbeddedResource Include="ReportExport.resx">
       <DependentUpon>ReportExport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TaValueEditor.resx">
+      <DependentUpon>TaValueEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TravellReport.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

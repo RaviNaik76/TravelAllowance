@@ -33,6 +33,8 @@ namespace Ta_Maker
             this.CmbYear = new MaterialSkin.Controls.MaterialComboBox();
             this.CmbMonth = new MaterialSkin.Controls.MaterialComboBox();
             this.BtnSetMonthYear = new MaterialSkin.Controls.MaterialButton();
+            this.materialCard1 = new MaterialSkin.Controls.MaterialCard();
+            this.materialCard1.SuspendLayout();
             this.SuspendLayout();
             // 
             // CmbYear
@@ -50,7 +52,7 @@ namespace Ta_Maker
             this.CmbYear.Hint = "Select Year";
             this.CmbYear.IntegralHeight = false;
             this.CmbYear.ItemHeight = 43;
-            this.CmbYear.Location = new System.Drawing.Point(41, 133);
+            this.CmbYear.Location = new System.Drawing.Point(24, 17);
             this.CmbYear.MaxDropDownItems = 4;
             this.CmbYear.MouseState = MaterialSkin.MouseState.OUT;
             this.CmbYear.Name = "CmbYear";
@@ -74,7 +76,7 @@ namespace Ta_Maker
             this.CmbMonth.Hint = "Select Month";
             this.CmbMonth.IntegralHeight = false;
             this.CmbMonth.ItemHeight = 43;
-            this.CmbMonth.Location = new System.Drawing.Point(41, 201);
+            this.CmbMonth.Location = new System.Drawing.Point(24, 76);
             this.CmbMonth.MaxDropDownItems = 4;
             this.CmbMonth.MouseState = MaterialSkin.MouseState.OUT;
             this.CmbMonth.Name = "CmbMonth";
@@ -89,7 +91,7 @@ namespace Ta_Maker
             this.BtnSetMonthYear.Depth = 0;
             this.BtnSetMonthYear.HighEmphasis = true;
             this.BtnSetMonthYear.Icon = null;
-            this.BtnSetMonthYear.Location = new System.Drawing.Point(57, 282);
+            this.BtnSetMonthYear.Location = new System.Drawing.Point(42, 144);
             this.BtnSetMonthYear.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.BtnSetMonthYear.MouseState = MaterialSkin.MouseState.HOVER;
             this.BtnSetMonthYear.Name = "BtnSetMonthYear";
@@ -101,21 +103,36 @@ namespace Ta_Maker
             this.BtnSetMonthYear.UseVisualStyleBackColor = true;
             this.BtnSetMonthYear.Click += new System.EventHandler(this.BtnSetMonthYear_Click);
             // 
+            // materialCard1
+            // 
+            this.materialCard1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard1.Controls.Add(this.CmbYear);
+            this.materialCard1.Controls.Add(this.BtnSetMonthYear);
+            this.materialCard1.Controls.Add(this.CmbMonth);
+            this.materialCard1.Depth = 0;
+            this.materialCard1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard1.Location = new System.Drawing.Point(24, 78);
+            this.materialCard1.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard1.Name = "materialCard1";
+            this.materialCard1.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard1.Size = new System.Drawing.Size(349, 191);
+            this.materialCard1.TabIndex = 3;
+            // 
             // MonthYear
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(396, 354);
-            this.Controls.Add(this.BtnSetMonthYear);
-            this.Controls.Add(this.CmbMonth);
-            this.Controls.Add(this.CmbYear);
+            this.ClientSize = new System.Drawing.Size(397, 286);
+            this.Controls.Add(this.materialCard1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MonthYear";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Set Month Year";
             this.Load += new System.EventHandler(this.MonthYear_Load);
+            this.materialCard1.ResumeLayout(false);
+            this.materialCard1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -124,5 +141,6 @@ namespace Ta_Maker
         private MaterialSkin.Controls.MaterialComboBox CmbYear;
         private MaterialSkin.Controls.MaterialComboBox CmbMonth;
         private MaterialSkin.Controls.MaterialButton BtnSetMonthYear;
+        private MaterialSkin.Controls.MaterialCard materialCard1;
     }
 }

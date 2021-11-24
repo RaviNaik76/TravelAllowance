@@ -11,7 +11,6 @@ namespace Ta_Maker
 {
     public partial class EmployeUI : MaterialForm
     {
-        string forceType = UserInterface.Properties.Settings.Default["ForceType"].ToString();
         string unit = UserInterface.Properties.Settings.Default["UnitName"].ToString();
         private string monthYear = ($"{UserInterface.Properties.Settings.Default["DMonth"]} {UserInterface.Properties.Settings.Default["DYear"]}");
         List<Employee> employees = new List<Employee>();
@@ -24,34 +23,30 @@ namespace Ta_Maker
 
         private void EmployeUI_Load(object sender, EventArgs e)
         {
-            if (unit.Length > 0)
+            Dictionary<int, string> Designations = SourceSuplier.LoadDesignation(unit);
+            foreach (var item in Designations)
             {
-                Dictionary<int, string> Designations = SourceSuplier.LoadDesignation(forceType);
-
-                foreach (var item in Designations)
-                {
-                    CmbDesignation.Items.Add(item.Value);
-                }
-
-                string dist = UserInterface.Properties.Settings.Default["UnitDist"].ToString();
-                string utype = UserInterface.Properties.Settings.Default["UnitType"].ToString();
-                Dictionary<int, string> Stations = SourceSuplier.LoadStation(utype, dist);
-                foreach (var item in Stations)
-                {
-                    CmbStation.Items.Add(item.Value);
-                }
-
-                Dictionary<int, string> EmpStatus = SourceSuplier.LoadEmpStatus();
-                foreach (var item in EmpStatus)
-                {
-                    CmbStatus.Items.Add(item.Value);
-                }
-
-                CmbStation.SelectedItem = unit;
-                TxtEmpNo.Focus();
+                CmbDesignation.Items.Add(item.Value);
             }
-            else { MessageBox.Show("Please set your Unit in Unit Setting", "TA_Maker", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+
+            CmbStation.Items.Add(unit);
+
+            Dictionary<int, string> EmpStatus = SourceSuplier.LoadEmpStatus();
+            foreach (var item in EmpStatus)
+            {
+                CmbStatus.Items.Add(item.Value);
+            }
+
+            Dictionary<int, string> EmpGroup = SourceSuplier.LoadEmpClass();
+            foreach (var item in EmpGroup)
+            {
+                CmbEmpGroup.Items.Add(item.Value);
+            }
+
+            CmbStation.SelectedItem = unit;
+            CmbStation.Enabled = false;
             RbByName.Checked = true;
+            TxtEmpNo.Focus();
         }
 
         private void BtnInsert_Click(object sender, EventArgs e)
@@ -76,7 +71,8 @@ namespace Ta_Maker
                     EmpSalary = double.Parse(TxtSalary.Text),
                     EmpStation = CmbStation.Text,
                     EmpStatus = CmbStatus.Text,
-                    EmpShort = SourceSuplier.GetEmployeSort(CmbDesignation.Text, forceType)
+                    EmpGroup = CmbEmpGroup.Text,
+                    EmpShort = SourceSuplier.GetEmployeSort(CmbDesignation.Text, unit)
                 };
                 EmployeCrud employeCrud = new EmployeCrud();
                 employeCrud.AddEmployee(employee, save);
@@ -161,7 +157,8 @@ namespace Ta_Maker
             TxtName.Text = item.SubItems[2].Text;
             TxtSalary.Text = item.SubItems[3].Text;
             CmbStation.Text = item.SubItems[4].Text;
-            CmbStatus.Text = item.SubItems[5].Text;
+            CmbEmpGroup.Text = item.SubItems[5].Text;
+            CmbStatus.Text = item.SubItems[6].Text;
             TxtEmpNo.Enabled = false;
 
             this.EmployeeTabControl.SelectedTab = TabAddEmployee;
@@ -243,6 +240,7 @@ namespace Ta_Maker
                     item.SubItems.Add(employee.EmpSalary.ToString());
                     item.SubItems.Add(employee.EmpStation);
                     item.SubItems.Add(employee.EmpStatus);
+                    item.SubItems.Add(employee.EmpGroup);
                     EmployeListView.Items.Add(item);
                 }
                 else if (employee.EmpStatus != "DELETE" && employee.EmpStatus != "RETAIRED" && employee.EmpStatus != "TRANSFFER")
@@ -253,10 +251,10 @@ namespace Ta_Maker
                     item.SubItems.Add(employee.EmpSalary.ToString());
                     item.SubItems.Add(employee.EmpStation);
                     item.SubItems.Add(employee.EmpStatus);
+                    item.SubItems.Add(employee.EmpGroup);
                     EmployeListView.Items.Add(item);
                 }
             }
         }
-
     }
 }
