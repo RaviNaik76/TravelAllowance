@@ -32,18 +32,19 @@ namespace Ta_Maker
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EmployeUI));
             this.EmployeeTabControl = new MaterialSkin.Controls.MaterialTabControl();
             this.TabAddEmployee = new System.Windows.Forms.TabPage();
+            this.materialCard1 = new MaterialSkin.Controls.MaterialCard();
+            this.TxtEmpNo = new MaterialSkin.Controls.MaterialTextBox();
+            this.CmbDesignation = new MaterialSkin.Controls.MaterialComboBox();
+            this.CmbEmpGroup = new MaterialSkin.Controls.MaterialComboBox();
+            this.CmbStatus = new MaterialSkin.Controls.MaterialComboBox();
+            this.TxtDesig = new MaterialSkin.Controls.MaterialTextBox();
+            this.CmbStation = new MaterialSkin.Controls.MaterialComboBox();
+            this.TxtName = new MaterialSkin.Controls.MaterialTextBox();
+            this.TxtSalary = new MaterialSkin.Controls.MaterialTextBox();
             this.BtnDelete = new MaterialSkin.Controls.MaterialButton();
             this.BtnClear = new MaterialSkin.Controls.MaterialButton();
             this.BtnModify = new MaterialSkin.Controls.MaterialButton();
             this.BtnInsert = new MaterialSkin.Controls.MaterialButton();
-            this.CmbStation = new MaterialSkin.Controls.MaterialComboBox();
-            this.TxtSalary = new MaterialSkin.Controls.MaterialTextBox();
-            this.TxtName = new MaterialSkin.Controls.MaterialTextBox();
-            this.TxtDesig = new MaterialSkin.Controls.MaterialTextBox();
-            this.CmbStatus = new MaterialSkin.Controls.MaterialComboBox();
-            this.CmbEmpGroup = new MaterialSkin.Controls.MaterialComboBox();
-            this.CmbDesignation = new MaterialSkin.Controls.MaterialComboBox();
-            this.TxtEmpNo = new MaterialSkin.Controls.MaterialTextBox();
             this.TabViewEmployee = new System.Windows.Forms.TabPage();
             this.CkInclude = new MaterialSkin.Controls.MaterialCheckbox();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -61,12 +62,11 @@ namespace Ta_Maker
             this.GROUP = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.EmployeTabSelector = new MaterialSkin.Controls.MaterialTabSelector();
             this.LblMsg = new MaterialSkin.Controls.MaterialLabel();
-            this.materialCard1 = new MaterialSkin.Controls.MaterialCard();
             this.EmployeeTabControl.SuspendLayout();
             this.TabAddEmployee.SuspendLayout();
+            this.materialCard1.SuspendLayout();
             this.TabViewEmployee.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.materialCard1.SuspendLayout();
             this.SuspendLayout();
             // 
             // EmployeeTabControl
@@ -98,6 +98,198 @@ namespace Ta_Maker
             this.TabAddEmployee.Size = new System.Drawing.Size(760, 381);
             this.TabAddEmployee.TabIndex = 0;
             this.TabAddEmployee.Text = "ADD EMPLOYEE";
+            // 
+            // materialCard1
+            // 
+            this.materialCard1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.materialCard1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard1.Controls.Add(this.TxtEmpNo);
+            this.materialCard1.Controls.Add(this.CmbDesignation);
+            this.materialCard1.Controls.Add(this.CmbEmpGroup);
+            this.materialCard1.Controls.Add(this.CmbStatus);
+            this.materialCard1.Controls.Add(this.TxtDesig);
+            this.materialCard1.Controls.Add(this.CmbStation);
+            this.materialCard1.Controls.Add(this.TxtName);
+            this.materialCard1.Controls.Add(this.TxtSalary);
+            this.materialCard1.Depth = 0;
+            this.materialCard1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard1.Location = new System.Drawing.Point(29, 14);
+            this.materialCard1.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard1.Name = "materialCard1";
+            this.materialCard1.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard1.Size = new System.Drawing.Size(702, 295);
+            this.materialCard1.TabIndex = 0;
+            // 
+            // TxtEmpNo
+            // 
+            this.TxtEmpNo.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TxtEmpNo.Depth = 0;
+            this.TxtEmpNo.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.TxtEmpNo.Hint = "Employee Number";
+            this.TxtEmpNo.LeadingIcon = null;
+            this.TxtEmpNo.Location = new System.Drawing.Point(30, 25);
+            this.TxtEmpNo.MaxLength = 50;
+            this.TxtEmpNo.MouseState = MaterialSkin.MouseState.OUT;
+            this.TxtEmpNo.Multiline = false;
+            this.TxtEmpNo.Name = "TxtEmpNo";
+            this.TxtEmpNo.Size = new System.Drawing.Size(272, 50);
+            this.TxtEmpNo.TabIndex = 1;
+            this.TxtEmpNo.Text = "";
+            this.TxtEmpNo.TrailingIcon = null;
+            // 
+            // CmbDesignation
+            // 
+            this.CmbDesignation.AutoResize = false;
+            this.CmbDesignation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.CmbDesignation.Depth = 0;
+            this.CmbDesignation.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.CmbDesignation.DropDownHeight = 174;
+            this.CmbDesignation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CmbDesignation.DropDownWidth = 121;
+            this.CmbDesignation.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.CmbDesignation.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.CmbDesignation.FormattingEnabled = true;
+            this.CmbDesignation.Hint = "Designation";
+            this.CmbDesignation.IntegralHeight = false;
+            this.CmbDesignation.ItemHeight = 43;
+            this.CmbDesignation.Location = new System.Drawing.Point(30, 93);
+            this.CmbDesignation.MaxDropDownItems = 4;
+            this.CmbDesignation.MouseState = MaterialSkin.MouseState.OUT;
+            this.CmbDesignation.Name = "CmbDesignation";
+            this.CmbDesignation.Size = new System.Drawing.Size(200, 49);
+            this.CmbDesignation.StartIndex = 0;
+            this.CmbDesignation.TabIndex = 3;
+            // 
+            // CmbEmpGroup
+            // 
+            this.CmbEmpGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CmbEmpGroup.AutoResize = false;
+            this.CmbEmpGroup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.CmbEmpGroup.Depth = 0;
+            this.CmbEmpGroup.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.CmbEmpGroup.DropDownHeight = 174;
+            this.CmbEmpGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CmbEmpGroup.DropDownWidth = 121;
+            this.CmbEmpGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.CmbEmpGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.CmbEmpGroup.FormattingEnabled = true;
+            this.CmbEmpGroup.Hint = "Group";
+            this.CmbEmpGroup.IntegralHeight = false;
+            this.CmbEmpGroup.ItemHeight = 43;
+            this.CmbEmpGroup.Location = new System.Drawing.Point(455, 93);
+            this.CmbEmpGroup.MaxDropDownItems = 4;
+            this.CmbEmpGroup.MouseState = MaterialSkin.MouseState.OUT;
+            this.CmbEmpGroup.Name = "CmbEmpGroup";
+            this.CmbEmpGroup.Size = new System.Drawing.Size(213, 49);
+            this.CmbEmpGroup.StartIndex = 0;
+            this.CmbEmpGroup.TabIndex = 5;
+            // 
+            // CmbStatus
+            // 
+            this.CmbStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CmbStatus.AutoResize = false;
+            this.CmbStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.CmbStatus.Depth = 0;
+            this.CmbStatus.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.CmbStatus.DropDownHeight = 174;
+            this.CmbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CmbStatus.DropDownWidth = 121;
+            this.CmbStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.CmbStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.CmbStatus.FormattingEnabled = true;
+            this.CmbStatus.Hint = "Employee Status";
+            this.CmbStatus.IntegralHeight = false;
+            this.CmbStatus.ItemHeight = 43;
+            this.CmbStatus.Location = new System.Drawing.Point(344, 26);
+            this.CmbStatus.MaxDropDownItems = 4;
+            this.CmbStatus.MouseState = MaterialSkin.MouseState.OUT;
+            this.CmbStatus.Name = "CmbStatus";
+            this.CmbStatus.Size = new System.Drawing.Size(324, 49);
+            this.CmbStatus.StartIndex = 0;
+            this.CmbStatus.TabIndex = 2;
+            this.CmbStatus.Visible = false;
+            // 
+            // TxtDesig
+            // 
+            this.TxtDesig.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TxtDesig.Depth = 0;
+            this.TxtDesig.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.TxtDesig.Hint = "Buckle Number";
+            this.TxtDesig.LeadingIcon = null;
+            this.TxtDesig.Location = new System.Drawing.Point(249, 92);
+            this.TxtDesig.MaxLength = 50;
+            this.TxtDesig.MouseState = MaterialSkin.MouseState.OUT;
+            this.TxtDesig.Multiline = false;
+            this.TxtDesig.Name = "TxtDesig";
+            this.TxtDesig.Size = new System.Drawing.Size(158, 50);
+            this.TxtDesig.TabIndex = 4;
+            this.TxtDesig.Text = "";
+            this.TxtDesig.TrailingIcon = null;
+            // 
+            // CmbStation
+            // 
+            this.CmbStation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CmbStation.AutoResize = false;
+            this.CmbStation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.CmbStation.Depth = 0;
+            this.CmbStation.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.CmbStation.DropDownHeight = 174;
+            this.CmbStation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CmbStation.DropDownWidth = 121;
+            this.CmbStation.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.CmbStation.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.CmbStation.FormattingEnabled = true;
+            this.CmbStation.Hint = "Working Unit";
+            this.CmbStation.IntegralHeight = false;
+            this.CmbStation.ItemHeight = 43;
+            this.CmbStation.Location = new System.Drawing.Point(344, 227);
+            this.CmbStation.MaxDropDownItems = 4;
+            this.CmbStation.MouseState = MaterialSkin.MouseState.OUT;
+            this.CmbStation.Name = "CmbStation";
+            this.CmbStation.Size = new System.Drawing.Size(324, 49);
+            this.CmbStation.StartIndex = 0;
+            this.CmbStation.TabIndex = 8;
+            // 
+            // TxtName
+            // 
+            this.TxtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TxtName.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TxtName.Depth = 0;
+            this.TxtName.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.TxtName.Hint = "Full Name";
+            this.TxtName.LeadingIcon = null;
+            this.TxtName.Location = new System.Drawing.Point(30, 158);
+            this.TxtName.MaxLength = 50;
+            this.TxtName.MouseState = MaterialSkin.MouseState.OUT;
+            this.TxtName.Multiline = false;
+            this.TxtName.Name = "TxtName";
+            this.TxtName.Size = new System.Drawing.Size(638, 50);
+            this.TxtName.TabIndex = 6;
+            this.TxtName.Text = "";
+            this.TxtName.TrailingIcon = null;
+            // 
+            // TxtSalary
+            // 
+            this.TxtSalary.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TxtSalary.Depth = 0;
+            this.TxtSalary.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.TxtSalary.Hint = "Basic Salary";
+            this.TxtSalary.LeadingIcon = null;
+            this.TxtSalary.Location = new System.Drawing.Point(30, 226);
+            this.TxtSalary.MaxLength = 50;
+            this.TxtSalary.MouseState = MaterialSkin.MouseState.OUT;
+            this.TxtSalary.Multiline = false;
+            this.TxtSalary.Name = "TxtSalary";
+            this.TxtSalary.Size = new System.Drawing.Size(272, 50);
+            this.TxtSalary.TabIndex = 7;
+            this.TxtSalary.Text = "";
+            this.TxtSalary.TrailingIcon = null;
             // 
             // BtnDelete
             // 
@@ -189,175 +381,6 @@ namespace Ta_Maker
             this.BtnInsert.Click += new System.EventHandler(this.BtnInsert_Click);
             this.BtnInsert.Enter += new System.EventHandler(this.BtnInsert_Enter);
             this.BtnInsert.Leave += new System.EventHandler(this.BtnInsert_Leave);
-            // 
-            // CmbStation
-            // 
-            this.CmbStation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.CmbStation.AutoResize = false;
-            this.CmbStation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.CmbStation.Depth = 0;
-            this.CmbStation.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.CmbStation.DropDownHeight = 174;
-            this.CmbStation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CmbStation.DropDownWidth = 121;
-            this.CmbStation.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.CmbStation.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.CmbStation.FormattingEnabled = true;
-            this.CmbStation.Hint = "Working Unit";
-            this.CmbStation.IntegralHeight = false;
-            this.CmbStation.ItemHeight = 43;
-            this.CmbStation.Location = new System.Drawing.Point(344, 227);
-            this.CmbStation.MaxDropDownItems = 4;
-            this.CmbStation.MouseState = MaterialSkin.MouseState.OUT;
-            this.CmbStation.Name = "CmbStation";
-            this.CmbStation.Size = new System.Drawing.Size(324, 49);
-            this.CmbStation.StartIndex = 0;
-            this.CmbStation.TabIndex = 8;
-            // 
-            // TxtSalary
-            // 
-            this.TxtSalary.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtSalary.Depth = 0;
-            this.TxtSalary.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.TxtSalary.Hint = "Basic Salary";
-            this.TxtSalary.LeadingIcon = null;
-            this.TxtSalary.Location = new System.Drawing.Point(30, 226);
-            this.TxtSalary.MaxLength = 50;
-            this.TxtSalary.MouseState = MaterialSkin.MouseState.OUT;
-            this.TxtSalary.Multiline = false;
-            this.TxtSalary.Name = "TxtSalary";
-            this.TxtSalary.Size = new System.Drawing.Size(272, 50);
-            this.TxtSalary.TabIndex = 7;
-            this.TxtSalary.Text = "";
-            this.TxtSalary.TrailingIcon = null;
-            // 
-            // TxtName
-            // 
-            this.TxtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TxtName.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtName.Depth = 0;
-            this.TxtName.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.TxtName.Hint = "Full Name";
-            this.TxtName.LeadingIcon = null;
-            this.TxtName.Location = new System.Drawing.Point(30, 158);
-            this.TxtName.MaxLength = 50;
-            this.TxtName.MouseState = MaterialSkin.MouseState.OUT;
-            this.TxtName.Multiline = false;
-            this.TxtName.Name = "TxtName";
-            this.TxtName.Size = new System.Drawing.Size(638, 50);
-            this.TxtName.TabIndex = 6;
-            this.TxtName.Text = "";
-            this.TxtName.TrailingIcon = null;
-            // 
-            // TxtDesig
-            // 
-            this.TxtDesig.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtDesig.Depth = 0;
-            this.TxtDesig.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.TxtDesig.Hint = "Buckle Number";
-            this.TxtDesig.LeadingIcon = null;
-            this.TxtDesig.Location = new System.Drawing.Point(249, 92);
-            this.TxtDesig.MaxLength = 50;
-            this.TxtDesig.MouseState = MaterialSkin.MouseState.OUT;
-            this.TxtDesig.Multiline = false;
-            this.TxtDesig.Name = "TxtDesig";
-            this.TxtDesig.Size = new System.Drawing.Size(158, 50);
-            this.TxtDesig.TabIndex = 4;
-            this.TxtDesig.Text = "";
-            this.TxtDesig.TrailingIcon = null;
-            // 
-            // CmbStatus
-            // 
-            this.CmbStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.CmbStatus.AutoResize = false;
-            this.CmbStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.CmbStatus.Depth = 0;
-            this.CmbStatus.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.CmbStatus.DropDownHeight = 174;
-            this.CmbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CmbStatus.DropDownWidth = 121;
-            this.CmbStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.CmbStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.CmbStatus.FormattingEnabled = true;
-            this.CmbStatus.Hint = "Employee Status";
-            this.CmbStatus.IntegralHeight = false;
-            this.CmbStatus.ItemHeight = 43;
-            this.CmbStatus.Location = new System.Drawing.Point(344, 26);
-            this.CmbStatus.MaxDropDownItems = 4;
-            this.CmbStatus.MouseState = MaterialSkin.MouseState.OUT;
-            this.CmbStatus.Name = "CmbStatus";
-            this.CmbStatus.Size = new System.Drawing.Size(324, 49);
-            this.CmbStatus.StartIndex = 0;
-            this.CmbStatus.TabIndex = 2;
-            this.CmbStatus.Visible = false;
-            // 
-            // CmbEmpGroup
-            // 
-            this.CmbEmpGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.CmbEmpGroup.AutoResize = false;
-            this.CmbEmpGroup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.CmbEmpGroup.Depth = 0;
-            this.CmbEmpGroup.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.CmbEmpGroup.DropDownHeight = 174;
-            this.CmbEmpGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CmbEmpGroup.DropDownWidth = 121;
-            this.CmbEmpGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.CmbEmpGroup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.CmbEmpGroup.FormattingEnabled = true;
-            this.CmbEmpGroup.Hint = "Group";
-            this.CmbEmpGroup.IntegralHeight = false;
-            this.CmbEmpGroup.ItemHeight = 43;
-            this.CmbEmpGroup.Location = new System.Drawing.Point(455, 93);
-            this.CmbEmpGroup.MaxDropDownItems = 4;
-            this.CmbEmpGroup.MouseState = MaterialSkin.MouseState.OUT;
-            this.CmbEmpGroup.Name = "CmbEmpGroup";
-            this.CmbEmpGroup.Size = new System.Drawing.Size(213, 49);
-            this.CmbEmpGroup.StartIndex = 0;
-            this.CmbEmpGroup.TabIndex = 5;
-            // 
-            // CmbDesignation
-            // 
-            this.CmbDesignation.AutoResize = false;
-            this.CmbDesignation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.CmbDesignation.Depth = 0;
-            this.CmbDesignation.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.CmbDesignation.DropDownHeight = 174;
-            this.CmbDesignation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CmbDesignation.DropDownWidth = 121;
-            this.CmbDesignation.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
-            this.CmbDesignation.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.CmbDesignation.FormattingEnabled = true;
-            this.CmbDesignation.Hint = "Designation";
-            this.CmbDesignation.IntegralHeight = false;
-            this.CmbDesignation.ItemHeight = 43;
-            this.CmbDesignation.Location = new System.Drawing.Point(30, 93);
-            this.CmbDesignation.MaxDropDownItems = 4;
-            this.CmbDesignation.MouseState = MaterialSkin.MouseState.OUT;
-            this.CmbDesignation.Name = "CmbDesignation";
-            this.CmbDesignation.Size = new System.Drawing.Size(200, 49);
-            this.CmbDesignation.StartIndex = 0;
-            this.CmbDesignation.TabIndex = 3;
-            // 
-            // TxtEmpNo
-            // 
-            this.TxtEmpNo.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtEmpNo.Depth = 0;
-            this.TxtEmpNo.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.TxtEmpNo.Hint = "Employee Number";
-            this.TxtEmpNo.LeadingIcon = null;
-            this.TxtEmpNo.Location = new System.Drawing.Point(30, 25);
-            this.TxtEmpNo.MaxLength = 50;
-            this.TxtEmpNo.MouseState = MaterialSkin.MouseState.OUT;
-            this.TxtEmpNo.Multiline = false;
-            this.TxtEmpNo.Name = "TxtEmpNo";
-            this.TxtEmpNo.Size = new System.Drawing.Size(272, 50);
-            this.TxtEmpNo.TabIndex = 1;
-            this.TxtEmpNo.Text = "";
-            this.TxtEmpNo.TrailingIcon = null;
             // 
             // TabViewEmployee
             // 
@@ -568,29 +591,6 @@ namespace Ta_Maker
             this.LblMsg.TabIndex = 3;
             this.LblMsg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // materialCard1
-            // 
-            this.materialCard1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.materialCard1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.materialCard1.Controls.Add(this.TxtEmpNo);
-            this.materialCard1.Controls.Add(this.CmbDesignation);
-            this.materialCard1.Controls.Add(this.CmbEmpGroup);
-            this.materialCard1.Controls.Add(this.CmbStatus);
-            this.materialCard1.Controls.Add(this.TxtDesig);
-            this.materialCard1.Controls.Add(this.CmbStation);
-            this.materialCard1.Controls.Add(this.TxtName);
-            this.materialCard1.Controls.Add(this.TxtSalary);
-            this.materialCard1.Depth = 0;
-            this.materialCard1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialCard1.Location = new System.Drawing.Point(29, 14);
-            this.materialCard1.Margin = new System.Windows.Forms.Padding(14);
-            this.materialCard1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialCard1.Name = "materialCard1";
-            this.materialCard1.Padding = new System.Windows.Forms.Padding(14);
-            this.materialCard1.Size = new System.Drawing.Size(702, 295);
-            this.materialCard1.TabIndex = 0;
-            // 
             // EmployeUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -607,11 +607,11 @@ namespace Ta_Maker
             this.EmployeeTabControl.ResumeLayout(false);
             this.TabAddEmployee.ResumeLayout(false);
             this.TabAddEmployee.PerformLayout();
+            this.materialCard1.ResumeLayout(false);
             this.TabViewEmployee.ResumeLayout(false);
             this.TabViewEmployee.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.materialCard1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

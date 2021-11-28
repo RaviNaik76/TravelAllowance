@@ -63,17 +63,24 @@ namespace Ta_Maker
         {
             try
             {
+                string designation = "";
+                if (TxtDesig.Text.Length > 0)
+                {
+                    designation = ($"{CmbDesignation.Text} {TxtDesig.Text}");
+                }
+                else { designation = CmbDesignation.Text.Trim();}
+                    
                 Employee employee = new Employee()
                 {
                     EmpNumber = int.Parse(TxtEmpNo.Text),
-                    EmpDesignation = ($"{CmbDesignation.Text} {TxtDesig.Text}"),
+                    EmpDesignation = designation,
                     EmpName = TxtName.Text.ToUpper(),
                     EmpSalary = double.Parse(TxtSalary.Text),
                     EmpStation = CmbStation.Text,
                     EmpStatus = CmbStatus.Text,
                     EmpGroup = CmbEmpGroup.Text,
-                    EmpShort = SourceSuplier.GetEmployeSort(CmbDesignation.Text, unit)
                 };
+
                 EmployeCrud employeCrud = new EmployeCrud();
                 employeCrud.AddEmployee(employee, save);
                 ClearAllFields();
@@ -157,8 +164,8 @@ namespace Ta_Maker
             TxtName.Text = item.SubItems[2].Text;
             TxtSalary.Text = item.SubItems[3].Text;
             CmbStation.Text = item.SubItems[4].Text;
-            CmbEmpGroup.Text = item.SubItems[5].Text;
-            CmbStatus.Text = item.SubItems[6].Text;
+            CmbEmpGroup.Text = item.SubItems[6].Text;
+            CmbStatus.Text = item.SubItems[5].Text;
             TxtEmpNo.Enabled = false;
 
             this.EmployeeTabControl.SelectedTab = TabAddEmployee;

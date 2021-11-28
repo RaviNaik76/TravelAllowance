@@ -16,9 +16,6 @@ namespace TaMaker.BaseClassLibrary
         public double EmpSalary { get; set; }
         [Required, RegularExpression(@"^.*[a-zA-Z]", ErrorMessage = "Please enter valid Station")]
         public string EmpStation { get; set; }
-        [Required]
-        [Range(1, 15)]
-        public int EmpShort { get; set; }
         public string EmpGroup { get; set; }
         public string EmpStatus { get; set; }
     }

@@ -76,22 +76,6 @@ namespace TaMaker.DataClassLibrary
             return Designation;
         }
 
-        public static int GetEmployeSort(string desn, string unit)
-        {
-            int sorder = -10;
-            string SqlQuery = ($"SELECT SortOrder FROM DesignationTable WHERE UnitName='{unit}' AND Designation='{desn}'");
-            DbConnection.OpenConnection();
-            SQLiteCommand Cmd = new SQLiteCommand(SqlQuery, DbConnection.Conn);
-            SQLiteDataReader reader = Cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                sorder = int.Parse(reader.GetValue(0).ToString());
-            }
-            DbConnection.CloseConnection();
-
-            return sorder;
-        }
-
         public static int GetGroupId()
         {
             int groupId = 0;

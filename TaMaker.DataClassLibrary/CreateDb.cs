@@ -56,7 +56,6 @@ namespace TaMaker.DataClassLibrary
 	                        EmpName TEXT,
 	                        EmpSalary REAL,
 	                        EmpStation TEXT,
-	                        EmpShort INTEGER,
                             EmpGroup TEXT,
 	                        EmpStatus TEXT,
 	                        PRIMARY KEY(EmpNumber)
@@ -223,17 +222,50 @@ namespace TaMaker.DataClassLibrary
         public void CreateRequiredViews()
         {
             List<String> ViewsQueryList = new List<string>();
-
-            SqlQuery = @"CREATE VIEW IF NOT EXISTS EmployeeView AS 
-                        SELECT * FROM Employee ORDER BY EmpShort ASC";
-            ViewsQueryList.Add(SqlQuery);
-
+            
             SqlQuery = @"CREATE VIEW IF NOT EXISTS EmpStatusView AS 
                         SELECT * FROM SourceTable WHERE SourceType='Status'";
             ViewsQueryList.Add(SqlQuery);
 
+            SqlQuery = @"CREATE VIEW IF NOT EXISTS DesignationVIEW AS 
+                        SELECT * FROM DesignationTable";
+            ViewsQueryList.Add(SqlQuery);
+
+            SqlQuery = @"CREATE VIEW IF NOT EXISTS EmployeeView AS
+                        SELECT EmpNumber, EmpDesignation, EmpName, EmpSalary, EmpStation, EmpGroup, DesignationVIEW.SortOrder, EmpStatus, 
+                            CASE
+                                WHEN pos == 0 THEN EmpDesignation
+                                ELSE substr(EmpDesignation, 1, pos - 1)
+                            END AS SORT_DESIG
+                        FROM DesignationVIEW, 
+                            (SELECT *,
+                                instr(EmpDesignation, ' ') AS pos
+                            FROM Employee)
+                        WHERE SORT_DESIG = DesignationVIEW.Designation
+                        ORDER BY SortOrder ASC";
+            ViewsQueryList.Add(SqlQuery);
+
             SqlQuery = @"CREATE VIEW IF NOT EXISTS GroupIdView AS 
                         SELECT MAX(GroupNo) FROM Travell";
+            ViewsQueryList.Add(SqlQuery);
+
+            SqlQuery = @"CREATE VIEW Travel_DesignationView AS
+                            SELECT EmpNo, MonthYear, 
+                                CASE
+                                    WHEN pos == 0 THEN Designation
+                                    ELSE substr(Designation, 1, pos - 1)
+                                END AS SORT_DESIG
+                            FROM
+                                (SELECT *,
+                                    instr(Designation, ' ') AS pos
+                                FROM Travell)";
+            ViewsQueryList.Add(SqlQuery);
+
+            //to get SortOrder from split Designation
+            SqlQuery = @"CREATE VIEW IF NOT EXISTS Travel_Emp_SortView AS 
+                        SELECT EmpNo, EmpName, SORT_DESIG, EmpStation, SortOrder
+                        FROM Travel_DesignationView, Employee, DesignationTable
+                        WHERE Travel_DesignationView.EmpNo = Employee.EmpNumber AND Travel_DesignationView.SORT_DESIG = DesignationTable.Designation";
             ViewsQueryList.Add(SqlQuery);
 
             SqlQuery = @"CREATE VIEW IF NOT EXISTS PlacesView AS 
@@ -248,9 +280,52 @@ namespace TaMaker.DataClassLibrary
                         SELECT * FROM SourceTable WHERE SourceType='Holting'";
             ViewsQueryList.Add(SqlQuery);
 
+            //get report data form Travel_Emp_SortView (from Travel_DesignationView)
+            SqlQuery = @"CREATE VIEW IF NOT EXISTS Report_Data_View AS 
+                        SELECT E.EmpNo AS EmpNumber, E.EmpName, T.Dep_Place, T.Dep_Date, T.Arr_Place, T.Arr_Date, T.Dest_Kms, T.Jou_Reason, T.Halt_Place, T.DayRate, T.NoOfDay, T.FareAmt, T.TotalTA, T.AdvanceTA, T.Jou_Mode, T.Warrant_No, T.Shd_No, T.Remarks, T.Designation, T.Salary, T.MonthYear, E.EmpStation, E.SortOrder
+                        FROM(Travel_Emp_SortView AS E INNER JOIN Travell AS T ON E.EmpNo = T.EmpNo)
+                        ORDER BY SortOrder, T.Dep_Date, T.Arr_Date";
+            ViewsQueryList.Add(SqlQuery);
+
             ExicuteQueryList(ViewsQueryList);
         }
 
+        public void CreateViews(string unit)
+        {
+            List<String> ViewsQueryList = new List<string>();
+            SqlQuery = @"DROP VIEW IF EXISTS DesignationVIEW";
+            ViewsQueryList.Add(SqlQuery);
+
+            //to get split designation
+            SqlQuery = @"CREATE VIEW IF NOT EXISTS DesignationVIEW AS 
+                        SELECT * FROM DesignationTable
+                        WHERE UnitName = '" + unit + "'";
+            ViewsQueryList.Add(SqlQuery);
+
+            ExicuteQueryList(ViewsQueryList);
+        }
+
+        public void CreateTravelViews(string myear)
+        {
+            List<String> ViewsQueryList = new List<string>();
+            SqlQuery = @"DROP VIEW IF EXISTS Travel_DesignationView";
+            ViewsQueryList.Add(SqlQuery);
+
+            SqlQuery = @"CREATE VIEW Travel_DesignationView AS
+                            SELECT EmpNo, MonthYear, 
+                                CASE
+                                    WHEN pos == 0 THEN Designation
+                                    ELSE substr(Designation, 1, pos - 1)
+                                END AS SORT_DESIG
+                            FROM
+                                (SELECT *,
+                                    instr(Designation, ' ') AS pos
+                                FROM Travell)
+                            WHERE (MonthYear = '" + myear + "')";
+            ViewsQueryList.Add(SqlQuery);
+
+            ExicuteQueryList(ViewsQueryList);
+        }
 
         public void ExicuteQueryList(List<String> QueryList)
         {

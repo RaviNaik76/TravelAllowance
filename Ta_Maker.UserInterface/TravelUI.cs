@@ -74,7 +74,7 @@ namespace Ta_Maker
                     if (DataNotExists())
                     {
                         int GroupNo = SourceSuplier.GetGroupId() + 1;
-                        string forceType = UserInterface.Properties.Settings.Default["ForceType"].ToString();
+                       // string forceType = UserInterface.Properties.Settings.Default["ForceType"].ToString();
                         
                         //loop employee grid (for every employee)
                         foreach (DataGridViewRow row in DgvSelectedEmployee.Rows)
@@ -90,7 +90,7 @@ namespace Ta_Maker
                             double PerDayTa = TaValueSuplier.GetTaValue(empClass, CmbDestination.Text.ToString());
                            
                             //ADD DATA TO CLASS
-                            Travel travell = NewTravel(PerDayTa, Kgid, GroupNo, design, salary);
+                            Travel travell = NewTravel(PerDayTa, Kgid, GroupNo, design.Trim(), salary);
 
                             //Add to database
                             _ = TravelCrud.AddTravell(travell);

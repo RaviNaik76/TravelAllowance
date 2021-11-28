@@ -15,7 +15,7 @@ namespace TaMaker.DataClassLibrary
             {
                 if (unit.Length > 0)
                 {
-                    Cmd.CommandText = ($"SELECT * FROM EmployeeView WHERE EmpStation='{ unit }' ORDER BY EmpShort");
+                    Cmd.CommandText = ($"SELECT EmpNumber, EmpDesignation, EmpName, EmpSalary, EmpStation, EmpGroup, EmpStatus FROM EmployeeView WHERE EmpStation='{ unit }'");
                     DbConnection.OpenConnection();
 
                     SQLiteDataReader dr = Cmd.ExecuteReader();
@@ -28,9 +28,8 @@ namespace TaMaker.DataClassLibrary
                             EmpName = (string)dr.GetValue(2),
                             EmpSalary = double.Parse(dr.GetValue(3).ToString()),
                             EmpStation = (string)dr.GetValue(4),
-                            EmpShort = int.Parse(dr.GetValue(5).ToString()),
-                            EmpGroup = dr.GetValue(6).ToString(),
-                            EmpStatus = dr.GetValue(7).ToString()
+                            EmpGroup = dr.GetValue(5).ToString(),
+                            EmpStatus = dr.GetValue(6).ToString()
                         };
 
                         employees.Add(emp);
@@ -50,21 +49,20 @@ namespace TaMaker.DataClassLibrary
                 if (save)
                 {
                     Cmd.CommandText = ($"INSERT OR IGNORE INTO Employee "
-                                       + " (EmpNumber, EmpDesignation, EmpName, EmpSalary, EmpStation, EmpShort, EmpGroup) values "
-                                       + " (@empNo, @Desig, @empName, @empSalary, @empPs, @empOrder, @empgroup)");
+                                       + " (EmpNumber, EmpDesignation, EmpName, EmpSalary, EmpStation, EmpGroup) values "
+                                       + " (@empNo, @Desig, @empName, @empSalary, @empPs, @empgroup)");
                     Cmd.Parameters.AddWithValue("@empNo", emp.EmpNumber);
                 }
                 else
                 {
                     Cmd.CommandText = @"UPDATE Employee SET EmpDesignation=@Desig, EmpName=@empName, EmpSalary=@empSalary, "
-                                       + " EmpStation =@empPs, EmpShort=@empOrder, EmpGroup=@empgroup, EmpStatus=@status WHERE EmpNumber =" + emp.EmpNumber + "";
+                                       + " EmpStation =@empPs, EmpGroup=@empgroup, EmpStatus=@status WHERE EmpNumber =" + emp.EmpNumber + "";
                 }
 
                 Cmd.Parameters.AddWithValue("@Desig", emp.EmpDesignation);
                 Cmd.Parameters.AddWithValue("@empName", emp.EmpName);
                 Cmd.Parameters.AddWithValue("@empSalary", emp.EmpSalary);
                 Cmd.Parameters.AddWithValue("@empPs", emp.EmpStation);
-                Cmd.Parameters.AddWithValue("@empOrder", emp.EmpShort);
                 Cmd.Parameters.AddWithValue("@empgroup", emp.EmpGroup);
                 Cmd.Parameters.AddWithValue("@status", emp.EmpStatus);
 
@@ -93,11 +91,11 @@ namespace TaMaker.DataClassLibrary
                 {
                     if (check)
                     {
-                        Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber, EmpStatus FROM Employee WHERE EmpName Like '{searchText}%' AND EmpStation='{unit}' ORDER BY EmpShort");
+                        Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber, EmpStatus FROM EmployeeView WHERE EmpName Like '{searchText}%' AND EmpStation='{unit}' ORDER BY SortOrder");
                     }
                     else
                     {
-                        Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber, EmpStatus FROM Employee WHERE EmpDesignation Like '{searchText}%' AND EmpStation='{unit}' ORDER BY EmpShort");
+                        Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber, EmpStatus FROM EmployeeView WHERE EmpDesignation Like '{searchText}%' AND EmpStation='{unit}' ORDER BY SortOrder");
                     }
                    
                     DbConnection.OpenConnection();
