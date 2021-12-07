@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Windows.Forms;
 using TaMaker.BaseClassLibrary;
 using TaMaker.DataClassLibrary;
@@ -387,10 +388,9 @@ namespace Ta_Maker
             {
                 return false;
             }
-            DateTime fromDate = DateTime.Parse($"{DtDepDate.Value.Day} {monthYear} {DtDepTime.Text}");
-            DateTime toDate = DateTime.Parse($"{DtArrDate.Value.Day} {monthYear} {DtArrTime.Text}");
             string month = UserInterface.Properties.Settings.Default["DMonth"].ToString();
-            if (fromDate.Month != fDate.Month && toDate.Month != tDate.Month)
+            int monthNumber = DateTime.ParseExact(month, "MMMM", CultureInfo.CurrentCulture).Month;
+            if (monthNumber != fDate.Month && monthNumber != tDate.Month)
             {
                 return false;
             }

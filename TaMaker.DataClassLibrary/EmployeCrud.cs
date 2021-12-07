@@ -13,31 +13,27 @@ namespace TaMaker.DataClassLibrary
 
             using (var Cmd = new SQLiteCommand(DbConnection.Conn))
             {
-                if (unit.Length > 0)
+                Cmd.CommandText = ($"SELECT EmpNumber, EmpDesignation, EmpName, EmpSalary, EmpStation, EmpGroup, EmpStatus FROM EmployeeView WHERE EmpStation='{ unit }'");
+                DbConnection.OpenConnection();
+
+                SQLiteDataReader dr = Cmd.ExecuteReader();
+                while (dr.Read())
                 {
-                    Cmd.CommandText = ($"SELECT EmpNumber, EmpDesignation, EmpName, EmpSalary, EmpStation, EmpGroup, EmpStatus FROM EmployeeView WHERE EmpStation='{ unit }'");
-                    DbConnection.OpenConnection();
-
-                    SQLiteDataReader dr = Cmd.ExecuteReader();
-                    while (dr.Read())
+                    Employee emp = new Employee()
                     {
-                        Employee emp = new Employee()
-                        {
-                            EmpNumber = int.Parse(dr.GetValue(0).ToString()),
-                            EmpDesignation = (string)dr.GetValue(1),
-                            EmpName = (string)dr.GetValue(2),
-                            EmpSalary = double.Parse(dr.GetValue(3).ToString()),
-                            EmpStation = (string)dr.GetValue(4),
-                            EmpGroup = dr.GetValue(5).ToString(),
-                            EmpStatus = dr.GetValue(6).ToString()
-                        };
+                        EmpNumber = int.Parse(dr.GetValue(0).ToString()),
+                        EmpDesignation = (string)dr.GetValue(1),
+                        EmpName = (string)dr.GetValue(2),
+                        EmpSalary = double.Parse(dr.GetValue(3).ToString()),
+                        EmpStation = (string)dr.GetValue(4),
+                        EmpGroup = dr.GetValue(5).ToString(),
+                        EmpStatus = dr.GetValue(6).ToString()
+                    };
 
-                        employees.Add(emp);
-                    }
-                    DbConnection.CloseConnection();
+                    employees.Add(emp);
                 }
+                DbConnection.CloseConnection();
             }
-
             return employees;
         }
 
@@ -87,38 +83,34 @@ namespace TaMaker.DataClassLibrary
         {
             using (var Cmd = new SQLiteCommand(DbConnection.Conn))
             {
-                if (unit.Length > 0)
+                if (check)
                 {
-                    if (check)
-                    {
-                        Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber, EmpStatus FROM EmployeeView WHERE EmpName Like '{searchText}%' AND EmpStation='{unit}' ORDER BY SortOrder");
-                    }
-                    else
-                    {
-                        Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber, EmpStatus FROM EmployeeView WHERE EmpDesignation Like '{searchText}%' AND EmpStation='{unit}' ORDER BY SortOrder");
-                    }
-                   
-                    DbConnection.OpenConnection();
+                    Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber, EmpStatus FROM EmployeeView WHERE EmpName Like '{searchText}%' AND EmpStation='{unit}' ORDER BY SortOrder");
+                }
+                else
+                {
+                    Cmd.CommandText = ($"SELECT EmpDesignation, EmpName, EmpSalary, EmpNumber, EmpStatus FROM EmployeeView WHERE EmpDesignation Like '{searchText}%' AND EmpStation='{unit}' ORDER BY SortOrder");
+                }
+                DbConnection.OpenConnection();
 
-                    using (SQLiteDataReader dr = Cmd.ExecuteReader())
+                using (SQLiteDataReader dr = Cmd.ExecuteReader())
+                {
+                    dgv.Rows.Clear();
+                    while (dr.Read())
                     {
-                        dgv.Rows.Clear();
-                        while (dr.Read())
+                        string status = dr.GetValue(4).ToString();
+                        if (status != "DELETE" && status != "RETAIRED" && status != "TRANSFFER")
                         {
-                            string status = dr.GetValue(4).ToString();
-                            if (status != "DELETE" && status != "RETAIRED" && status != "TRANSFFER")
-                            {
-                                int n = dgv.Rows.Add();
-                                dgv.Rows[n].Cells[0].Value = false;
-                                dgv.Rows[n].Cells[1].Value = dr.GetValue(0);
-                                dgv.Rows[n].Cells[2].Value = dr.GetValue(1);
-                                dgv.Rows[n].Cells[3].Value = dr.GetValue(2);
-                                dgv.Rows[n].Cells[4].Value = dr.GetValue(3);
-                            }
+                            int n = dgv.Rows.Add();
+                            dgv.Rows[n].Cells[0].Value = false;
+                            dgv.Rows[n].Cells[1].Value = dr.GetValue(0);
+                            dgv.Rows[n].Cells[2].Value = dr.GetValue(1);
+                            dgv.Rows[n].Cells[3].Value = dr.GetValue(2);
+                            dgv.Rows[n].Cells[4].Value = dr.GetValue(3);
                         }
                     }
-                    DbConnection.CloseConnection();
                 }
+                DbConnection.CloseConnection();
             }
         }
     }

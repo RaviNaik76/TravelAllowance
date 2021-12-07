@@ -152,5 +152,12 @@ namespace Ta_Maker.UserInterface
             else { LblMsg.Text = "Please Set Unit and try"; }
             
         }
+
+        private void tAVALUEEDIToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TaValueEditor tv = new TaValueEditor();
+            tv.MdiParent = this;
+            tv.Show();
+        }
     }
 }

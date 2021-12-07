@@ -14,7 +14,6 @@ namespace TaMaker.DataClassLibrary
         public static int AddTravell(Travel travell)
         {
             int r = 0;
-            DbConnection.OpenConnection();
             using (var Cmd = new SQLiteCommand(DbConnection.Conn))
             {
                 Cmd.CommandText = ($"INSERT OR IGNORE INTO Travell "
@@ -43,9 +42,11 @@ namespace TaMaker.DataClassLibrary
                 Cmd.Parameters.AddWithValue("@remark", travell.Remarks);
                 Cmd.Parameters.AddWithValue("@desig", travell.Designation);
                 Cmd.Parameters.AddWithValue("@salary", travell.Salary);
+
+                DbConnection.OpenConnection();
                 Cmd.ExecuteNonQuery();
+                DbConnection.CloseConnection();
             }
-            DbConnection.CloseConnection();
             return r;
         }
 
@@ -63,22 +64,26 @@ namespace TaMaker.DataClassLibrary
         public static DataTable ViewTravell(string mYear, int kgid)
         {
             string Query = ($"SELECT Dep_Place, Dep_Date, Arr_Place, Arr_Date, Dest_Kms, Jou_Reason, Halt_Place, DayRate, NoOfDay, FareAmt, TotalTA, AdvanceTA, Jou_Mode, Warrant_No, Shd_No, Destination, GroupNo FROM Travell WHERE MonthYear='{mYear}' AND EmpNo ={kgid} ORDER BY Dep_Date, Arr_Date");
-            DbConnection.OpenConnection();
             DataTable dt = new DataTable();
-            SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(Query, DbConnection.Conn);
-            dataAdapter.Fill(dt);
-            DbConnection.CloseConnection();
+            using (var dataAdapter = new SQLiteDataAdapter(Query, DbConnection.Conn))
+            {
+                DbConnection.OpenConnection();
+                dataAdapter.Fill(dt);
+                DbConnection.CloseConnection();
+            }
             return dt;
         }
 
         public static int CheckTravell(int kgid)
         {
             string Query = ($"SELECT Dep_Place, Dep_Date, Arr_Place, Arr_Date, Dest_Kms FROM Travell WHERE EmpNo ={kgid} ORDER BY Dep_Date");
-            DbConnection.OpenConnection();
             DataTable dt = new DataTable();
-            SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(Query, DbConnection.Conn);
-            dataAdapter.Fill(dt);
-            DbConnection.CloseConnection();
+            using (var dataAdapter = new SQLiteDataAdapter(Query, DbConnection.Conn))
+            {
+                DbConnection.OpenConnection();
+                dataAdapter.Fill(dt);
+                DbConnection.CloseConnection();
+            }
             return dt.Rows.Count;
         }
 
@@ -88,9 +93,7 @@ namespace TaMaker.DataClassLibrary
             using (var Cmd = new SQLiteCommand(DbConnection.Conn))
             {
                 Cmd.CommandText = ($"SELECT Dep_Date, Arr_Date FROM Travell WHERE MonthYear='{mYear}' AND EmpNo ={kgid} ORDER BY Dep_Date");
-
                 DbConnection.OpenConnection();
-
                 using (SQLiteDataReader dr = Cmd.ExecuteReader())
                 {
                     while (dr.Read())
@@ -111,52 +114,57 @@ namespace TaMaker.DataClassLibrary
         public static DataTable GetAdvanceTaHolder(string mYear)
         {
             string Query = ($"SELECT EmpNo FROM Travell WHERE AdvanceTA > 0 AND MonthYear='{mYear}' GROUP BY EmpNo");
-            DbConnection.OpenConnection();
             DataTable dt = new DataTable();
-            SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(Query, DbConnection.Conn);
-            dataAdapter.Fill(dt);
-            DbConnection.CloseConnection();
+            using (var dataAdapter = new SQLiteDataAdapter(Query, DbConnection.Conn))
+            {
+                DbConnection.OpenConnection();
+                dataAdapter.Fill(dt);
+                DbConnection.CloseConnection();
+            }
             return dt;
         }
 
         public static DataTable GetVeriationAmount(string mYear, int kgid)
         {
             string Query = ($"SELECT Sum(FareAmt), Sum(AdvanceTA), Sum(TotalTA) FROM Travell WHERE MonthYear='{mYear}' AND EmpNo={kgid}");
-            DbConnection.OpenConnection();
             DataTable dt = new DataTable();
-            SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(Query, DbConnection.Conn);
-            dataAdapter.Fill(dt);
-            DbConnection.CloseConnection();
+            using (var dataAdapter = new SQLiteDataAdapter(Query, DbConnection.Conn))
+            {
+                DbConnection.OpenConnection();
+                dataAdapter.Fill(dt);
+                DbConnection.CloseConnection();
+            }
             return dt;
         }
 
         public static DataTable GetExcessTaHolder()
         {
             string Query = ($"SELECT * FROM ExcessAdvance WHERE Status='Credited'");
-            DbConnection.OpenConnection();
             DataTable dt = new DataTable();
-            SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(Query, DbConnection.Conn);
-            dataAdapter.Fill(dt);
-            DbConnection.CloseConnection();
+            using (var dataAdapter = new SQLiteDataAdapter(Query, DbConnection.Conn))
+            {
+                DbConnection.OpenConnection();
+                dataAdapter.Fill(dt);
+                DbConnection.CloseConnection();
+            }
             return dt;
         }
 
         public static void LessExcessTa(int kgid, string myear)
         {
-            DbConnection.OpenConnection();
             using (var Cmd = new SQLiteCommand(DbConnection.Conn))
             {
                 string status = ($"Debited in {myear}");
                 Cmd.CommandText = ($"UPDATE ExcessAdvance SET Status ='{status}' WHERE KGID={kgid}");
-               // Cmd.Parameters.AddWithValue("@status", status);
+                // Cmd.Parameters.AddWithValue("@status", status);
+                DbConnection.OpenConnection();
                 Cmd.ExecuteNonQuery();
+                DbConnection.CloseConnection();
             }
-            DbConnection.CloseConnection();
         }
 
         public static void AddDefAmt(int kgid, double amt, string myear, string status)
         {
-            DbConnection.OpenConnection();
             using (var Cmd = new SQLiteCommand(DbConnection.Conn))
             {
                 Cmd.CommandText = ($"INSERT OR IGNORE INTO ExcessAdvance (KGID, ExcessAmt, M_Year, Status) values (@kgid, @examt, @myear, @status)");
@@ -164,9 +172,11 @@ namespace TaMaker.DataClassLibrary
                 Cmd.Parameters.AddWithValue("@examt", amt);
                 Cmd.Parameters.AddWithValue("@myear", myear);
                 Cmd.Parameters.AddWithValue("@status", status);
+
+                DbConnection.OpenConnection();
                 Cmd.ExecuteNonQuery();
+                DbConnection.CloseConnection();
             }
-            DbConnection.CloseConnection();
         }
 
         public void AsaignDataToEmployeeGrid(DataGridView DgvEmployee, List<Employee> emplist, bool check)

@@ -45,7 +45,7 @@ namespace Ta_Maker
             this.TravelReportViewer.Location = new System.Drawing.Point(6, 105);
             this.TravelReportViewer.Name = "TravelReportViewer";
             this.TravelReportViewer.ServerReport.BearerToken = null;
-            this.TravelReportViewer.Size = new System.Drawing.Size(1323, 515);
+            this.TravelReportViewer.Size = new System.Drawing.Size(1277, 515);
             this.TravelReportViewer.TabIndex = 0;
             // 
             // BtnShowReport
@@ -55,7 +55,7 @@ namespace Ta_Maker
             this.BtnShowReport.Depth = 0;
             this.BtnShowReport.HighEmphasis = true;
             this.BtnShowReport.Icon = null;
-            this.BtnShowReport.Location = new System.Drawing.Point(1205, 66);
+            this.BtnShowReport.Location = new System.Drawing.Point(1109, 66);
             this.BtnShowReport.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.BtnShowReport.MouseState = MaterialSkin.MouseState.HOVER;
             this.BtnShowReport.Name = "BtnShowReport";
@@ -70,7 +70,7 @@ namespace Ta_Maker
             // CmbYear
             // 
             this.CmbYear.FormattingEnabled = true;
-            this.CmbYear.Location = new System.Drawing.Point(825, 73);
+            this.CmbYear.Location = new System.Drawing.Point(756, 73);
             this.CmbYear.Name = "CmbYear";
             this.CmbYear.Size = new System.Drawing.Size(121, 21);
             this.CmbYear.TabIndex = 5;
@@ -79,7 +79,7 @@ namespace Ta_Maker
             // CmbMonth
             // 
             this.CmbMonth.FormattingEnabled = true;
-            this.CmbMonth.Location = new System.Drawing.Point(1005, 73);
+            this.CmbMonth.Location = new System.Drawing.Point(909, 73);
             this.CmbMonth.Name = "CmbMonth";
             this.CmbMonth.Size = new System.Drawing.Size(164, 21);
             this.CmbMonth.TabIndex = 6;
@@ -100,7 +100,7 @@ namespace Ta_Maker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1335, 626);
+            this.ClientSize = new System.Drawing.Size(1289, 626);
             this.Controls.Add(this.BtnFinalMark);
             this.Controls.Add(this.CmbMonth);
             this.Controls.Add(this.CmbYear);

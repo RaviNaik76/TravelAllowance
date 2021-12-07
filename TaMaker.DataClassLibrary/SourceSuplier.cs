@@ -80,10 +80,9 @@ namespace TaMaker.DataClassLibrary
         {
             int groupId = 0;
             string SqlQuery = "SELECT * FROM GroupIdView";
-            try
+            using (SQLiteCommand Cmd = new SQLiteCommand(SqlQuery, DbConnection.Conn))
             {
                 DbConnection.OpenConnection();
-                SQLiteCommand Cmd = new SQLiteCommand(SqlQuery, DbConnection.Conn);
                 SQLiteDataReader reader = Cmd.ExecuteReader();
                 while (reader.Read())
                 {
@@ -92,9 +91,6 @@ namespace TaMaker.DataClassLibrary
                         groupId = int.Parse(reader.GetValue(0).ToString());
                     }
                 }
-            }
-            finally
-            {
                 DbConnection.CloseConnection();
             }
             return groupId;
@@ -104,19 +100,15 @@ namespace TaMaker.DataClassLibrary
         public static Dictionary<int, string> LoadSource(string Query, Dictionary<int, string> sourtlist)
         {
             int id = 0;
-            try
+            using (SQLiteCommand Cmd = new SQLiteCommand(Query, DbConnection.Conn))
             {
                 DbConnection.OpenConnection();
-                SQLiteCommand Cmd = new SQLiteCommand(Query, DbConnection.Conn);
                 SQLiteDataReader reader = Cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     sourtlist.Add(id, (string)reader.GetValue(0));
                     id += 1;
                 }
-            }
-            finally
-            {
                 DbConnection.CloseConnection();
             }
             return sourtlist;

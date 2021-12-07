@@ -141,7 +141,9 @@ namespace Ta_Maker
             TxtDesig.Text = "";
             TxtName.Text = "";
             CmbDesignation.Focus();
+            CmbEmpGroup.Text = "";
             TxtSalary.Text = "";
+            CmbEmpGroup.Focus();
             BtnInsert.Enabled = true;
             BtnDelete.Enabled = false;
             BtnModify.Enabled = false;
@@ -160,7 +162,7 @@ namespace Ta_Maker
                 CmbDesignation.Text = desig[0];
                 TxtDesig.Text = desig[1];
             }
-            else { TxtDesig.Text = item.SubItems[1].Text; }
+            else { CmbDesignation.Text = item.SubItems[1].Text; }
             TxtName.Text = item.SubItems[2].Text;
             TxtSalary.Text = item.SubItems[3].Text;
             CmbStation.Text = item.SubItems[4].Text;

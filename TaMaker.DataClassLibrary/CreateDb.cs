@@ -9,11 +9,10 @@ namespace TaMaker.DataClassLibrary
     public class CreateDb
     {
         private string SqlQuery;
-
-        //db creation
+        string ConnString = DbConnection.Conn.ConnectionString.ToString();
+        
         public void CreateDatabase()
         {
-            string ConnString = DbConnection.Conn.ConnectionString.ToString();
             var dbDirectory = Path.Combine("C:\\", "Database");
 
             if (!Directory.Exists(dbDirectory))
@@ -21,25 +20,35 @@ namespace TaMaker.DataClassLibrary
 
             if (!File.Exists(ConnString))
             {
-                try
-                {
-                    SQLiteConnection Conn;
-                    Conn = new SQLiteConnection(ConnString);
-                    Conn.Open();
+                CreateRequiredTabls();
 
-                    CreateRequiredTabls();
+                InsertSampleData();
 
-                    InsertSampleData();
+                CreateRequiredViews();
 
-                    CreateRequiredViews();
+                //using (SQLiteConnection Conn = new SQLiteConnection(ConnString))
+                //{
+                    
+                //}
+                //try
+                //{
+                //    SQLiteConnection Conn;
+                //    Conn = new SQLiteConnection(ConnString);
+                //    Conn.Open();
 
-                    Conn.Close();
+                //    CreateRequiredTabls();
 
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: " + ex.Message.ToString(), "DB Creation Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                }
+                //    InsertSampleData();
+
+                //    CreateRequiredViews();
+
+                //    Conn.Close();
+
+                //}
+                //catch (Exception ex)
+                //{
+                //    MessageBox.Show("Error: " + ex.Message.ToString(), "DB Creation Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                //}
             }
         }
 
@@ -143,7 +152,6 @@ namespace TaMaker.DataClassLibrary
 
             ExicuteQueryList(SqlQueryList);
         }
-
 
         //insert sample data to all tables
         public void InsertSampleData()
@@ -249,7 +257,7 @@ namespace TaMaker.DataClassLibrary
                         SELECT MAX(GroupNo) FROM Travell";
             ViewsQueryList.Add(SqlQuery);
 
-            SqlQuery = @"CREATE VIEW Travel_DesignationView AS
+            SqlQuery = @"CREATE VIEW IF NOT EXISTS Travel_DesignationView AS
                             SELECT EmpNo, MonthYear, 
                                 CASE
                                     WHEN pos == 0 THEN Designation
@@ -311,7 +319,7 @@ namespace TaMaker.DataClassLibrary
             SqlQuery = @"DROP VIEW IF EXISTS Travel_DesignationView";
             ViewsQueryList.Add(SqlQuery);
 
-            SqlQuery = @"CREATE VIEW Travel_DesignationView AS
+            SqlQuery = @"CREATE VIEW IF NOT EXISTS Travel_DesignationView AS
                             SELECT EmpNo, MonthYear, 
                                 CASE
                                     WHEN pos == 0 THEN Designation
@@ -329,21 +337,34 @@ namespace TaMaker.DataClassLibrary
 
         public void ExicuteQueryList(List<String> QueryList)
         {
-            SQLiteCommand Cmd = new SQLiteCommand();
-            try
+            using (SQLiteConnection Conn = new SQLiteConnection(ConnString))
             {
-                DbConnection.OpenConnection();
-
+                Conn.Open();
                 foreach (var Query in QueryList)
                 {
-                    Cmd = new SQLiteCommand(Query, DbConnection.Conn);
-                    Cmd.ExecuteNonQuery();
+                    using (SQLiteCommand Cmd = new SQLiteCommand(Query, Conn))
+                    {
+                        Cmd.ExecuteNonQuery();
+                    }
                 }
+               Conn.Close();
             }
-            finally
-            {
-                DbConnection.CloseConnection();
-            }
+            
+            //SQLiteCommand Cmd = new SQLiteCommand();
+            //try
+            //{
+            //    DbConnection.OpenConnection();
+
+            //    foreach (var Query in QueryList)
+            //    {
+            //        Cmd = new SQLiteCommand(Query, DbConnection.Conn);
+            //        Cmd.ExecuteNonQuery();
+            //    }
+            //}
+            //finally
+            //{
+            //    DbConnection.CloseConnection();
+            //}
         }
     }
 }

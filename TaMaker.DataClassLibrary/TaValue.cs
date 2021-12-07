@@ -22,13 +22,11 @@ namespace TaMaker.DataClassLibrary
                 using (var Cmd = new SQLiteCommand(DbConnection.Conn))
                 {
                     Cmd.CommandText = ($"SELECT * FROM TaValue WHERE EmpClass='{EmpClass}'");
-
                     DbConnection.OpenConnection();
                     SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(Cmd);
                     dataAdapter.Fill(dt);
                     DbConnection.CloseConnection();
                 }
-
             }
             return dt;
         }
@@ -38,7 +36,6 @@ namespace TaMaker.DataClassLibrary
             using (var Cmd = new SQLiteCommand(DbConnection.Conn))
             {
                 Cmd.CommandText = ($"UPDATE TaValue SET NormalTa=@nta, MetroTa=@mta, BangloreTa=@bta, OutOfStateTa=@outnta, OutOfStateMetroTa=@outmta WHERE EmpClass='{EmpClass}'");
-
                 Cmd.Parameters.AddWithValue("@nta", taValue.NormalTa);
                 Cmd.Parameters.AddWithValue("@mta", taValue.MetroTa);
                 Cmd.Parameters.AddWithValue("@bta", taValue.BangloreTa);

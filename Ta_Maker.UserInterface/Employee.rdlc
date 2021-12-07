@@ -6,22 +6,22 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>1.60042cm</Width>
+              <Width>1.10653cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>2.29715cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.94979cm</Width>
+              <Width>2.16486cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>5.21354cm</Width>
+              <Width>3.97882cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>1.66215cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>6.61396cm</Width>
+              <Width>5.4057cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -38,7 +38,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Sl No</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>9pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -69,7 +71,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>KGID Number</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>9pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -100,7 +104,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Designation</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>9pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -131,7 +137,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Name</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>9pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -162,7 +170,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Salary</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>9pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -193,7 +203,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>Working Station</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>9pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -229,7 +241,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=runningvalue(Fields!EmpNumber.Value,countdistinct,nothing)</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -259,7 +273,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!EmpNumber.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -289,7 +305,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!EmpDesignation.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -319,7 +337,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!EmpName.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -350,6 +370,7 @@
                             <TextRun>
                               <Value>=Fields!EmpSalary.Value</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <Format>'₹'#,0.00;('₹'#,0.00)</Format>
                               </Style>
                             </TextRun>
@@ -381,7 +402,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!EmpStation.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -428,25 +451,30 @@
         <NoRowsMessage>No Data Found...!</NoRowsMessage>
         <DataSetName>DataSet1</DataSetName>
         <Top>0.17639cm</Top>
-        <Left>0.34078cm</Left>
+        <Left>0.02328cm</Left>
         <Height>1.2cm</Height>
-        <Width>21.37771cm</Width>
+        <Width>16.6152cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
+          <FontSize>8pt</FontSize>
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>0.77083in</Height>
-    <Style />
+    <Height>0.6875in</Height>
+    <Style>
+      <Border>
+        <Style>None</Style>
+      </Border>
+      <BackgroundColor>White</BackgroundColor>
+    </Style>
   </Body>
-  <Width>8.7485in</Width>
+  <Width>6.561in</Width>
   <Page>
     <PageHeader>
       <Height>2.36361cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
-      <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
         <Textbox Name="Textbox11">
           <CanGrow>true</CanGrow>
@@ -467,9 +495,9 @@
           </Paragraphs>
           <rd:DefaultName>Textbox11</rd:DefaultName>
           <Top>0.74965cm</Top>
-          <Left>0.34078cm</Left>
+          <Left>0.02328cm</Left>
           <Height>1.27cm</Height>
-          <Width>21.37771cm</Width>
+          <Width>16.6152cm</Width>
           <Style>
             <Border>
               <Style>None</Style>
@@ -486,11 +514,11 @@
         <Border>
           <Style>None</Style>
         </Border>
+        <BackgroundColor>White</BackgroundColor>
       </Style>
     </PageHeader>
     <PageFooter>
       <Height>1.34938cm</Height>
-      <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
         <Textbox Name="Textbox12">
@@ -511,7 +539,7 @@
           </Paragraphs>
           <rd:DefaultName>Textbox12</rd:DefaultName>
           <Top>0.34078cm</Top>
-          <Left>17.76328cm</Left>
+          <Left>12.68327cm</Left>
           <Height>0.6cm</Height>
           <Width>3.95521cm</Width>
           <Style>
@@ -529,6 +557,7 @@
         <Border>
           <Style>None</Style>
         </Border>
+        <BackgroundColor>White</BackgroundColor>
       </Style>
     </PageFooter>
     <PageHeight>29.7cm</PageHeight>

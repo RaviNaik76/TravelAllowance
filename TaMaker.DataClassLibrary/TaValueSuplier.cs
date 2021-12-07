@@ -40,7 +40,6 @@ namespace TaMaker.DataClassLibrary
             using (var Cmd = new SQLiteCommand(DbConnection.Conn))
             {
                 Cmd.CommandText = ($"SELECT * FROM TaValue WHERE EmpClass='{EmpClass}'");
-
                 DbConnection.OpenConnection();
                 SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(Cmd);
                 dataAdapter.Fill(dt);

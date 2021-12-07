@@ -25,24 +25,26 @@ namespace TaMaker.DataClassLibrary
             string Query = @"SELECT * FROM (Report_Data_View) "
                            + "WHERE (EmpStation = '" + unit + "' AND MonthYear='" + myear + "')";
 
-            DbConnection.OpenConnection();
             DataTable dt = new DataTable();
-            SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(Query, DbConnection.Conn);
-            dataAdapter.Fill(dt);
-            DbConnection.CloseConnection();
+            using (SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(Query, DbConnection.Conn))
+            {
+                DbConnection.OpenConnection();
+                dataAdapter.Fill(dt);
+                DbConnection.CloseConnection();
+            }
             return dt;
         }
 
         public DataTable GetEmpReportData(string unit)
         {
-            string Query = unit.Length == 0
-                ? "SELECT * FROM EmployeeView"
-                : ($"SELECT * FROM EmployeeView WHERE EmpStation='{unit}'");
-            DbConnection.OpenConnection();
+            string Query = ($"SELECT * FROM EmployeeView WHERE EmpStation='{unit}'");
             DataTable dt = new DataTable();
-            SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(Query, DbConnection.Conn);
-            dataAdapter.Fill(dt);
-
+            using (SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(Query, DbConnection.Conn))
+            {
+                DbConnection.OpenConnection();
+                dataAdapter.Fill(dt);
+                DbConnection.CloseConnection();
+            }
             return dt;
         }
     }
