@@ -43,7 +43,6 @@ namespace Ta_Maker
             this.TxtSalary = new MaterialSkin.Controls.MaterialTextBox();
             this.BtnDelete = new MaterialSkin.Controls.MaterialButton();
             this.BtnClear = new MaterialSkin.Controls.MaterialButton();
-            this.BtnModify = new MaterialSkin.Controls.MaterialButton();
             this.BtnInsert = new MaterialSkin.Controls.MaterialButton();
             this.TabViewEmployee = new System.Windows.Forms.TabPage();
             this.CkInclude = new MaterialSkin.Controls.MaterialCheckbox();
@@ -90,7 +89,6 @@ namespace Ta_Maker
             this.TabAddEmployee.Controls.Add(this.materialCard1);
             this.TabAddEmployee.Controls.Add(this.BtnDelete);
             this.TabAddEmployee.Controls.Add(this.BtnClear);
-            this.TabAddEmployee.Controls.Add(this.BtnModify);
             this.TabAddEmployee.Controls.Add(this.BtnInsert);
             this.TabAddEmployee.Location = new System.Drawing.Point(4, 22);
             this.TabAddEmployee.Name = "TabAddEmployee";
@@ -158,7 +156,7 @@ namespace Ta_Maker
             this.CmbDesignation.MaxDropDownItems = 4;
             this.CmbDesignation.MouseState = MaterialSkin.MouseState.OUT;
             this.CmbDesignation.Name = "CmbDesignation";
-            this.CmbDesignation.Size = new System.Drawing.Size(200, 49);
+            this.CmbDesignation.Size = new System.Drawing.Size(272, 49);
             this.CmbDesignation.StartIndex = 0;
             this.CmbDesignation.TabIndex = 3;
             // 
@@ -179,13 +177,13 @@ namespace Ta_Maker
             this.CmbEmpGroup.Hint = "Group";
             this.CmbEmpGroup.IntegralHeight = false;
             this.CmbEmpGroup.ItemHeight = 43;
-            this.CmbEmpGroup.Location = new System.Drawing.Point(455, 93);
+            this.CmbEmpGroup.Location = new System.Drawing.Point(344, 227);
             this.CmbEmpGroup.MaxDropDownItems = 4;
             this.CmbEmpGroup.MouseState = MaterialSkin.MouseState.OUT;
             this.CmbEmpGroup.Name = "CmbEmpGroup";
-            this.CmbEmpGroup.Size = new System.Drawing.Size(213, 49);
+            this.CmbEmpGroup.Size = new System.Drawing.Size(324, 49);
             this.CmbEmpGroup.StartIndex = 0;
-            this.CmbEmpGroup.TabIndex = 5;
+            this.CmbEmpGroup.TabIndex = 7;
             // 
             // CmbStatus
             // 
@@ -215,17 +213,19 @@ namespace Ta_Maker
             // 
             // TxtDesig
             // 
+            this.TxtDesig.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.TxtDesig.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.TxtDesig.Depth = 0;
             this.TxtDesig.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.TxtDesig.Hint = "Buckle Number";
             this.TxtDesig.LeadingIcon = null;
-            this.TxtDesig.Location = new System.Drawing.Point(249, 92);
+            this.TxtDesig.Location = new System.Drawing.Point(344, 92);
             this.TxtDesig.MaxLength = 50;
             this.TxtDesig.MouseState = MaterialSkin.MouseState.OUT;
             this.TxtDesig.Multiline = false;
             this.TxtDesig.Name = "TxtDesig";
-            this.TxtDesig.Size = new System.Drawing.Size(158, 50);
+            this.TxtDesig.Size = new System.Drawing.Size(324, 50);
             this.TxtDesig.TabIndex = 4;
             this.TxtDesig.Text = "";
             this.TxtDesig.TrailingIcon = null;
@@ -247,13 +247,14 @@ namespace Ta_Maker
             this.CmbStation.Hint = "Working Unit";
             this.CmbStation.IntegralHeight = false;
             this.CmbStation.ItemHeight = 43;
-            this.CmbStation.Location = new System.Drawing.Point(344, 227);
+            this.CmbStation.Location = new System.Drawing.Point(308, 226);
             this.CmbStation.MaxDropDownItems = 4;
             this.CmbStation.MouseState = MaterialSkin.MouseState.OUT;
             this.CmbStation.Name = "CmbStation";
-            this.CmbStation.Size = new System.Drawing.Size(324, 49);
+            this.CmbStation.Size = new System.Drawing.Size(86, 49);
             this.CmbStation.StartIndex = 0;
             this.CmbStation.TabIndex = 8;
+            this.CmbStation.Visible = false;
             // 
             // TxtName
             // 
@@ -270,7 +271,7 @@ namespace Ta_Maker
             this.TxtName.Multiline = false;
             this.TxtName.Name = "TxtName";
             this.TxtName.Size = new System.Drawing.Size(638, 50);
-            this.TxtName.TabIndex = 6;
+            this.TxtName.TabIndex = 5;
             this.TxtName.Text = "";
             this.TxtName.TrailingIcon = null;
             // 
@@ -287,7 +288,7 @@ namespace Ta_Maker
             this.TxtSalary.Multiline = false;
             this.TxtSalary.Name = "TxtSalary";
             this.TxtSalary.Size = new System.Drawing.Size(272, 50);
-            this.TxtSalary.TabIndex = 7;
+            this.TxtSalary.TabIndex = 6;
             this.TxtSalary.Text = "";
             this.TxtSalary.TrailingIcon = null;
             // 
@@ -318,12 +319,13 @@ namespace Ta_Maker
             // 
             // BtnClear
             // 
+            this.BtnClear.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.BtnClear.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BtnClear.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             this.BtnClear.Depth = 0;
             this.BtnClear.HighEmphasis = true;
             this.BtnClear.Icon = null;
-            this.BtnClear.Location = new System.Drawing.Point(201, 329);
+            this.BtnClear.Location = new System.Drawing.Point(299, 329);
             this.BtnClear.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.BtnClear.MouseState = MaterialSkin.MouseState.HOVER;
             this.BtnClear.Name = "BtnClear";
@@ -336,29 +338,6 @@ namespace Ta_Maker
             this.BtnClear.Click += new System.EventHandler(this.BtnClear_Click);
             this.BtnClear.Enter += new System.EventHandler(this.BtnClear_Enter);
             this.BtnClear.Leave += new System.EventHandler(this.BtnClear_Leave);
-            // 
-            // BtnModify
-            // 
-            this.BtnModify.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnModify.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BtnModify.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.BtnModify.Depth = 0;
-            this.BtnModify.Enabled = false;
-            this.BtnModify.HighEmphasis = true;
-            this.BtnModify.Icon = null;
-            this.BtnModify.Location = new System.Drawing.Point(390, 329);
-            this.BtnModify.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.BtnModify.MouseState = MaterialSkin.MouseState.HOVER;
-            this.BtnModify.Name = "BtnModify";
-            this.BtnModify.Size = new System.Drawing.Size(154, 36);
-            this.BtnModify.TabIndex = 10;
-            this.BtnModify.Text = "Modify Employee";
-            this.BtnModify.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.BtnModify.UseAccentColor = false;
-            this.BtnModify.UseVisualStyleBackColor = true;
-            this.BtnModify.Click += new System.EventHandler(this.BtnModify_Click);
-            this.BtnModify.Enter += new System.EventHandler(this.BtnModify_Enter);
-            this.BtnModify.Leave += new System.EventHandler(this.BtnModify_Leave);
             // 
             // BtnInsert
             // 
@@ -625,7 +604,6 @@ namespace Ta_Maker
         private MaterialSkin.Controls.MaterialTabSelector EmployeTabSelector;
         private MaterialSkin.Controls.MaterialButton BtnDelete;
         private MaterialSkin.Controls.MaterialButton BtnClear;
-        private MaterialSkin.Controls.MaterialButton BtnModify;
         private MaterialSkin.Controls.MaterialButton BtnInsert;
         private MaterialSkin.Controls.MaterialComboBox CmbStation;
         private MaterialSkin.Controls.MaterialTextBox TxtSalary;

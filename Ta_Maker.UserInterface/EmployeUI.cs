@@ -51,57 +51,116 @@ namespace Ta_Maker
 
         private void BtnInsert_Click(object sender, EventArgs e)
         {
-            if (CmbDesignation.SelectedIndex != -1 && CmbStation.SelectedIndex != -1)
+            if (ValidForm())
             {
-                NewEmployee(true);
-                LblMsg.Text = "Employee Added";
-            }
-            else { LblMsg.Text = ""; MessageBox.Show("All the fields required", "TA_Maker", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
-        }
-
-        private void NewEmployee(bool save)
-        {
-            try
-            {
-                string designation = "";
-                if (TxtDesig.Text.Length > 0)
-                {
-                    designation = ($"{CmbDesignation.Text} {TxtDesig.Text}");
-                }
-                else { designation = CmbDesignation.Text.Trim();}
-                    
-                Employee employee = new Employee()
-                {
-                    EmpNumber = int.Parse(TxtEmpNo.Text),
-                    EmpDesignation = designation,
-                    EmpName = TxtName.Text.ToUpper(),
-                    EmpSalary = double.Parse(TxtSalary.Text),
-                    EmpStation = CmbStation.Text,
-                    EmpStatus = CmbStatus.Text,
-                    EmpGroup = CmbEmpGroup.Text,
-                };
-
+                Employee emp = NewEmployee();
                 EmployeCrud employeCrud = new EmployeCrud();
-                employeCrud.AddEmployee(employee, save);
-                ClearAllFields();
+                if (BtnInsert.Text == "ADD NEW EMPLOYEE")
+                {
+                    employeCrud.AddEmployee(emp);
+                    ClearAllFields();
+                    LblMsg.Text = "Employee Added";
+                }
+                else
+                {
+                    DataTable dt = TravelCrud.ViewTravell(monthYear, int.Parse(TxtEmpNo.Text));
+                    if (dt.Rows.Count == 0)
+                    {
+                        if (CmbStatus.SelectedIndex != -1)
+                        {
+                            employeCrud.UpdateEmployee(emp);
+                            LblMsg.Text = "Employee Updated";
+                            TxtEmpNo.Enabled = true;
+                            CmbStatus.Visible = false;
+                            ClearAllFields();
+                            BtnInsert.Text = "ADD NEW EMPLOYEE";
+                            BtnInsert.Enabled = true;
+                            TxtEmpNo.Focus();
+                        }
+                        else { LblMsg.Text = "Please Select Status"; }
+                    }
+                    else 
+                    { 
+                        BtnInsert.Enabled = false;
+                        LblMsg.Text = "You con't Change Salary, Designation in this Month"; 
+                    }
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "TA_Maker", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            else { LblMsg.Text = "All the fields required"; }
         }
 
-        private void BtnModify_Click(object sender, EventArgs e)
+        private bool ValidForm()
         {
-            DataTable dt = TravelCrud.ViewTravell(monthYear, int.Parse(TxtEmpNo.Text));
-            if (dt.Rows.Count == 0)
+            if (IsNull(TxtEmpNo.Text))
             {
-                NewEmployee(false);
-                TxtEmpNo.Enabled = true;
-                CmbStatus.Visible = false;
-                TxtEmpNo.Focus();
+                return false;
             }
-            else { LblMsg.Text = "You con't Change Salary, Designation in this Month"; }
+            if (!IsNumeric(TxtEmpNo.Text))
+            {
+                return false;
+            }
+            if (IsNumeric(TxtEmpNo.Text))
+            {
+                if (TxtEmpNo.Text.Length <= 0)
+                {
+                    return false;
+                }
+            }
+            if (CmbDesignation.SelectedIndex == -1)
+            {
+                return false;
+            }
+            if (IsNull(TxtName.Text))
+            {
+                return false;
+            }
+            if (TxtName.Text.Length < 4)
+            {
+                return false;
+            }
+            if (IsNull(TxtSalary.Text))
+            {
+                return false;
+            }
+            if (!IsNumeric(TxtSalary.Text))
+            {
+                return false;
+            }
+            if (IsNumeric(TxtSalary.Text))
+            {
+                double salary = double.Parse(TxtSalary.Text);
+                if (salary < 21000)
+                {
+                    return false;
+                }
+            }
+            if (CmbEmpGroup.SelectedIndex == -1)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private Employee NewEmployee()
+        {
+            string designation = "";
+            if (TxtDesig.Text.Length > 0)
+            {
+                designation = ($"{CmbDesignation.Text} {TxtDesig.Text}");
+            }
+            else { designation = CmbDesignation.Text.Trim(); }
+
+            Employee employee = new Employee()
+            {
+                EmpNumber = int.Parse(TxtEmpNo.Text),
+                EmpDesignation = designation,
+                EmpName = TxtName.Text.ToUpper(),
+                EmpSalary = double.Parse(TxtSalary.Text),
+                EmpStation = CmbStation.Text,
+                EmpStatus = CmbStatus.Text,
+                EmpGroup = CmbEmpGroup.Text,
+            };
+            return employee;
         }
 
         private void BtnDelete_Click(object sender, EventArgs e)
@@ -141,12 +200,11 @@ namespace Ta_Maker
             TxtDesig.Text = "";
             TxtName.Text = "";
             CmbDesignation.Focus();
-            CmbEmpGroup.Text = "";
+            CmbEmpGroup.SelectedIndex = -1;
             TxtSalary.Text = "";
             CmbEmpGroup.Focus();
             BtnInsert.Enabled = true;
             BtnDelete.Enabled = false;
-            BtnModify.Enabled = false;
             CmbStatus.Visible = false;
             TxtEmpNo.Focus();
         }
@@ -172,9 +230,9 @@ namespace Ta_Maker
 
             this.EmployeeTabControl.SelectedTab = TabAddEmployee;
             CmbStatus.Visible = true;
-            BtnInsert.Enabled = false;
             BtnDelete.Enabled = true;
-            BtnModify.Enabled = true;
+            BtnInsert.Text = "Update Employee";
+            CmbStatus.Focus();
         }
 
         private void BtnLoadEmployee_Click(object sender, EventArgs e)
@@ -201,16 +259,6 @@ namespace Ta_Maker
         private void BtnInsert_Leave(object sender, EventArgs e)
         {
             BtnInsert.Type = MaterialButton.MaterialButtonType.Contained;
-        }
-
-        private void BtnModify_Enter(object sender, EventArgs e)
-        {
-            BtnModify.Type = MaterialButton.MaterialButtonType.Outlined;
-        }
-
-        private void BtnModify_Leave(object sender, EventArgs e)
-        {
-            BtnModify.Type = MaterialButton.MaterialButtonType.Contained;
         }
 
         private void BtnClear_Enter(object sender, EventArgs e)
@@ -264,6 +312,15 @@ namespace Ta_Maker
                     EmployeListView.Items.Add(item);
                 }
             }
+        }
+        private bool IsNumeric(string text)
+        {
+            return double.TryParse(text, out _);
+        }
+
+        private bool IsNull(string text)
+        {
+            return string.IsNullOrEmpty(text);
         }
     }
 }

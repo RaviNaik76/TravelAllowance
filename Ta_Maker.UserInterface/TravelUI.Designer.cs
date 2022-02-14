@@ -61,6 +61,9 @@ namespace Ta_Maker
             this.TxtResion = new MaterialSkin.Controls.MaterialTextBox();
             this.TxtDepPlace = new MaterialSkin.Controls.MaterialTextBox();
             this.CmbDestination = new MaterialSkin.Controls.MaterialComboBox();
+            this.panelOption = new System.Windows.Forms.Panel();
+            this.optionSelEmp = new MaterialSkin.Controls.MaterialRadioButton();
+            this.optionGroupEmp = new MaterialSkin.Controls.MaterialRadioButton();
             this.TabViewTravel = new System.Windows.Forms.TabPage();
             this.BtnDelete = new MaterialSkin.Controls.MaterialButton();
             this.BtnLoadTravel = new MaterialSkin.Controls.MaterialButton();
@@ -70,29 +73,30 @@ namespace Ta_Maker
             this.GridTravelView = new System.Windows.Forms.DataGridView();
             this.TravelTabSelector = new MaterialSkin.Controls.MaterialTabSelector();
             this.DgvSelectedEmployee = new System.Windows.Forms.DataGridView();
+            this.EmpNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.designation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.empname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.salary = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Group = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PanelEmployee = new System.Windows.Forms.Panel();
             this.CkByName = new System.Windows.Forms.CheckBox();
             this.DgvEmployee = new System.Windows.Forms.DataGridView();
-            this.Okey = new System.Windows.Forms.Button();
-            this.CancelEmployee = new System.Windows.Forms.Button();
-            this.DeselectAll = new System.Windows.Forms.Button();
-            this.SelectAll = new System.Windows.Forms.Button();
-            this.TxtSearchEmployee = new MaterialSkin.Controls.MaterialTextBox();
             this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EmpGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EmpNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.designation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.empname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.salary = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Group = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Okey = new System.Windows.Forms.Button();
+            this.CancelEmployee = new System.Windows.Forms.Button();
+            this.DeselectAll = new System.Windows.Forms.Button();
+            this.SelectAll = new System.Windows.Forms.Button();
+            this.TxtSearchEmployee = new MaterialSkin.Controls.MaterialTextBox();
             this.TravellTabControl.SuspendLayout();
             this.TabAddTravel.SuspendLayout();
             this.materialCard2.SuspendLayout();
             this.materialCard1.SuspendLayout();
+            this.panelOption.SuspendLayout();
             this.TabViewTravel.SuspendLayout();
             this.TravelViewTabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -109,7 +113,7 @@ namespace Ta_Maker
             this.TravellTabControl.Controls.Add(this.TabAddTravel);
             this.TravellTabControl.Controls.Add(this.TabViewTravel);
             this.TravellTabControl.Depth = 0;
-            this.TravellTabControl.Location = new System.Drawing.Point(22, 230);
+            this.TravellTabControl.Location = new System.Drawing.Point(22, 201);
             this.TravellTabControl.MouseState = MaterialSkin.MouseState.HOVER;
             this.TravellTabControl.Multiline = true;
             this.TravellTabControl.Name = "TravellTabControl";
@@ -140,6 +144,7 @@ namespace Ta_Maker
             this.TabAddTravel.Controls.Add(this.TxtResion);
             this.TabAddTravel.Controls.Add(this.TxtDepPlace);
             this.TabAddTravel.Controls.Add(this.CmbDestination);
+            this.TabAddTravel.Controls.Add(this.panelOption);
             this.TabAddTravel.Location = new System.Drawing.Point(4, 22);
             this.TabAddTravel.Name = "TabAddTravel";
             this.TabAddTravel.Padding = new System.Windows.Forms.Padding(3);
@@ -640,6 +645,51 @@ namespace Ta_Maker
             this.CmbDestination.StartIndex = 0;
             this.CmbDestination.TabIndex = 0;
             // 
+            // panelOption
+            // 
+            this.panelOption.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelOption.Controls.Add(this.optionSelEmp);
+            this.panelOption.Controls.Add(this.optionGroupEmp);
+            this.panelOption.Location = new System.Drawing.Point(23, 9);
+            this.panelOption.Name = "panelOption";
+            this.panelOption.Size = new System.Drawing.Size(918, 44);
+            this.panelOption.TabIndex = 23;
+            this.panelOption.Visible = false;
+            // 
+            // optionSelEmp
+            // 
+            this.optionSelEmp.AutoSize = true;
+            this.optionSelEmp.Depth = 0;
+            this.optionSelEmp.Location = new System.Drawing.Point(5, 5);
+            this.optionSelEmp.Margin = new System.Windows.Forms.Padding(0);
+            this.optionSelEmp.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.optionSelEmp.MouseState = MaterialSkin.MouseState.HOVER;
+            this.optionSelEmp.Name = "optionSelEmp";
+            this.optionSelEmp.Ripple = true;
+            this.optionSelEmp.Size = new System.Drawing.Size(168, 37);
+            this.optionSelEmp.TabIndex = 1;
+            this.optionSelEmp.TabStop = true;
+            this.optionSelEmp.Text = "Selected Employee";
+            this.optionSelEmp.UseVisualStyleBackColor = true;
+            // 
+            // optionGroupEmp
+            // 
+            this.optionGroupEmp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.optionGroupEmp.AutoSize = true;
+            this.optionGroupEmp.Depth = 0;
+            this.optionGroupEmp.Location = new System.Drawing.Point(717, 4);
+            this.optionGroupEmp.Margin = new System.Windows.Forms.Padding(0);
+            this.optionGroupEmp.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.optionGroupEmp.MouseState = MaterialSkin.MouseState.HOVER;
+            this.optionGroupEmp.Name = "optionGroupEmp";
+            this.optionGroupEmp.Ripple = true;
+            this.optionGroupEmp.Size = new System.Drawing.Size(178, 37);
+            this.optionGroupEmp.TabIndex = 0;
+            this.optionGroupEmp.TabStop = true;
+            this.optionGroupEmp.Text = "Group of Employees";
+            this.optionGroupEmp.UseVisualStyleBackColor = true;
+            // 
             // TabViewTravel
             // 
             this.TabViewTravel.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -747,6 +797,7 @@ namespace Ta_Maker
             this.GridTravelView.Size = new System.Drawing.Size(921, 289);
             this.GridTravelView.TabIndex = 0;
             this.GridTravelView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.GridTravelView_MouseClick);
+            this.GridTravelView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.GridTravelView_MouseDoubleClick);
             // 
             // TravelTabSelector
             // 
@@ -755,7 +806,7 @@ namespace Ta_Maker
             this.TravelTabSelector.BaseTabControl = this.TravellTabControl;
             this.TravelTabSelector.Depth = 0;
             this.TravelTabSelector.Font = new System.Drawing.Font("Roboto", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.TravelTabSelector.Location = new System.Drawing.Point(22, 195);
+            this.TravelTabSelector.Location = new System.Drawing.Point(22, 169);
             this.TravelTabSelector.MouseState = MaterialSkin.MouseState.HOVER;
             this.TravelTabSelector.Name = "TravelTabSelector";
             this.TravelTabSelector.Size = new System.Drawing.Size(950, 35);
@@ -776,7 +827,7 @@ namespace Ta_Maker
             this.empname,
             this.salary,
             this.Group});
-            this.DgvSelectedEmployee.Location = new System.Drawing.Point(194, 64);
+            this.DgvSelectedEmployee.Location = new System.Drawing.Point(195, 38);
             this.DgvSelectedEmployee.Name = "DgvSelectedEmployee";
             this.DgvSelectedEmployee.ReadOnly = true;
             this.DgvSelectedEmployee.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -784,10 +835,44 @@ namespace Ta_Maker
             this.DgvSelectedEmployee.TabIndex = 2;
             this.DgvSelectedEmployee.TabStop = false;
             // 
+            // EmpNo
+            // 
+            this.EmpNo.HeaderText = "KGID Number";
+            this.EmpNo.Name = "EmpNo";
+            this.EmpNo.ReadOnly = true;
+            this.EmpNo.Width = 120;
+            // 
+            // designation
+            // 
+            this.designation.HeaderText = "Designation";
+            this.designation.Name = "designation";
+            this.designation.ReadOnly = true;
+            // 
+            // empname
+            // 
+            this.empname.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.empname.HeaderText = "Employee Name";
+            this.empname.Name = "empname";
+            this.empname.ReadOnly = true;
+            // 
+            // salary
+            // 
+            this.salary.HeaderText = "Salary";
+            this.salary.Name = "salary";
+            this.salary.ReadOnly = true;
+            // 
+            // Group
+            // 
+            this.Group.HeaderText = "EmpGroup";
+            this.Group.Name = "Group";
+            this.Group.ReadOnly = true;
+            this.Group.Visible = false;
+            // 
             // PanelEmployee
             // 
             this.PanelEmployee.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.PanelEmployee.BackColor = System.Drawing.Color.Orange;
             this.PanelEmployee.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.PanelEmployee.Controls.Add(this.CkByName);
             this.PanelEmployee.Controls.Add(this.DgvEmployee);
@@ -795,9 +880,9 @@ namespace Ta_Maker
             this.PanelEmployee.Controls.Add(this.CancelEmployee);
             this.PanelEmployee.Controls.Add(this.DeselectAll);
             this.PanelEmployee.Controls.Add(this.SelectAll);
-            this.PanelEmployee.Location = new System.Drawing.Point(284, 191);
+            this.PanelEmployee.Location = new System.Drawing.Point(284, 165);
             this.PanelEmployee.Name = "PanelEmployee";
-            this.PanelEmployee.Size = new System.Drawing.Size(418, 322);
+            this.PanelEmployee.Size = new System.Drawing.Size(418, 52);
             this.PanelEmployee.TabIndex = 26;
             this.PanelEmployee.Visible = false;
             // 
@@ -832,6 +917,39 @@ namespace Ta_Maker
             this.DgvEmployee.Size = new System.Drawing.Size(460, 286);
             this.DgvEmployee.TabIndex = 26;
             this.DgvEmployee.TabStop = false;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Select";
+            this.Column1.Name = "Column1";
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Designation";
+            this.Column2.Name = "Column2";
+            // 
+            // Column3
+            // 
+            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column3.HeaderText = "Employee Name";
+            this.Column3.Name = "Column3";
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Basic Pay";
+            this.Column4.Name = "Column4";
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Employee Number";
+            this.Column5.Name = "Column5";
+            this.Column5.Visible = false;
+            // 
+            // EmpGroup
+            // 
+            this.EmpGroup.HeaderText = "EmpGroup";
+            this.EmpGroup.Name = "EmpGroup";
+            this.EmpGroup.Visible = false;
             // 
             // Okey
             // 
@@ -882,7 +1000,7 @@ namespace Ta_Maker
             this.TxtSearchEmployee.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.TxtSearchEmployee.Hint = "Search Employee";
             this.TxtSearchEmployee.LeadingIcon = null;
-            this.TxtSearchEmployee.Location = new System.Drawing.Point(284, 155);
+            this.TxtSearchEmployee.Location = new System.Drawing.Point(284, 129);
             this.TxtSearchEmployee.MaxLength = 50;
             this.TxtSearchEmployee.MinimumSize = new System.Drawing.Size(0, 30);
             this.TxtSearchEmployee.MouseState = MaterialSkin.MouseState.OUT;
@@ -899,77 +1017,11 @@ namespace Ta_Maker
             this.TxtSearchEmployee.TextChanged += new System.EventHandler(this.TxtSearchEmployee_TextChanged);
             this.TxtSearchEmployee.Enter += new System.EventHandler(this.TxtSearchEmployee_Enter);
             // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Select";
-            this.Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Designation";
-            this.Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column3.HeaderText = "Employee Name";
-            this.Column3.Name = "Column3";
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Basic Pay";
-            this.Column4.Name = "Column4";
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "Employee Number";
-            this.Column5.Name = "Column5";
-            this.Column5.Visible = false;
-            // 
-            // EmpGroup
-            // 
-            this.EmpGroup.HeaderText = "EmpGroup";
-            this.EmpGroup.Name = "EmpGroup";
-            this.EmpGroup.Visible = false;
-            // 
-            // EmpNo
-            // 
-            this.EmpNo.HeaderText = "KGID Number";
-            this.EmpNo.Name = "EmpNo";
-            this.EmpNo.ReadOnly = true;
-            this.EmpNo.Width = 120;
-            // 
-            // designation
-            // 
-            this.designation.HeaderText = "Designation";
-            this.designation.Name = "designation";
-            this.designation.ReadOnly = true;
-            // 
-            // empname
-            // 
-            this.empname.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.empname.HeaderText = "Employee Name";
-            this.empname.Name = "empname";
-            this.empname.ReadOnly = true;
-            // 
-            // salary
-            // 
-            this.salary.HeaderText = "Salary";
-            this.salary.Name = "salary";
-            this.salary.ReadOnly = true;
-            // 
-            // Group
-            // 
-            this.Group.HeaderText = "EmpGroup";
-            this.Group.Name = "Group";
-            this.Group.ReadOnly = true;
-            this.Group.Visible = false;
-            // 
             // TravelUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(995, 666);
+            this.ClientSize = new System.Drawing.Size(995, 633);
             this.Controls.Add(this.PanelEmployee);
             this.Controls.Add(this.TxtSearchEmployee);
             this.Controls.Add(this.DgvSelectedEmployee);
@@ -987,6 +1039,8 @@ namespace Ta_Maker
             this.materialCard2.PerformLayout();
             this.materialCard1.ResumeLayout(false);
             this.materialCard1.PerformLayout();
+            this.panelOption.ResumeLayout(false);
+            this.panelOption.PerformLayout();
             this.TabViewTravel.ResumeLayout(false);
             this.TabViewTravel.PerformLayout();
             this.TravelViewTabControl.ResumeLayout(false);
@@ -1061,5 +1115,8 @@ namespace Ta_Maker
         private System.Windows.Forms.DataGridViewTextBoxColumn empname;
         private System.Windows.Forms.DataGridViewTextBoxColumn salary;
         private System.Windows.Forms.DataGridViewTextBoxColumn Group;
+        private System.Windows.Forms.Panel panelOption;
+        private MaterialSkin.Controls.MaterialRadioButton optionSelEmp;
+        private MaterialSkin.Controls.MaterialRadioButton optionGroupEmp;
     }
 }

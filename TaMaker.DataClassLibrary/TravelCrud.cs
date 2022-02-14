@@ -50,6 +50,47 @@ namespace TaMaker.DataClassLibrary
             return r;
         }
 
+        public static void UpdateTravell(Travel travell, int kgid, int groupNo, bool single)
+        {
+            using (var Cmd = new SQLiteCommand(DbConnection.Conn))
+            {
+                if (single)
+                {
+                    Cmd.CommandText = (@"UPDATE Travell SET Dep_Place=@dep_place, Dep_Date=@dep_date, Arr_Place=@arr_place, Arr_Date=@arr_date, "
+                                + " Dest_Kms=@dkms, Jou_Reason=@jreason, Halt_Place=@halting, DayRate=@dayrate, NoOfDay=@days, FareAmt=@famt, "
+                                + " TotalTA=@ta, AdvanceTA=@adv, Jou_Mode=@jmode, Warrant_No=@wno, Shd_No=@shd, Remarks=@remark "
+                                + " WHERE EmpNo=" + kgid + " AND GroupNo=" + groupNo + "");
+                }
+                else
+                {
+                    Cmd.CommandText = (@"UPDATE Travell SET Dep_Place=@dep_place, Dep_Date=@dep_date, Arr_Place=@arr_place, Arr_Date=@arr_date, "
+                                + " Dest_Kms=@dkms, Jou_Reason=@jreason, Halt_Place=@halting, DayRate=@dayrate, NoOfDay=@days, FareAmt=@famt, "
+                                + " TotalTA=@ta, AdvanceTA=@adv, Jou_Mode=@jmode, Warrant_No=@wno, Shd_No=@shd, Remarks=@remark "
+                                + " WHERE GroupNo=" + groupNo + "");
+                }
+                Cmd.Parameters.AddWithValue("@dep_place", travell.Dep_Place);
+                Cmd.Parameters.AddWithValue("@dep_date", travell.Dep_Date);
+                Cmd.Parameters.AddWithValue("@arr_place", travell.Arr_Place);
+                Cmd.Parameters.AddWithValue("@arr_date", travell.Arr_Date);
+                Cmd.Parameters.AddWithValue("@dkms", travell.Dest_Kms);
+                Cmd.Parameters.AddWithValue("@jreason", travell.Jou_Reason);
+                Cmd.Parameters.AddWithValue("@halting", travell.Halt_Place);
+                Cmd.Parameters.AddWithValue("@dayrate", travell.DayRate);
+                Cmd.Parameters.AddWithValue("@days", travell.NoOfDay);
+                Cmd.Parameters.AddWithValue("@famt", travell.FareAmt);
+                Cmd.Parameters.AddWithValue("@ta", travell.TotalTA);
+                Cmd.Parameters.AddWithValue("@adv", travell.AdvanceTA);
+                Cmd.Parameters.AddWithValue("@jmode", travell.Jou_Mode);
+                Cmd.Parameters.AddWithValue("@wno", travell.Warrant_No);
+                Cmd.Parameters.AddWithValue("@shd", travell.Shd_No);
+                Cmd.Parameters.AddWithValue("@remark", travell.Remarks);
+
+                DbConnection.OpenConnection();
+                Cmd.ExecuteNonQuery();
+                DbConnection.CloseConnection();
+            }
+        }
+
         public void DeleteTravell(int GroupNo)
         {
             using (var Cmd = new SQLiteCommand(DbConnection.Conn))
@@ -63,7 +104,7 @@ namespace TaMaker.DataClassLibrary
 
         public static DataTable ViewTravell(string mYear, int kgid)
         {
-            string Query = ($"SELECT Dep_Place, Dep_Date, Arr_Place, Arr_Date, Dest_Kms, Jou_Reason, Halt_Place, DayRate, NoOfDay, FareAmt, TotalTA, AdvanceTA, Jou_Mode, Warrant_No, Shd_No, Destination, GroupNo FROM Travell WHERE MonthYear='{mYear}' AND EmpNo ={kgid} ORDER BY Dep_Date, Arr_Date");
+            string Query = ($"SELECT Dep_Place, Dep_Date, Arr_Place, Arr_Date, Dest_Kms, Jou_Reason, Halt_Place, DayRate, NoOfDay, FareAmt, TotalTA, AdvanceTA, Jou_Mode, Warrant_No, Shd_No, Destination, EmpNo, GroupNo FROM Travell WHERE MonthYear='{mYear}' AND EmpNo ={kgid} ORDER BY Dep_Date, Arr_Date");
             DataTable dt = new DataTable();
             using (var dataAdapter = new SQLiteDataAdapter(Query, DbConnection.Conn))
             {
@@ -87,12 +128,12 @@ namespace TaMaker.DataClassLibrary
             return dt.Rows.Count;
         }
 
-        public static bool CheckTravell(int kgid, string mYear, DateTime fdate)
+        public static bool CheckTravell(int kgid, DateTime fdate, DateTime tdate)
         {
             bool IsIn = false;
             using (var Cmd = new SQLiteCommand(DbConnection.Conn))
             {
-                Cmd.CommandText = ($"SELECT Dep_Date, Arr_Date FROM Travell WHERE MonthYear='{mYear}' AND EmpNo ={kgid} ORDER BY Dep_Date");
+                Cmd.CommandText = ($"SELECT Dep_Date, Arr_Date FROM Travell WHERE EmpNo ={kgid} ORDER BY Dep_Date");
                 DbConnection.OpenConnection();
                 using (SQLiteDataReader dr = Cmd.ExecuteReader())
                 {
@@ -101,6 +142,47 @@ namespace TaMaker.DataClassLibrary
                         DateTime from = DateTime.Parse(dr.GetValue(0).ToString());
                         DateTime to = DateTime.Parse(dr.GetValue(1).ToString());
                         if (fdate >= from && fdate <= to)
+                        {
+                            IsIn = true;
+                        }
+                        if (tdate >= from && tdate <= to)
+                        {
+                            IsIn = true;
+                        }
+                        if (fdate <= from && tdate >=to)
+                        {
+                            IsIn = true;
+                        }
+                    }
+                }
+                DbConnection.CloseConnection();
+            }
+            return IsIn;
+        }
+
+        public static bool CheckExceptTravell(int kgid, DateTime fdate, DateTime tdate, int groupNo)
+        {
+            bool IsIn = false;
+            using (var Cmd = new SQLiteCommand(DbConnection.Conn))
+            {
+                Cmd.CommandText = ($"SELECT Dep_Date, Arr_Date FROM Travell WHERE EmpNo ={kgid} " +
+                    $"EXCEPT SELECT Dep_Date, Arr_Date FROM travell WHERE GroupNo = {groupNo} ORDER BY Dep_Date");
+                DbConnection.OpenConnection();
+                using (SQLiteDataReader dr = Cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        DateTime from = DateTime.Parse(dr.GetValue(0).ToString());
+                        DateTime to = DateTime.Parse(dr.GetValue(1).ToString());
+                        if (fdate >= from && fdate <= to)
+                        {
+                            IsIn = true;
+                        }
+                        if (tdate >= from && tdate <= to)
+                        {
+                            IsIn = true;
+                        }
+                        if (fdate <= from && tdate >= to)
                         {
                             IsIn = true;
                         }
@@ -206,6 +288,7 @@ namespace TaMaker.DataClassLibrary
         public void FormatTravellGrid(DataGridView dataGridView)
         {
             dataGridView.Columns[16].Visible = false;
+            dataGridView.Columns[17].Visible = false;
             dataGridView.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dataGridView.DefaultCellStyle.NullValue = "";
             SetGridColor(dataGridView);

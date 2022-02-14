@@ -38,23 +38,33 @@ namespace TaMaker.DataClassLibrary
         }
 
 
-        public void AddEmployee(Employee emp, bool save)
+        public void AddEmployee(Employee emp)
         {
             using (var Cmd = new SQLiteCommand(DbConnection.Conn))
             {
-                if (save)
-                {
-                    Cmd.CommandText = ($"INSERT OR IGNORE INTO Employee "
+                Cmd.CommandText = ($"INSERT OR IGNORE INTO Employee "
                                        + " (EmpNumber, EmpDesignation, EmpName, EmpSalary, EmpStation, EmpGroup) values "
                                        + " (@empNo, @Desig, @empName, @empSalary, @empPs, @empgroup)");
-                    Cmd.Parameters.AddWithValue("@empNo", emp.EmpNumber);
-                }
-                else
-                {
-                    Cmd.CommandText = @"UPDATE Employee SET EmpDesignation=@Desig, EmpName=@empName, EmpSalary=@empSalary, "
-                                       + " EmpStation =@empPs, EmpGroup=@empgroup, EmpStatus=@status WHERE EmpNumber =" + emp.EmpNumber + "";
-                }
+                Cmd.Parameters.AddWithValue("@empNo", emp.EmpNumber);
+                Cmd.Parameters.AddWithValue("@Desig", emp.EmpDesignation);
+                Cmd.Parameters.AddWithValue("@empName", emp.EmpName);
+                Cmd.Parameters.AddWithValue("@empSalary", emp.EmpSalary);
+                Cmd.Parameters.AddWithValue("@empPs", emp.EmpStation);
+                Cmd.Parameters.AddWithValue("@empgroup", emp.EmpGroup);
+                Cmd.Parameters.AddWithValue("@status", emp.EmpStatus);
 
+                DbConnection.OpenConnection();
+                Cmd.ExecuteNonQuery();
+                DbConnection.CloseConnection();
+            }
+        }
+
+        public void UpdateEmployee(Employee emp)
+        {
+            using (var Cmd = new SQLiteCommand(DbConnection.Conn))
+            {
+                Cmd.CommandText = @"UPDATE Employee SET EmpDesignation=@Desig, EmpName=@empName, EmpSalary=@empSalary, "
+                                       + " EmpStation =@empPs, EmpGroup=@empgroup, EmpStatus=@status WHERE EmpNumber =" + emp.EmpNumber + "";
                 Cmd.Parameters.AddWithValue("@Desig", emp.EmpDesignation);
                 Cmd.Parameters.AddWithValue("@empName", emp.EmpName);
                 Cmd.Parameters.AddWithValue("@empSalary", emp.EmpSalary);

@@ -15,8 +15,8 @@ namespace Ta_Maker
         List<TabPage> tpName = new List<TabPage>();
         private string monthYear = ($"{UserInterface.Properties.Settings.Default["DMonth"]} {UserInterface.Properties.Settings.Default["DYear"]}");
         string unit = UserInterface.Properties.Settings.Default["UnitName"].ToString();
-        string remarks = "";
-        bool marked;
+        string remarks = ""; bool marked;
+        int kgno = 0; int gid = 0; double perDayTa = 0;
 
         public TravelUI()
         {
@@ -72,35 +72,71 @@ namespace Ta_Maker
 
                 if (ValidForm())
                 {
-                    if (DataNotExists())
+                    double Kms = double.Parse(TxtKms.Text);
+                    if (Kms >= 16)
                     {
-                        int GroupNo = SourceSuplier.GetGroupId() + 1;
-                       // string forceType = UserInterface.Properties.Settings.Default["ForceType"].ToString();
-                        
-                        //loop employee grid (for every employee)
-                        foreach (DataGridViewRow row in DgvSelectedEmployee.Rows)
+                        if (BtnAddTravel.Text == "ADD TRAVEL DETAILS")
                         {
-                            //get salary and emp number
-                            int Kgid = int.Parse(row.Cells[0].Value.ToString());
-                           // string[] design = row.Cells[1].Value.ToString().Split();
-                            string design = row.Cells[1].Value.ToString();
-                            double salary = double.Parse(row.Cells[3].Value.ToString());
-                            string empClass = row.Cells[4].Value.ToString();
+                            if (DataNotExists())
+                            {
+                                int GroupNo = SourceSuplier.GetGroupId() + 1;
+                                //loop employee grid (for every employee)
+                                foreach (DataGridViewRow row in DgvSelectedEmployee.Rows)
+                                {
+                                    //get salary and emp number
+                                    int Kgid = int.Parse(row.Cells[0].Value.ToString());
+                                    string design = row.Cells[1].Value.ToString();
+                                    double salary = double.Parse(row.Cells[3].Value.ToString());
+                                    string empClass = row.Cells[4].Value.ToString();
 
-                            //get perday ta
-                            double PerDayTa = TaValueSuplier.GetTaValue(empClass, CmbDestination.Text.ToString());
-                           
-                            //ADD DATA TO CLASS
-                            Travel travell = NewTravel(PerDayTa, Kgid, GroupNo, design.Trim(), salary);
+                                    //get perday ta
+                                    double PerDayTa = TaValueSuplier.GetTaValue(empClass, CmbDestination.Text.ToString());
 
-                            //Add to database
-                            _ = TravelCrud.AddTravell(travell);
+                                    //ADD DATA TO CLASS
+                                    Travel travell = NewTravel(PerDayTa, Kgid, GroupNo, design.Trim(), salary);
+
+                                    //Add to database
+                                    _ = TravelCrud.AddTravell(travell);
+                                }
+                                BtnClearAll_Click(sender, e);
+                            }
+                            else { MessageBox.Show("Data Already Exists within the Date Range", "Travel Entry"); }
                         }
-                        BtnClearAll_Click(sender, e);
+                        else
+                        {
+                            //get employee details from kgid
+                            int Kgid = kgno; int GroupNo = gid;
+
+                            //get dates from dtpicker
+                            DateTime fDate = GetFromatedDate(out DateTime tDate);
+                            //check data exists
+                            bool pass = TravelCrud.CheckExceptTravell(Kgid, fDate, tDate, GroupNo);
+                            if (!pass)
+                            {
+                                //add to travell
+                                Travel travell = NewTravel(perDayTa, Kgid, GroupNo, "", 0);
+
+                                //update travell
+                                if (optionSelEmp.Checked)
+                                {
+                                    TravelCrud.UpdateTravell(travell, Kgid, GroupNo, true);
+                                }
+                                else
+                                {
+                                    //get kgid list from db
+
+                                    TravelCrud.UpdateTravell(travell, Kgid, GroupNo, false);
+                                }
+
+                                //clear fields
+                                BtnClearAll_Click(sender, e);
+                            }
+                            else { MessageBox.Show("Data Already Exists within the Date Range", "Travel Update"); }
+                        } 
                     }
-                    else { MessageBox.Show("Data Already Exists within the Date Range", "Travel Entry"); }
+                    else { MessageBox.Show("As per rule 497, Above 15 Kms may Claim", "Travel Maker"); }
                 }
-                else { MessageBox.Show("Entered Values Not Valid, Please check..", "Travel Entry"); }
+                else { MessageBox.Show("Entered Values are Not Valid, Please check..", "Travel Entry"); }
             }
             else {MessageBox.Show("No Employee Selected", "Travel Entry Error");}
         }
@@ -125,6 +161,9 @@ namespace Ta_Maker
             TxtDays.Text = "";
             TxtDays2.Text = "";
             TxtAdvace.Text = "";
+            BtnAddTravel.Text = "ADD TRAVEL DETAILS";
+            BtnAddTravel.Width = 169;
+            panelOption.Visible = false;
             TxtDays.Hint = "Total Days";
         }
 
@@ -406,14 +445,14 @@ namespace Ta_Maker
             {
                 return false;
             }
-            if (IsNumeric(TxtKms.Text))
-            {
-                double Kms = double.Parse(TxtKms.Text);
-                if (Kms <= 8)
-                {
-                    return false;
-                }
-            }
+            //if (IsNumeric(TxtKms.Text))
+            //{
+            //    double Kms = double.Parse(TxtKms.Text);
+            //    if (Kms <= 15)
+            //    {
+            //        return false;
+            //    }
+            //}
             if (TxtAdvace.Text.Trim().Length > 0 && !IsNumeric(TxtAdvace.Text))
             {
                 return false;
@@ -502,14 +541,15 @@ namespace Ta_Maker
             {
                 int Kgid = int.Parse(row.Cells[0].Value.ToString());
                 DateTime fDate = GetFromatedDate(out DateTime tDate);
-                bool DataNotIn = TravelCrud.CheckTravell(Kgid, monthYear, fDate);
-                if (DataNotIn)
+                bool NoDataFrom = TravelCrud.CheckTravell(Kgid, fDate, tDate);
+                if (NoDataFrom)
                 {
                     return false;
                 }
             }
             return true;
         }
+
         private void LoadEmployee()
         {
             List<Employee> EmployeeList = EmployeCrud.ViewEmployee(unit);
@@ -703,5 +743,58 @@ namespace Ta_Maker
                 e.Handled = true;
             }
         }
+
+        private void GridTravelView_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            TravelCrud travelCrud = new TravelCrud();
+            DataGridViewRow row = GridTravelView.CurrentRow;
+
+            CmbDestination.SelectedItem = row.Cells[travelCrud.GetColumnIndexByName(GridTravelView, "Destination")].Value.ToString();
+            DateTime depDate = DateTime.Parse(row.Cells[travelCrud.GetColumnIndexByName(GridTravelView, "Dep_Date")].Value.ToString());
+            DtDepDate.Value = depDate; DtDepTime.Value = depDate;
+            TxtDepPlace.Text= row.Cells[travelCrud.GetColumnIndexByName(GridTravelView, "Dep_Place")].Value.ToString();
+            TxtResion.Text = row.Cells[travelCrud.GetColumnIndexByName(GridTravelView, "Jou_Reason")].Value.ToString();
+            string[] shdNo= row.Cells[travelCrud.GetColumnIndexByName(GridTravelView, "Shd_No")].Value.ToString().Split();
+            if(shdNo[0].Contains(","))
+            {
+                string sno = shdNo[0].Replace(",", "");
+                TxtShd.Text = sno; //remove comma
+            }
+            TxtShd_No.Text = shdNo[1];
+            DateTime arrDate = DateTime.Parse(row.Cells[travelCrud.GetColumnIndexByName(GridTravelView, "Arr_Date")].Value.ToString());
+            DtArrDate.Value = arrDate; DtArrTime.Value = arrDate;
+            TxtArrPlace.Text = row.Cells[travelCrud.GetColumnIndexByName(GridTravelView, "Arr_Place")].Value.ToString();
+            CmbJourneyMode.SelectedItem = row.Cells[travelCrud.GetColumnIndexByName(GridTravelView, "Jou_Mode")].Value.ToString();
+            TxtWarrant.Text = row.Cells[travelCrud.GetColumnIndexByName(GridTravelView, "Warrant_No")].Value.ToString();
+            CmbHalting.SelectedItem = row.Cells[travelCrud.GetColumnIndexByName(GridTravelView, "Halt_Place")].Value.ToString();
+            TxtFair.Text = row.Cells[travelCrud.GetColumnIndexByName(GridTravelView, "FareAmt")].Value.ToString();
+            TxtKms.Text = row.Cells[travelCrud.GetColumnIndexByName(GridTravelView, "Dest_Kms")].Value.ToString();
+            double totaldays = double.Parse(row.Cells[travelCrud.GetColumnIndexByName(GridTravelView, "NoOfDay")].Value.ToString());
+            if (totaldays > 30)
+            {
+                TxtDays.Text = "30"; TxtDays.Hint = "Full TA";
+                TxtDays.Width = 116; TxtDays2.Visible = true;
+                TxtDays2.Text = (totaldays - 30).ToString();
+            }
+            else 
+            {
+                TxtDays.Width = 208; TxtDays2.Visible = false;
+                TxtDays.Text = totaldays.ToString();
+            }
+            TxtAdvace.Text = row.Cells[travelCrud.GetColumnIndexByName(GridTravelView, "AdvanceTA")].Value.ToString();
+            this.TravellTabControl.SelectedTab = TabAddTravel;
+            BtnAddTravel.Text = "UPDATE TRAVEL";
+            panelOption.Visible = true;
+            optionSelEmp.Checked = true;
+            DtDepDate.Focus();
+            kgno = int.Parse(row.Cells[travelCrud.GetColumnIndexByName(GridTravelView, "EmpNo")].Value.ToString());
+            gid = int.Parse(row.Cells[travelCrud.GetColumnIndexByName(GridTravelView, "GroupNo")].Value.ToString());
+           
+
+            perDayTa = double.Parse(row.Cells[travelCrud.GetColumnIndexByName(GridTravelView, "DayRate")].Value.ToString());
+            // string Query = ($"SELECT Dep_Place, Dep_Date, Arr_Place, Arr_Date, Dest_Kms, Jou_Reason, Halt_Place, DayRate, NoOfDay, FareAmt, TotalTA, AdvanceTA, Jou_Mode, Warrant_No, Shd_No, Destination, GroupNo FROM Travell WHERE MonthYear='{mYear}' AND EmpNo ={kgid} ORDER BY Dep_Date, Arr_Date");
+            //  travelCrud.DeleteTravell(int.Parse(row.Cells[travelCrud.GetColumnIndexByName(GridTravelView, "GroupNo")].Value.ToString()));
+        }
+
     }
 }

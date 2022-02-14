@@ -39,13 +39,11 @@ namespace Ta_Maker
             // 
             // TravelReportViewer
             // 
-            this.TravelReportViewer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TravelReportViewer.Location = new System.Drawing.Point(6, 105);
+            this.TravelReportViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TravelReportViewer.Location = new System.Drawing.Point(3, 64);
             this.TravelReportViewer.Name = "TravelReportViewer";
             this.TravelReportViewer.ServerReport.BearerToken = null;
-            this.TravelReportViewer.Size = new System.Drawing.Size(1277, 515);
+            this.TravelReportViewer.Size = new System.Drawing.Size(1283, 559);
             this.TravelReportViewer.TabIndex = 0;
             // 
             // BtnShowReport
@@ -55,7 +53,7 @@ namespace Ta_Maker
             this.BtnShowReport.Depth = 0;
             this.BtnShowReport.HighEmphasis = true;
             this.BtnShowReport.Icon = null;
-            this.BtnShowReport.Location = new System.Drawing.Point(1109, 66);
+            this.BtnShowReport.Location = new System.Drawing.Point(1103, 25);
             this.BtnShowReport.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.BtnShowReport.MouseState = MaterialSkin.MouseState.HOVER;
             this.BtnShowReport.Name = "BtnShowReport";
@@ -70,7 +68,7 @@ namespace Ta_Maker
             // CmbYear
             // 
             this.CmbYear.FormattingEnabled = true;
-            this.CmbYear.Location = new System.Drawing.Point(756, 73);
+            this.CmbYear.Location = new System.Drawing.Point(755, 33);
             this.CmbYear.Name = "CmbYear";
             this.CmbYear.Size = new System.Drawing.Size(121, 21);
             this.CmbYear.TabIndex = 5;
@@ -79,7 +77,7 @@ namespace Ta_Maker
             // CmbMonth
             // 
             this.CmbMonth.FormattingEnabled = true;
-            this.CmbMonth.Location = new System.Drawing.Point(909, 73);
+            this.CmbMonth.Location = new System.Drawing.Point(902, 33);
             this.CmbMonth.Name = "CmbMonth";
             this.CmbMonth.Size = new System.Drawing.Size(164, 21);
             this.CmbMonth.TabIndex = 6;
@@ -88,7 +86,7 @@ namespace Ta_Maker
             // BtnFinalMark
             // 
             this.BtnFinalMark.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnFinalMark.Location = new System.Drawing.Point(563, 70);
+            this.BtnFinalMark.Location = new System.Drawing.Point(565, 31);
             this.BtnFinalMark.Name = "BtnFinalMark";
             this.BtnFinalMark.Size = new System.Drawing.Size(171, 28);
             this.BtnFinalMark.TabIndex = 7;
